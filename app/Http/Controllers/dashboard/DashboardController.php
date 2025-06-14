@@ -22,6 +22,16 @@ class DashboardController extends Controller
         return view('dashboard.setting', compact('data','food'));
     }
 
+    public function tableView() {
+        $data = Table::paginate(10);
+        return view('dashboard.table.table', compact('data'));
+    }
+
+    public function foodView() {
+        $food = Food::paginate(10);
+        return view('dashboard.food.food', compact('food'));
+    }
+
     public function creatTable(Request $request) {
         try {
             $data = new Table;
@@ -111,7 +121,7 @@ class DashboardController extends Controller
 
             // dd($data, $request->all());
             $data->save();
-            return redirect()->back()->with('success','New food item added successfully.');
+            return redirect()->route('food.view')->with('success','New food item added successfully.');
         } catch (Exception $e) {
             return redirect()->back()->with('error', 'Something went wrong: ' . $e->getMessage());
         }
@@ -171,12 +181,12 @@ class DashboardController extends Controller
 
         $data->update();
         // dd($request->all(), $data);
-        return redirect()->back()->with('success','Food information updated successfully.');
+        return redirect()->route('food.view')->with('success','Food information updated successfully.');
     }
 
     public function foodDelete($id) {
         $data = Food::where('id',$id)->first();
-        $data->delete();
-        return redirect('/dashboard/setting')->with('warning','Food was DELETED successfully.');
+        // $data->delete();
+        return redirect()->route('food.view')->with('warning','Food was DELETED successfully.');
     }
 }

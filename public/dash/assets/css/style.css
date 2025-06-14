@@ -2031,7 +2031,9 @@ template {
 
 
 
-
+#toggleDiv {
+    display: none;
+}
 
 
 
