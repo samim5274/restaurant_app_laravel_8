@@ -3,48 +3,47 @@
   <ul class="nav">
     <li class="nav-item nav-category">Main</li>
     <li class="nav-item">
-      <a class="nav-link" href="{{url('/dashboard')}}">
+      <a class="nav-link" href="{{url('dashboard')}}">
         <span class="icon-bg"><i class="mdi mdi-cube menu-icon"></i></span>
         <span class="menu-title">Dashboard</span>
       </a>
     </li>
-    
+
     <li class="nav-item">
-      <a class="nav-link" href="#">
+      <a class="nav-link {{ request()->is('order-list') ? 'active' : '' }}" href="{{ url('/order-list') }}">
         <span class="icon-bg"><i class="mdi mdi-contacts menu-icon"></i></span>
         <span class="menu-title">Order List</span>
       </a>
     </li>
+
     <li class="nav-item">
-      <a class="nav-link" href="pages/forms/basic_elements.html">
+      <a class="nav-link" href="#">
         <span class="icon-bg"><i class="mdi mdi-format-list-bulleted menu-icon"></i></span>
         <span class="menu-title">Booking list</span>
       </a>
     </li>
+
     <li class="nav-item">
-      <a class="nav-link {{ request()->is('/menu') ? 'active' : '' }}" href="{{url('/menu')}}">
-        <span class="icon-bg"><i class="mdi mdi-menu  menu-icon"></i></span>
+      <a class="nav-link {{ request()->is('menu') ? 'active' : '' }}" href="{{ url('/menu') }}">
+        <span class="icon-bg"><i class="mdi mdi-menu menu-icon"></i></span>
         <span class="menu-title">Menu</span>
       </a>
     </li>
-    <li class="nav-item">
-      <a class="nav-link {{ request()->is('/order') ? 'active' : '' }}" href="{{url('/order')}}">
-        <span class="icon-bg"><i class="mdi mdi-border-all menu-icon"></i></span>
-        <span class="menu-title">Order Now</span>
-      </a>
-    </li>
+
     <li class="nav-item">
       <a class="nav-link" href="#">
         <span class="icon-bg"><i class="mdi mdi-chart-bar menu-icon"></i></span>
         <span class="menu-title">Populer Food</span>
       </a>
     </li>
+
     <li class="nav-item">
-      <a class="nav-link" href="#">
+      <a class="nav-link {{ request()->is('empty') ? 'active' : '' }}" href="{{ url('/empty') }}">
         <span class="icon-bg"><i class="mdi mdi-table-large menu-icon"></i></span>
         <span class="menu-title">Reserved</span>
       </a>
     </li>
+
     <li class="nav-item">
       <a class="nav-link" data-toggle="collapse" href="#ui-basic" aria-expanded="false" aria-controls="ui-basic">
         <span class="icon-bg"><i class="mdi mdi-crosshairs-gps menu-icon"></i></span>
@@ -53,8 +52,8 @@
       </a>
       <div class="collapse" id="ui-basic">
         <ul class="nav flex-column sub-menu">
-          <li class="nav-item"> <a class="nav-link {{ request()->is('/table') ? 'active' : '' }}" href="{{url('/table')}}">Table</a></li>
-          <li class="nav-item"> <a class="nav-link {{ request()->is('/food') ? 'active' : '' }}" href="{{url('/food')}}">Food</a></li>
+          <li class="nav-item"> <a class="nav-link {{ request()->is('table') ? 'active' : '' }}" href="{{url('/table')}}">Table</a></li>
+          <li class="nav-item"> <a class="nav-link {{ request()->is('food') ? 'active' : '' }}" href="{{url('/food')}}">Food</a></li>
         </ul>
       </div>
     </li>

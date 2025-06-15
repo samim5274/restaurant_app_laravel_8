@@ -34,9 +34,14 @@ Route::get('/food-edit-view/{id}', [DashboardController::class, 'foodEditView'])
 Route::post('/food/update/{id}', [DashboardController::class, 'foodEdit']);
 Route::get('/food/delete/{id}', [DashboardController::class, 'foodDelete']);
 
-Route::get('/order', [OrderController::class, 'orderView'])->name('order.view');
+Route::get('/empty', [OrderController::class, 'orderView'])->name('order.view');
 Route::get('/menu', [OrderController::class, 'menuView'])->name('menu.view');
 
 Route::get('/booked/table/{id}', [OrderController::class, 'tableBooked']);
 Route::get('/add-to-cart/{id}', [OrderController::class, 'addCart']);
 Route::get('/cart-view', [OrderController::class, 'cartView'])->name('cart.view');
+Route::post('/cart/update-quantity', [OrderController::class, 'updateQuantity'])->name('cart.updateQuantity');
+Route::get('/remove-to-cart/{id}', [OrderController::class, 'removeCart']);
+Route::post('/confirm-order', [OrderController::class, 'confirmOrder']);
+
+Route::get('/order-list', [OrderController::class, 'orderList'])->name('order.list.view');

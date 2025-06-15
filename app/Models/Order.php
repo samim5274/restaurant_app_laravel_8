@@ -11,13 +11,15 @@ class Order extends Model
 
     protected $fillable = [
         'date',
-        'userId',
+        'reg',
         'tableId',
-        'cartId',
-        'quantity',
-        'price',
         'total',
-        'status',
+        'status'
     ];
+
+    public function table()
+    {
+        return $this->belongsTo(Table::class, 'tableId', 'id');
+    }
     
 }

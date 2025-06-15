@@ -31,23 +31,25 @@ class OrderController extends Controller
     }
 
     public function tableBooked($id) {
-        
-        $table = Table::where('id',$id)->first();
-        if(!$table) {
-            return redirect()->back()->with('warning','This item not availabel righ now');
-        } else {
-            $table->status = 2;
+        return redirect()->back()->with('warning','This item not availabel righ now');
+        // $table = Table::where('id',$id)->first();
+        // if($table) {
+        //     return redirect()->back()->with('warning','This item not availabel righ now');
+        // } else {
+        //     $table->status = 2;
 
-            $order = new Order;
-            $order->userId  = Auth::guard('admin')->id();
-            $order->foodId = 0;
-            $order->tableId = $table->id;
+        //     $order = new Order;
+        //     $order->date = Carbon::now()->format('Y-m-d');
+        //     $order->cartId = 0;
+        //     $order->total = NULL;
+        //     $order->status = 0;
+        //     $order->userId = Auth::guard('admin')->id();
+        //     $order->tableId = $table->id;
 
-            // $order->save();
-            // $table->update();
-            return redirect()->route('menu.view')->with('success', 'Your table is booked for you. Now you can select your food and order now.');
-        }
-        
+        //     $order->save();
+        //     $table->update();
+        //     return redirect()->route('menu.view')->with('success', 'Your table is booked for you. Now you can select your food and order now.');
+        // }        
     }
 
     public function addCart($id) {
@@ -77,14 +79,64 @@ class OrderController extends Controller
         }
     }
 
-    public function cartView() {
+    public function removeCart($id)
+    {
+        $data = Cart::where('id', $id)->first();
+        if($data) {
+            $data->delete();
+            return redirect()->back()->with('success', 'Item remove to card successfully.');
+        } else {
+            return redirect()->back()->with('warning','This item not availabel righ now');
+        }
+    }
 
+    public function cartView() {
+        $table = Table::where('status', 1)->get();
         $order = Order::count() + 1;
         $invoice = Carbon::now()->format('Ymd').Auth::guard('admin')->id().$order;
         $count = Cart::where('reg', $invoice)->count();
 
-        $cart = Cart::with('food','user')->get();
+        $cart = Cart::where('reg', $invoice)->with('food','user')->get();
 
-        return view('dashboard.cart.cart', compact('count', 'cart'));
+        return view('dashboard.cart.cart', compact('count', 'cart','table','invoice'));
+    }
+
+    public function updateQuantity(Request $request) {
+        $cart = Cart::find($request->id);
+
+        if ($cart) {
+            $cart->quantity = $request->quantity;
+            $cart->save();
+            return response()->json(['status' => 'success', 'quantity' => $cart->quantity]);
+        }
+
+        return response()->json(['status' => 'error', 'message' => 'Cart item not found'], 404);
+    }
+
+    public function confirmOrder(Request $request) {
+        $order = new Order;
+
+        $request->validate([
+            'txtReg' => 'required',
+            'txtSubTotal' => 'required',
+        ]);
+
+        $table_id = $request->input('cbxTable', '');
+        $order->date = Carbon::now()->format('Y-m-d');
+        $order->reg = $request->input('txtReg', '');
+        $order->total = $request->input('txtSubTotal', '');
+        $order->tableId = $table_id;
+        $order->status = 1; // 1 order confrim and 2 bill paid
+        $table = Table::where('id', $table_id)->first();
+        $table->status = 3;
+        $order->save();
+        $table->update();
+        return redirect()->route('menu.view')->with('success', 'Your order is confirmed.');
+    }
+
+    public function orderList() {
+        $order = Order::with('table')->paginate(8);
+        // dd($order);
+        return view('dashboard.order.orderlist', compact('order'));
     }
 }

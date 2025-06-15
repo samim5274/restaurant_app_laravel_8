@@ -14,4 +14,9 @@ class Table extends Model
         'status',
         'remark'
     ];
+
+    public function order()
+    {
+        return $this->hasMany(Order::class, 'tableId', 'id');
+    }
 }
