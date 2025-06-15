@@ -38,3 +38,5 @@ Route::get('/order', [OrderController::class, 'orderView'])->name('order.view');
 Route::get('/menu', [OrderController::class, 'menuView'])->name('menu.view');
 
 Route::get('/booked/table/{id}', [OrderController::class, 'tableBooked']);
+Route::get('/add-to-cart/{id}', [OrderController::class, 'addCart']);
+Route::get('/cart-view', [OrderController::class, 'cartView'])->name('cart.view');

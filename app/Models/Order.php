@@ -10,9 +10,10 @@ class Order extends Model
     use HasFactory;
 
     protected $fillable = [
+        'date',
         'userId',
         'tableId',
-        'foodId',
+        'cartId',
         'quantity',
         'price',
         'total',

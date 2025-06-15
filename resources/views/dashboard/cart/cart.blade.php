@@ -40,56 +40,51 @@
             <div class="content-wrapper">
 
                 <div class="page-header">
-                    <h3 class="page-title"> Select Table </h3>
+                    <h3 class="page-title"> Cart Details </h3>
                     <nav aria-label="breadcrumb">
                         <ol class="breadcrumb">
-                            <li class="breadcrumb-item"><a href="{{url('/menu')}}">Menu</a></li>
-                            <li class="breadcrumb-item active" aria-current="page"><a href="{{url('/dashboard/setting')}}">Setting</a></li>
+                            <li class="breadcrumb-item"><a href="{{url('/cart-view')}}">Cart</a></li>
+                            <li class="breadcrumb-item active" aria-current="page"><a href="{{url('/menu')}}">Add Item</a></li>
                         </ol>
                     </nav>
                 </div>
                 <div class="row">     
-                    <div class="col-lg-12 grid-margin stretch-card">
+                    <div class="col-lg-8 grid-margin stretch-card">
                         <div class="card mt-2">
                             <div class="card-body">
-                                <div class="d-flex justify-content-between align-items-center mb-3">
-                                        <h4 class="card-title mb-0">Select Food</h4>
-                                        <a href="{{url('/cart-view')}}">
-                                            <button class="btn btn-inverse-primary"><i class="mdi mdi-cart fa-lg" aria-hidden="true"></i> Cart <span class="badge badge-danger">{{$count}}</span></button>
-                                        </a>
-                                        
-                                    </div>
                                 <div class="table-responsive">
                                     <table class="table table-hover">
                                         <thead>
                                             <tr>
                                                 <th>SL</th>
-                                                <th>Image</th>
                                                 <th>Food Name</th>
-                                                <th>Ingredients</th>
-                                                <th>Details</th>
                                                 <th class="text-center">Price</th>
-                                                <th class="text-center">Action</th>
+                                                <th class="text-center">Qty</th>
+                                                <th class="text-center"></th>
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            @if($food)
-                                                @php
-                                                    $sl = ($food->currentPage() - 1) * $food->perPage() + 1;
-                                                @endphp
-                                                @foreach($food as $val)
+                                            @if($cart)
+                                                @foreach($cart as $key => $val)
                                                     <tr>
-                                                        <td>{{ $sl++ }}</td>
-                                                        <td>
-                                                            <img src="{{ asset('img/food/' . $val->image) }}" alt="Image not found" width="100">
+                                                        <td>{{ ++$key }}</td>
+                                                        <td>{{$val->food->name}}</td>
+                                                        <td class="text-center">{{$val->price}}</td>
+                                                        <!-- <td class="text-center"><input type="number" value="{{$val->quantity}}"></td> -->
+                                                        <td class="text-center align-middle p-1">
+                                                            <div class="input-group input-group-sm mx-auto" style="max-width: 100px;">
+                                                                <div class="input-group-prepend">
+                                                                    <button type="button" class="btn btn-outline-light btn-minus d-flex justify-content-center align-items-center px-2" style="height: 28px; width: 28px;">−</button>
+                                                                </div>
+                                                                <input type="number" name="qty[]" class="form-control text-center qty-input p-0" value="{{ $val->quantity }}" min="1" readonly style="width: 36px; height: 28px; font-size: 12px;">
+                                                                <div class="input-group-append">
+                                                                    <button type="button" class="btn btn-outline-light btn-plus d-flex justify-content-center align-items-center px-2" style="height: 28px; width: 28px;">+</button>
+                                                                </div>
+                                                            </div>
                                                         </td>
-                                                        <td>{{ $val->name }}</td>
-                                                        <td>{{ $val->ingredients }}</td>
-                                                        <td>{{ $val->remark }}</td>
-                                                        <td class="text-center">{{ $val->price }}</td>
                                                         <td class="text-center">
-                                                            <a href="{{ url('/add-to-cart/' . $val->id) }}">
-                                                                <i class="mdi mdi-cart-plus fa-lg" aria-hidden="true"></i>
+                                                            <a href="{{ url('/remove-to-cart/' . $val->id) }}">
+                                                                <i class="mdi mdi-cart-off fa-lg" aria-hidden="true"></i>
                                                             </a>
                                                         </td>
                                                     </tr>
@@ -98,6 +93,29 @@
                                         </tbody>
                                     </table>
                                 </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-4 grid-margin stretch-card">
+                        <div class="card mt-2">
+                            <div class="card-body">
+                                <h4>Location</h4>
+                                <p><i class="mdi mdi-map-marker"></i> Uttara, Dhaka-1230</p>
+                                <hr>
+                                <h4 class="card-title">Order Summary</h4>
+                                <div class="d-flex justify-content-between align-items-center mb-3">
+                                    <h5 class="m-0">Subtotal ({{$count}} items)</h5>
+                                    <h5 class="card-title m-0">$450/-</h5>
+                                </div>
+                                <div class="d-flex justify-content-between align-items-center mb-3">
+                                    <h5 class="m-0">Shipping Fee</h5>
+                                    <h5 class="card-title m-0">$00/-</h5>
+                                </div><hr>
+                                <div class="d-flex justify-content-between align-items-center mb-3">
+                                    <p class="m-0">Total</p>
+                                    <h5 class="card-title m-0">$450/-</h5>
+                                </div>
+                                <a href="#" class="btn btn-outline-success w-100"><h4 class="m-0">Confirm Order</h4></a>
                             </div>
                         </div>
                     </div>
@@ -139,7 +157,7 @@
     <!-- Custom js for this page -->
     <script src="/dash/assets/js/dashboard.js"></script>
     <!-- End custom js for this page -->
-    <script src="/dash/assets/js/food.js"></script>
+    <script src="/dash/assets/js/cart.js"></script>
     
 
 </body>

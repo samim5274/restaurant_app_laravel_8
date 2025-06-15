@@ -19,4 +19,9 @@ class Food extends Model
         'ingredients',
         'remark'
     ];
+
+    public function food()
+    {
+        return $this->hasMany(Food::class, 'foodId', 'id');
+    }
 }

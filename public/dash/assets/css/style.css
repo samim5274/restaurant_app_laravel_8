@@ -2068,9 +2068,11 @@ template {
 
 
 
-
-
-
+.input-group-sm .btn,
+.qty-input {
+    height: 28px !important;
+    text-align: center;
+}
 
 
 

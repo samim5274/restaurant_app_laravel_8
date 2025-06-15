@@ -15,9 +15,10 @@ class CreateOrdersTable extends Migration
     {
         Schema::create('orders', function (Blueprint $table) {
             $table->id();
+            $table->date('date');
             $table->unsignedBigInteger('userId');
             $table->unsignedBigInteger('tableId');
-            $table->unsignedBigInteger('foodId');
+            $table->unsignedBigInteger('cartId');
             $table->integer('quantity')->default(1);
             $table->decimal('price', 8, 2)->nullable(); // Single item price
             $table->decimal('total', 10, 2)->nullable(); // price * quantity
