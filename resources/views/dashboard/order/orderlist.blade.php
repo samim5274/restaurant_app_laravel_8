@@ -106,33 +106,33 @@
                                 </div>
                                 <div class="modal-body">
                                     <div class="form-group row">
-                                        <label for="num1" class="col-sm-3 col-form-label">Total Amount:</label>
+                                        <label for="num1{{$val->id}}" class="col-sm-3 col-form-label">Total Amount:</label>
                                         <div class="col-sm-9">
                                             <!-- Hidden total input -->
-                                            <input type="text" class="form-control" id="num1" name="txtTotal" hidden readonly value="{{ $val->total }}">
+                                            <input type="text" class="form-control" id="num1{{$val->id}}" name="txtTotal" hidden readonly value="{{ $val->total }}">
                                             <!-- Display total as styled text -->
                                             <h1 class="display-1 text-danger">${{ $val->total }}/-</h1>
                                         </div>
                                     </div>
 
                                     <div class="form-group row">
-                                        <label for="num3" class="col-sm-3 col-form-label">Discount:</label>
+                                        <label for="num3{{$val->id}}" class="col-sm-3 col-form-label">Discount:</label>
                                         <div class="col-sm-9">
-                                            <input type="number" class="form-control" id="num3" name="txtDiscount" value="0" placeholder="Discount" onkeyup="calculateAmount()" onchange="calculateAmount()">
+                                            <input type="number" class="form-control" id="num3{{$val->id}}" name="txtDiscount" value="0" placeholder="Discount" onkeyup="calculateAmount({{$val->id}})" onchange="calculateAmount({{$val->id}})">
                                         </div>
                                     </div>
 
                                     <div class="form-group row">
-                                        <label for="num2" class="col-sm-3 col-form-label">Pay:</label>
+                                        <label for="num2{{$val->id}}" class="col-sm-3 col-form-label">Pay:</label>
                                         <div class="col-sm-9">
-                                            <input type="number" class="form-control" id="num2" name="txtPay" placeholder="Pay" onkeyup="calculateAmount()" onchange="calculateAmount()">
+                                            <input type="number" class="form-control" id="num2{{$val->id}}" name="txtPay" placeholder="Pay" onkeyup="calculateAmount({{$val->id}})" onchange="calculateAmount({{$val->id}})">
                                         </div>
                                     </div>
 
                                     <div class="form-group row">
                                         <label for="num2" class="col-sm-3 col-form-label"></label>
                                         <div class="col-sm-9">
-                                            <p id="result" class="display-2 text-danger">Amount: 00/-</p>
+                                            <p id="result{{$val->id}}" class="display-2 text-danger">Amount: 00/-</p>
                                         </div>
                                     </div>
 
@@ -140,7 +140,7 @@
 
                                 <div class="modal-footer">
                                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                    <button type="submit" id="btnSave" class="btn btn-success mr-2" disabled onclick="return confirm('Are you sure you want to Payment this bill?')">Payment</button>
+                                    <button type="submit" id="btnSave{{$val->id}}" class="btn btn-success mr-2" disabled onclick="return confirm('Are you sure you want to Payment this bill?')">Payment</button>
                                 </div>
 
                             </form>
@@ -149,7 +149,7 @@
                 </div>
                 @endforeach
                 @endif
-
+                <!-- https://codepen.io/creativesunil/pen/VweMmQo payment successfull message -->
             </div>
 
         </div>
@@ -176,8 +176,6 @@
     <script src="/dash/assets/js/dashboard.js"></script>
     <!-- End custom js for this page -->
      <script src="/dash/assets/js/orderPayment.js"></script>
-
-     <script>calculateAmount()</script>
 
 </body>
 </html>

@@ -151,25 +151,27 @@ class OrderController extends Controller
         $order = Order::where('reg', $reg)->first();
         $table = Table::where('id', $order->tableId)->first();
 
-        $discount = $request->input('txtDiscount','');
-        $pay = $request->input('txtPay','');
-        $payable = $order->total - $discount;
+        $discount = $request->input('txtDiscount', 0);
+        $pay = $request->input('txtPay', 0);
 
-        if(!$order) {
-            return redirect()->back()->with('warning','This item not availabel righ now');
-        } else {
-            $order->discount = $discount;
-            $order->payable = $payable;
-
-            if($pay <= $order->total) {
-                $order->pay = $pay;
-                $order->status = 3;
-            } else {
-                $order->pay = $pay - $r1 = $pay - $payable;
-                $order->status = 2;
-            }
+        if (!$order) {
+            return redirect()->back()->with('warning', 'This item is not available right now.');
         }
+
+        $payable = $order->total - $discount;
+        $order->discount = $discount;
+        $order->payable = $payable;
+
+        if ($pay <= $payable) {
+            $order->pay = $pay;
+            $order->status = 3; 
+        } else {
+            $order->pay = $payable;
+            $order->status = 2; 
+        }
+
         $table->status = 1;
+
         //dd($order,$table);
         $table->update();
         $order->update();
