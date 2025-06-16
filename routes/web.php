@@ -45,3 +45,4 @@ Route::get('/remove-to-cart/{id}', [OrderController::class, 'removeCart']);
 Route::post('/confirm-order', [OrderController::class, 'confirmOrder']);
 
 Route::get('/order-list', [OrderController::class, 'orderList'])->name('order.list.view');
+Route::post('/payment/{reg}',[OrderController::class, 'payment']);

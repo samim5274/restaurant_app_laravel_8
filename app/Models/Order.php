@@ -14,6 +14,9 @@ class Order extends Model
         'reg',
         'tableId',
         'total',
+        'discount',
+        'payable',
+        'pay',
         'status'
     ];
 

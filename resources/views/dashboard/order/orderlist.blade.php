@@ -51,7 +51,7 @@
                 </div>
 
                 <div class="row">
-                    <div class="col-lg-8 col-md-12 grid-margin stretch-card">
+                    <div class="col-lg-12 col-md-12 grid-margin stretch-card">
                         <div class="card mt-2">
                             <div class="card-body p-2 p-md-4">
                                 <div class="table-responsive">
@@ -72,10 +72,10 @@
                                             <tr>
                                                 <td>{{ ++$key }}</td>
                                                 <td>{{$val->date}}</td>
-                                                <td class="text-center">{{$val->reg}}</td>
+                                                <td class="text-center">ORD-{{$val->reg}}</td>
                                                 <td class="text-center">{{$val->table->tName}}</td>
                                                 <td class="text-center">{{$val->total}}</td>
-                                                <td class="text-center"><a href="#"><button class="btn btn-sm btn-success text-white"><h4 class="m-0">Pay</h4></button></a></td>
+                                                <td class="text-center"><a href="#"><button class="btn btn-sm btn-success text-white" data-toggle="modal" data-target="#exampleModal{{$val->id}}"><h4 class="m-0">Pay</h4></button></a></td>
                                             </tr>
                                             @endforeach
                                             @endif
@@ -89,6 +89,66 @@
                         </div>
                     </div>
                 </div>
+
+                <!-- Modal -->
+                @if($order)
+                @foreach($order as $key => $val)
+                <div class="modal fade" id="exampleModal{{$val->id}}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <form action="{{url('/payment/'.$val->reg)}}" method="POST">
+                                @csrf
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="exampleModalLabel">Reg: ORD-{{$val->reg}}</h5>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <div class="modal-body">
+                                    <div class="form-group row">
+                                        <label for="num1" class="col-sm-3 col-form-label">Total Amount:</label>
+                                        <div class="col-sm-9">
+                                            <!-- Hidden total input -->
+                                            <input type="text" class="form-control" id="num1" name="txtTotal" hidden readonly value="{{ $val->total }}">
+                                            <!-- Display total as styled text -->
+                                            <h1 class="display-1 text-danger">${{ $val->total }}/-</h1>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group row">
+                                        <label for="num3" class="col-sm-3 col-form-label">Discount:</label>
+                                        <div class="col-sm-9">
+                                            <input type="number" class="form-control" id="num3" name="txtDiscount" value="0" placeholder="Discount" onkeyup="calculateAmount()" onchange="calculateAmount()">
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group row">
+                                        <label for="num2" class="col-sm-3 col-form-label">Pay:</label>
+                                        <div class="col-sm-9">
+                                            <input type="number" class="form-control" id="num2" name="txtPay" placeholder="Pay" onkeyup="calculateAmount()" onchange="calculateAmount()">
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group row">
+                                        <label for="num2" class="col-sm-3 col-form-label"></label>
+                                        <div class="col-sm-9">
+                                            <p id="result" class="display-2 text-danger">Amount: 00/-</p>
+                                        </div>
+                                    </div>
+
+                                </div>
+
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                    <button type="submit" id="btnSave" class="btn btn-success mr-2" disabled onclick="return confirm('Are you sure you want to Payment this bill?')">Payment</button>
+                                </div>
+
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                @endforeach
+                @endif
 
             </div>
 
@@ -115,6 +175,9 @@
     <!-- Custom js for this page -->
     <script src="/dash/assets/js/dashboard.js"></script>
     <!-- End custom js for this page -->
+     <script src="/dash/assets/js/orderPayment.js"></script>
+
+     <script>calculateAmount()</script>
 
 </body>
 </html>

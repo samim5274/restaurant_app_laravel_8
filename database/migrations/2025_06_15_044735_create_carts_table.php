@@ -20,7 +20,7 @@ class CreateCartsTable extends Migration
             $table->integer('userId');
             $table->integer('foodId');
             $table->integer('quantity')->default(1);
-            $table->decimal('price', 8, 2);
+            $table->unsignedInteger('price');
             $table->timestamps();
         });
     }

@@ -18,7 +18,10 @@ class CreateOrdersTable extends Migration
             $table->date('date');
             $table->unsignedBigInteger('reg');
             $table->unsignedBigInteger('tableId');
-            $table->decimal('total', 10, 2)->nullable();
+            $table->unsignedInteger('total')->nullable();
+            $table->unsignedInteger('discount')->nullable();
+            $table->unsignedInteger('payable')->nullable();
+            $table->unsignedInteger('pay')->nullable();
             $table->Integer('status')->default(0);
             $table->timestamps();
         });

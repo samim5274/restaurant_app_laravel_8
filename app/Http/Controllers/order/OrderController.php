@@ -126,7 +126,7 @@ class OrderController extends Controller
         $order->reg = $request->input('txtReg', '');
         $order->total = $request->input('txtSubTotal', '');
         $order->tableId = $table_id;
-        $order->status = 1; // 1 order confrim and 2 bill paid
+        $order->status = 1; // 1 order confrim and 2 bill paid, 3 due
         $table = Table::where('id', $table_id)->first();
         $table->status = 3;
         $order->save();
@@ -135,8 +135,44 @@ class OrderController extends Controller
     }
 
     public function orderList() {
-        $order = Order::with('table')->paginate(8);
+        $order = Order::where('status', 1)->with('table')->orderBy('id', 'desc')->paginate(8);
         // dd($order);
         return view('dashboard.order.orderlist', compact('order'));
+    }
+
+    public function payment(Request $request, $reg) {
+        
+        $request->validate([
+            'txtTotal' => 'required|numeric|min:1',
+            'txtDiscount' => 'required|numeric|min:0|lte:txtTotal',
+            'txtPay' => 'required|numeric|min:0|max:9999999',
+        ]);
+        
+        $order = Order::where('reg', $reg)->first();
+        $table = Table::where('id', $order->tableId)->first();
+
+        $discount = $request->input('txtDiscount','');
+        $pay = $request->input('txtPay','');
+        $payable = $order->total - $discount;
+
+        if(!$order) {
+            return redirect()->back()->with('warning','This item not availabel righ now');
+        } else {
+            $order->discount = $discount;
+            $order->payable = $payable;
+
+            if($pay <= $order->total) {
+                $order->pay = $pay;
+                $order->status = 3;
+            } else {
+                $order->pay = $pay - $r1 = $pay - $payable;
+                $order->status = 2;
+            }
+        }
+        $table->status = 1;
+        //dd($order,$table);
+        $table->update();
+        $order->update();
+        return redirect()->back()->with('success','Your payment successfully complete. Thank You!');
     }
 }
