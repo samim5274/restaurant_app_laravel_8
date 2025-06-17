@@ -63,6 +63,10 @@
                                                 <th class="text-center">REG</th>
                                                 <th class="text-center">Table</th>
                                                 <th class="text-center">Total</th>
+                                                <th class="text-center">Discount</th>
+                                                <th class="text-center">Payable</th>
+                                                <th class="text-center">Pay</th>
+                                                <th class="text-center">Due</th>
                                                 <th class="text-center">Action</th>
                                             </tr>
                                         </thead>
@@ -74,15 +78,19 @@
                                                 <td>{{$val->date}}</td>
                                                 <td class="text-center">ORD-{{$val->reg}}</td>
                                                 <td class="text-center">{{$val->table->tName}}</td>
-                                                <td class="text-center">৳{{$val->total}}/-</td>
+                                                <td class="text-center">৳{{$val->total}}</td>
+                                                <td class="text-center">৳{{$val->discount}}</td>
+                                                <td class="text-center">৳{{$val->payable}}</td>
+                                                <td class="text-center">৳{{$val->pay}}</td>
+                                                <td class="text-center">৳{{$val->due}}</td>
                                                 <td class="text-center"><a href="#"><button class="btn btn-sm btn-success text-white" data-toggle="modal" data-target="#exampleModal{{$val->id}}"><h4 class="m-0">Pay</h4></button></a></td>
                                             </tr>
                                             @endforeach
                                             @endif
                                             <tr>
-                                                <td class="text-center" colspan="3"></td>
-                                                <td class="text-center">Total order: </td>
-                                                <td class="text-center">৳{{$totalOrder}}/-</td>
+                                                <td class="text-center" colspan="7"></td>
+                                                <td class="text-center">Total Due: </td>
+                                                <td class="text-center">৳{{$totalDue}}/-</td>
                                                 <td class="text-center"></td>
                                             </tr>
                                         </tbody>
@@ -102,7 +110,7 @@
                 <div class="modal fade" id="exampleModal{{$val->id}}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                     <div class="modal-dialog">
                         <div class="modal-content">
-                            <form action="{{url('/payment/'.$val->reg)}}" method="POST">
+                            <form action="{{url('/due-payment/'.$val->reg)}}" method="POST">
                                 @csrf
                                 <div class="modal-header">
                                     <h5 class="modal-title" id="exampleModalLabel">Reg: ORD-{{$val->reg}}</h5>
@@ -115,9 +123,9 @@
                                         <label for="num1{{$val->id}}" class="col-sm-3 col-form-label">Total Amount:</label>
                                         <div class="col-sm-9">
                                             <!-- Hidden total input -->
-                                            <input type="text" class="form-control" id="num1{{$val->id}}" name="txtTotal" hidden readonly value="{{ $val->total }}">
+                                            <input type="text" class="form-control" id="num1{{$val->id}}" name="txtTotal" hidden readonly value="{{ $val->due }}">
                                             <!-- Display total as styled text -->
-                                            <h1 class="display-1 text-danger">${{ $val->total }}/-</h1>
+                                            <h1 class="display-1 text-danger">৳{{ $val->due }}/-</h1>
                                         </div>
                                     </div>
 

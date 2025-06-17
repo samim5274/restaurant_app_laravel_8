@@ -136,12 +136,12 @@ class OrderController extends Controller
 
     public function orderList() {
         $order = Order::where('status', 1)->with('table')->orderBy('id', 'desc')->paginate(8);
+        $totalOrder = Order::where('status', 1)->sum('total');
         // dd($order);
-        return view('dashboard.order.orderlist', compact('order'));
+        return view('dashboard.order.orderlist', compact('order','totalOrder'));
     }
 
     public function payment(Request $request, $reg) {
-        
         $request->validate([
             'txtTotal' => 'required|numeric|min:1',
             'txtDiscount' => 'required|numeric|min:0|lte:txtTotal',
@@ -149,31 +149,81 @@ class OrderController extends Controller
         ]);
         
         $order = Order::where('reg', $reg)->first();
-        $table = Table::where('id', $order->tableId)->first();
-
-        $discount = $request->input('txtDiscount', 0);
-        $pay = $request->input('txtPay', 0);
 
         if (!$order) {
             return redirect()->back()->with('warning', 'This item is not available right now.');
         }
 
+        $table = Table::where('id', $order->tableId)->first();
+
+        $discount = $request->input('txtDiscount', 0);
+        $pay = $request->input('txtPay', 0);
+
         $payable = $order->total - $discount;
         $order->discount = $discount;
         $order->payable = $payable;
 
-        if ($pay <= $payable) {
+        if ($pay < $payable) {
             $order->pay = $pay;
-            $order->status = 3; 
+            $order->status = 3; // 3 payment due
+            $order->due = $payable - $pay;
+        }elseif ($pay == $payable) {
+            $order->pay = $pay;
+            $order->status = 2; // 2 full paid
+            $order->due = $payable - $pay;
         } else {
             $order->pay = $payable;
-            $order->status = 2; 
+            $order->status = 2; // full paid
+            $order->due = 0;
         }
 
         $table->status = 1;
 
         //dd($order,$table);
         $table->update();
+        $order->update();
+        return redirect()->back()->with('success','Your payment successfully complete. Thank You!');
+    }
+
+    public function dueList() {
+        $order = Order::where('status', 3)->paginate(8);
+        $totalDue = Order::where('status', 3)->sum('due');
+        // dd($order, $totalDue);
+        return view('dashboard.order.duelist', compact('order','totalDue'));
+    }
+
+    public function dueCollection(Request $request, $reg) {
+        $request->validate([
+            'txtTotal' => 'required|numeric|min:1',
+            'txtDiscount' => 'required|numeric|min:0|lte:txtTotal',
+            'txtPay' => 'required|numeric|min:0|max:9999999',
+        ]);
+
+        $order = Order::where('reg', $reg)->first();
+        
+        if (!$order) {
+            return redirect()->back()->with('warning', 'This item is not available right now.');
+        }
+
+        $newDiscount = $request->input('txtDiscount', 0);
+        $newPay = $request->input('txtPay', 0);
+
+        $oldDiscount = $order->discount;
+        $oldDue = $order->due;
+        $oldPay = $order->pay;
+        $oldPayable = $order->payable;
+
+        $newPayable = $order->payable - $newDiscount;
+
+        if($newDiscount > $oldDue) {
+            return redirect()->back()->with('warning', 'Discount more then due. It is not possible.');
+        } else {
+            $order->discount += $newDiscount;
+            $order->payable -= $newDiscount;
+            
+        }
+        
+        // dd($order);
         $order->update();
         return redirect()->back()->with('success','Your payment successfully complete. Thank You!');
     }

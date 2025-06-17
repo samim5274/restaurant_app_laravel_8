@@ -17,6 +17,13 @@
     </li>
 
     <li class="nav-item">
+      <a class="nav-link {{ request()->is('due-list') ? 'active' : '' }}" href="{{ url('/due-list') }}">
+        <span class="icon-bg"><i class=" mdi mdi-view-list menu-icon"></i></span>
+        <span class="menu-title">Due List</span>
+      </a>
+    </li>
+
+    <li class="nav-item">
       <a class="nav-link" href="#">
         <span class="icon-bg"><i class="mdi mdi-format-list-bulleted menu-icon"></i></span>
         <span class="menu-title">Booking list</span>

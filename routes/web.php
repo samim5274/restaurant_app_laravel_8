@@ -46,3 +46,5 @@ Route::post('/confirm-order', [OrderController::class, 'confirmOrder']);
 
 Route::get('/order-list', [OrderController::class, 'orderList'])->name('order.list.view');
 Route::post('/payment/{reg}',[OrderController::class, 'payment']);
+Route::get('/due-list', [OrderController::class, 'dueList'])->name('due.list');
+Route::post('/due-payment/{reg}', [OrderController::class, 'dueCollection']);

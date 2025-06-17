@@ -22,6 +22,7 @@ class CreateOrdersTable extends Migration
             $table->unsignedInteger('discount')->nullable();
             $table->unsignedInteger('payable')->nullable();
             $table->unsignedInteger('pay')->nullable();
+            $table->unsignedInteger('due')->nullable();
             $table->Integer('status')->default(0);
             $table->timestamps();
         });

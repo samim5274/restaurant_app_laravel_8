@@ -17,6 +17,7 @@ class Order extends Model
         'discount',
         'payable',
         'pay',
+        'due',
         'status'
     ];
 
