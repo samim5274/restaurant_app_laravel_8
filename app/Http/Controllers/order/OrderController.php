@@ -54,6 +54,9 @@ class OrderController extends Controller
 
     public function addCart($id) {
         $data = Food::where('id', $id)->first();
+        if($data->stock <= 0) {
+            return redirect()->back()->with('warning','This item not availabel righ now');
+        }
         if($data) {
             $cart = new Cart;
 
@@ -71,7 +74,9 @@ class OrderController extends Controller
             $cart->foodId = $data->id;
             $cart->price = $data->price;
 
+            $data->stock -= 1;
             //dd($cart);
+            $data->update();
             $cart->save();
             return redirect()->route('menu.view')->with('success', 'Item add to card successfully.');
         } else {
@@ -82,7 +87,11 @@ class OrderController extends Controller
     public function removeCart($id)
     {
         $data = Cart::where('id', $id)->first();
+        $food = Food::where('id', $data->foodId)->first();
+        
         if($data) {
+            $food->stock += 1;
+            $food->update();
             $data->delete();
             return redirect()->back()->with('success', 'Item remove to card successfully.');
         } else {
@@ -103,7 +112,7 @@ class OrderController extends Controller
 
     public function updateQuantity(Request $request) {
         $cart = Cart::find($request->id);
-
+        
         if ($cart) {
             $cart->quantity = $request->quantity;
             $cart->save();
@@ -208,10 +217,7 @@ class OrderController extends Controller
         $newDiscount = $request->input('txtDiscount', 0);
         $newPay = $request->input('txtPay', 0);
 
-        $oldDiscount = $order->discount;
         $oldDue = $order->due;
-        $oldPay = $order->pay;
-        $oldPayable = $order->payable;
 
         $newPayable = $order->payable - $newDiscount;
 
@@ -220,11 +226,41 @@ class OrderController extends Controller
         } else {
             $order->discount += $newDiscount;
             $order->payable -= $newDiscount;
+            $order->payable = $newPayable;
+
+            if($newPayable <= $newPay || $oldDue <= $newPay) {
+                $order->pay = $newPayable;
+            } else {
+                $order->pay += $newPay;
+            }
             
+
+            if($order->pay == $order->payable) {
+                $order->due = 0;
+            } else {
+                $order->due -= ($newPay + $newDiscount);
+            }
+
+            if($order->due <= 0) {
+                $order->status = 2;
+            } else {
+                $order->status = 3;
+            }
         }
         
-        // dd($order);
-        $order->update();
+        // dd($order,$order->due,$order->pay);
+         $order->update();
         return redirect()->back()->with('success','Your payment successfully complete. Thank You!');
+    }
+
+    public function totalSale() {
+        $data = Order::paginate(13);
+        $total = Order::sum('total');
+        $totalPay = Order::sum('pay');
+        $totalDiscount = Order::sum('discount');
+        $totalPayable = Order::sum('payable');
+        $totalDue = Order::sum('due');
+        $sumTotal = Order::sum('pay');
+        return view('dashboard.report.total_sate', compact('data','total','totalPay','totalDiscount','totalPayable','totalDue','sumTotal'));
     }
 }

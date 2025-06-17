@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\dashboard\DashboardController;
 use App\Http\Controllers\order\OrderController;
 use App\Http\Controllers\admin\AdminController;
+use App\Http\Controllers\food\FoodController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -27,12 +28,13 @@ Route::post('/table-detail-update/{id}', [DashboardController::class, 'editTable
 Route::get('/table-detail-delete/{id}', [DashboardController::class, 'deleteTable']);
 
 Route::get('/table', [DashboardController::class, 'tableView']);
-Route::get('/food', [DashboardController::class, 'foodView'])->name('food.view');
 
-Route::post('/create-new-food', [DashboardController::class, 'createFood']);
-Route::get('/food-edit-view/{id}', [DashboardController::class, 'foodEditView']);
-Route::post('/food/update/{id}', [DashboardController::class, 'foodEdit']);
-Route::get('/food/delete/{id}', [DashboardController::class, 'foodDelete']);
+Route::get('/food', [FoodController::class, 'foodView'])->name('food.view');
+Route::get('/stock-in', [FoodController::class, 'foodStockView'])->name('food.stock.view');
+Route::post('/create-new-food', [FoodController::class, 'createFood']);
+Route::get('/food-edit-view/{id}', [FoodController::class, 'foodEditView']);
+Route::post('/food/update/{id}', [FoodController::class, 'foodEdit']);
+Route::get('/food/delete/{id}', [FoodController::class, 'foodDelete']);
 
 Route::get('/empty', [OrderController::class, 'orderView'])->name('order.view');
 Route::get('/menu', [OrderController::class, 'menuView'])->name('menu.view');
@@ -48,3 +50,5 @@ Route::get('/order-list', [OrderController::class, 'orderList'])->name('order.li
 Route::post('/payment/{reg}',[OrderController::class, 'payment']);
 Route::get('/due-list', [OrderController::class, 'dueList'])->name('due.list');
 Route::post('/due-payment/{reg}', [OrderController::class, 'dueCollection']);
+
+Route::get('/total-sale', [OrderController::class, 'totalSale'])->name('sale.view');

@@ -61,6 +61,7 @@
         <ul class="nav flex-column sub-menu">
           <li class="nav-item"> <a class="nav-link {{ request()->is('table') ? 'active' : '' }}" href="{{url('/table')}}">Table</a></li>
           <li class="nav-item"> <a class="nav-link {{ request()->is('food') ? 'active' : '' }}" href="{{url('/food')}}">Food</a></li>
+          <li class="nav-item"> <a class="nav-link" href="{{url('/stock-in')}}">Stock in Food</a></li>
         </ul>
       </div>
     </li>
@@ -72,7 +73,7 @@
       </a>
       <div class="collapse" id="auth">
         <ul class="nav flex-column sub-menu">
-          <li class="nav-item"> <a class="nav-link" href="#"> Total Sale </a></li>
+          <li class="nav-item"> <a class="nav-link" href="{{url('/total-sale')}}"> Total Sale </a></li>
           <li class="nav-item"> <a class="nav-link" href="#"> Total Order </a></li>
           <li class="nav-item"> <a class="nav-link" href="#"> Stock </a></li>
           <li class="nav-item"> <a class="nav-link" href="#"> Food List </a></li>
