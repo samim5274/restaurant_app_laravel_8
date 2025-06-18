@@ -15,6 +15,7 @@
     <link rel="stylesheet" href="/dash/assets/vendors/bootstrap-datepicker/bootstrap-datepicker.min.css">
     <!-- End plugin css for this page -->
     <!-- inject:css -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
     <!-- endinject -->
     <!-- Layout styles -->
     <link rel="stylesheet" href="/dash/assets/css/style.css">

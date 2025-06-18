@@ -7,11 +7,29 @@ use Illuminate\Http\Request;
 
 use App\Models\Table;
 use App\Models\Food;
+use App\Models\Order;
+use App\Models\Cart;
 
 class DashboardController extends Controller
 {
     public function index() {
-        return view('dashboard.dashboard');
+        $data = Order::paginate(13);
+        $total = Order::sum('total');
+        $totalPay = Order::sum('pay');
+        $totalDiscount = Order::sum('discount');
+        $totalPayable = Order::sum('payable');
+        $totalDue = Order::sum('due');
+
+        // table report
+        $totalTable = Table::count();
+        $tableEmpty = Table::where('status', 1)->count();
+        $tableOrder = Table::where('status', 3)->count();
+        $tableReserved = Table::where('status', 2)->count();
+
+        // food stock
+        $food = Food::count();
+        $stock = Food::sum('stock');
+        return view('dashboard.dashboard', compact('data','total','totalPay','totalDiscount','totalPayable','totalDue','totalTable','tableEmpty','tableOrder','tableReserved','food','stock'));
     }
 
     // ================================================================= table create section =================================================================

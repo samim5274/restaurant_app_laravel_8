@@ -54,10 +54,10 @@
                             <div class="card-body">
                                 <div class="d-flex justify-content-between align-items-center mb-3">
                                         <h4 class="card-title mb-0">Select Food</h4>
-                                        <a href="{{url('/cart-view')}}">
+                                        @if($count)<a href="{{url('/cart-view')}}">
                                             <button class="btn btn-inverse-primary"><i class="mdi mdi-cart fa-lg" aria-hidden="true"></i> Cart <span class="badge badge-danger">{{$count}}</span></button>
                                         </a>
-                                        
+                                        @endif
                                     </div>
                                 <div class="table-responsive">
                                     <table class="table table-hover">

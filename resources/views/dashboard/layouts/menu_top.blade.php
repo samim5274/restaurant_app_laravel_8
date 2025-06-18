@@ -21,6 +21,14 @@
       </form>
     </div>
     <ul class="navbar-nav navbar-nav-right">
+      <li class="nav-item  d-none d-md-block">
+        <a class="nav-link count-indicator" href="{{url('/cart-view')}}" >
+          @if($count) {{$count}} Cart
+          <i class="mdi mdi-cart fa-lg" aria-hidden="true"></i>
+          <span class="count-symbol bg-warning"></span> 
+          @endif
+        </a>
+      </li>
       <li class="nav-item  dropdown d-none d-md-block">
         <a class="nav-link dropdown-toggle" id="reportDropdown" href="#" data-toggle="dropdown" aria-expanded="false"> Reports </a>
         <div class="dropdown-menu navbar-dropdown" aria-labelledby="reportDropdown">

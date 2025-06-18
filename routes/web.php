@@ -6,6 +6,7 @@ use App\Http\Controllers\dashboard\DashboardController;
 use App\Http\Controllers\order\OrderController;
 use App\Http\Controllers\admin\AdminController;
 use App\Http\Controllers\food\FoodController;
+use App\Http\Controllers\Sale\SaleController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -28,12 +29,16 @@ Route::post('/table-detail-update/{id}', [DashboardController::class, 'editTable
 Route::get('/table-detail-delete/{id}', [DashboardController::class, 'deleteTable']);
 Route::get('/table', [DashboardController::class, 'tableView']);
 
+// ================================================ Food controler route // ================================================
+
 Route::get('/food', [FoodController::class, 'foodView'])->name('food.view');
 Route::get('/stock-in', [FoodController::class, 'foodStockView'])->name('food.stock.view');
 Route::post('/create-new-food', [FoodController::class, 'createFood']);
 Route::get('/food-edit-view/{id}', [FoodController::class, 'foodEditView']);
 Route::post('/food/update/{id}', [FoodController::class, 'foodEdit']);
 Route::get('/food/delete/{id}', [FoodController::class, 'foodDelete']);
+
+// ================================================ Order controler route // ================================================
 
 Route::get('/empty', [OrderController::class, 'orderView'])->name('order.view');
 Route::get('/menu', [OrderController::class, 'menuView'])->name('menu.view');
@@ -47,7 +52,10 @@ Route::post('/confirm-order', [OrderController::class, 'confirmOrder']);
 
 Route::get('/order-list', [OrderController::class, 'orderList'])->name('order.list.view');
 Route::post('/payment/{reg}',[OrderController::class, 'payment']);
-Route::get('/due-list', [OrderController::class, 'dueList'])->name('due.list');
+Route::get('/due-collection', [OrderController::class, 'dueCollectionView'])->name('due.list');
 Route::post('/due-payment/{reg}', [OrderController::class, 'dueCollection']);
 
-Route::get('/total-sale', [OrderController::class, 'totalSale'])->name('sale.view');
+// ================================================ sale controler route // ================================================
+
+Route::get('/total-sale', [SaleController::class, 'totalSale'])->name('sale.view');
+Route::get('/report-due-list', [SaleController::class, 'dueCollectioListView'])->name('due.view');

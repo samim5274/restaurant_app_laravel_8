@@ -17,9 +17,9 @@
     </li>
 
     <li class="nav-item">
-      <a class="nav-link {{ request()->is('due-list') ? 'active' : '' }}" href="{{ url('/due-list') }}">
+      <a class="nav-link {{ request()->is('due-collection') ? 'active' : '' }}" href="{{ url('/due-collection') }}">
         <span class="icon-bg"><i class=" mdi mdi-view-list menu-icon"></i></span>
-        <span class="menu-title">Due List</span>
+        <span class="menu-title">Due Collection</span>
       </a>
     </li>
 
@@ -75,9 +75,7 @@
         <ul class="nav flex-column sub-menu">
           <li class="nav-item"> <a class="nav-link" href="{{url('/total-sale')}}"> Total Sale </a></li>
           <li class="nav-item"> <a class="nav-link" href="#"> Total Order </a></li>
-          <li class="nav-item"> <a class="nav-link" href="#"> Stock </a></li>
-          <li class="nav-item"> <a class="nav-link" href="#"> Food List </a></li>
-          <li class="nav-item"> <a class="nav-link" href="#"> Table </a></li>
+          <li class="nav-item"> <a class="nav-link" href="{{url('/report-due-list')}}"> Due List </a></li>
         </ul>
       </div>
     </li>
