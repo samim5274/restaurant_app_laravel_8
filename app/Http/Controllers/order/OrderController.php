@@ -84,13 +84,13 @@ class OrderController extends Controller
         }
     }
 
-    public function removeCart($id)
+    public function removeCart(Request $request, $id)
     {
         $data = Cart::where('id', $id)->first();
         $food = Food::where('id', $data->foodId)->first();
-        
+        // dd($request->all());
         if($data) {
-            $food->stock += 1;
+            $food->stock += $request->input('txtStock','');
             $food->update();
             $data->delete();
             return redirect()->back()->with('success', 'Item remove to card successfully.');
@@ -112,19 +112,41 @@ class OrderController extends Controller
 
     public function updateQuantity(Request $request) {
         $cart = Cart::find($request->id);
-        
-        if ($cart) {
-            $cart->quantity = $request->quantity;
-            $cart->save();
-            return response()->json(['status' => 'success', 'quantity' => $cart->quantity]);
+
+        if (!$cart) {
+            return response()->json(['status' => 'error', 'message' => 'Cart item not found'], 404);
         }
 
-        return response()->json(['status' => 'error', 'message' => 'Cart item not found'], 404);
+        $food = Food::find($cart->foodId);
+
+        if (!$food) {
+            return response()->json(['status' => 'error', 'message' => 'Food item not found']);
+        }
+
+        $newQty = $request->quantity;
+        $availableStock = $food->stock + $cart->quantity;
+
+        if ($newQty > $availableStock) {
+            return response()->json(['status' => 'error', 'message' => 'Food stock not available']);
+        }
+
+        $food->stock -= ($newQty - $cart->quantity);
+        $food->save();
+
+        $cart->quantity = $newQty;
+        $cart->save();
+
+        return response()->json([
+            'status' => 'success',
+            'quantity' => $cart->quantity,
+            'stock' => $food->stock
+        ]);
+
     }
 
     public function confirmOrder(Request $request) {
         $order = new Order;
-
+        
         $request->validate([
             'txtReg' => 'required',
             'txtSubTotal' => 'required',

@@ -87,6 +87,7 @@
                                                         class="form-control text-center qty-input p-0"
                                                         value="{{ $val->quantity }}"
                                                         min="1"
+                                                        name="txtStock"
                                                         readonly
                                                         data-id="{{ $val->id }}"
                                                         style="width: 36px; height: 28px; font-size: 12px;">
@@ -102,7 +103,10 @@
                                                 <span class="item-subtotal">${{ number_format($val->price * $val->quantity, 2) }}</span>
                                             </td>
                                             <td class="text-center">
-                                                <a href="{{ url('/remove-to-cart/' . $val->id) }}" class="text-danger" title="Remove Item">
+                                                <!-- <a href="{{ url('/remove-to-cart/' . $val->id) }}" class="text-danger" title="Remove Item">
+                                                    <i class="mdi mdi-cart-off fa-lg"></i>
+                                                </a> -->
+                                                <a href="#" class="text-danger remove-item-link" data-id="{{ $val->id }}">
                                                     <i class="mdi mdi-cart-off fa-lg"></i>
                                                 </a>
                                             </td>

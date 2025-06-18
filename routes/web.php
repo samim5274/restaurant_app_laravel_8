@@ -26,7 +26,6 @@ Route::get('/dashboard/setting', [DashboardController::class, 'setting'])->name(
 Route::post('/create-new-table', [DashboardController::class, 'creatTable']);
 Route::post('/table-detail-update/{id}', [DashboardController::class, 'editTable']);
 Route::get('/table-detail-delete/{id}', [DashboardController::class, 'deleteTable']);
-
 Route::get('/table', [DashboardController::class, 'tableView']);
 
 Route::get('/food', [FoodController::class, 'foodView'])->name('food.view');

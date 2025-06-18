@@ -18,8 +18,6 @@ document.addEventListener('DOMContentLoaded', function () {
             newQty = currentQty - 1;
         }
 
-        input.val(newQty);
-
         $.ajax({
             url: '/cart/update-quantity',
             method: 'POST',
@@ -28,18 +26,21 @@ document.addEventListener('DOMContentLoaded', function () {
                 quantity: newQty
             },
             success: function (response) {
-                console.log('Quantity updated:', response);
+                if (response.status === 'success') {
+                    input.val(response.quantity);
+                    updateSubtotalAndTotal();  
+                    console.log('Quantity updated:', response); 
+                } else if (response.status === 'error') {
+                    alert(response.message);     
+                }
             },
             error: function (xhr) {
                 console.error('Update failed:', xhr.responseText);
-            },
-            success: function (response) {
-                console.log('Updated:', response);
-                updateSubtotalAndTotal(); 
-            },
+            }
         });
     });
 });
+
 
 
 function updateSubtotalAndTotal() {
@@ -65,6 +66,7 @@ function updateSubtotalAndTotal() {
     $('#cart-total-input').val(Math.round(total));
 }
 
+// order confrim button enable and disable
 
 document.addEventListener('DOMContentLoaded', function () {
     const selectBox = document.getElementById('exampleSelect');
@@ -85,4 +87,20 @@ document.addEventListener('DOMContentLoaded', function () {
     selectBox.addEventListener('change', checkConfirmEligibility);
 
     checkConfirmEligibility();
+});
+
+// remove from cart get data in link 
+document.addEventListener('DOMContentLoaded', function () {
+    document.querySelectorAll('.remove-item-link').forEach(function (link) {
+        link.addEventListener('click', function (e) {
+            e.preventDefault();
+
+            let id = this.dataset.id;
+            let input = document.querySelector('input[data-id="' + id + '"]');
+            let quantity = input ? input.value : 0;
+
+            // Dynamically set and redirect
+            window.location.href = `/remove-to-cart/${id}?txtStock=${quantity}`;
+        });
+    });
 });
