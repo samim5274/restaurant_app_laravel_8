@@ -55,6 +55,8 @@ Route::post('/payment/{reg}',[OrderController::class, 'payment']);
 Route::get('/due-collection', [OrderController::class, 'dueCollectionView'])->name('due.list');
 Route::post('/due-payment/{reg}', [OrderController::class, 'dueCollection']);
 
+Route::get('/get-invoice/{reg}', [OrderController::class, 'getPdf'])->name('invoice.get');
+
 // ================================================ sale controler route // ================================================
 
 Route::get('/total-sale', [SaleController::class, 'totalSale'])->name('sale.view');

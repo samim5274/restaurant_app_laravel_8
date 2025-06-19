@@ -82,6 +82,9 @@
                                                 <td class="text-center">৳{{$val->payable}}/-</td>
                                                 <td class="text-center">৳{{$val->pay}}/-</td>
                                                 <td class="text-center">৳{{$val->due}}/-</td>
+                                                <td class="text-center"><a href="{{ route('invoice.get', $val->reg) }}" class="btn btn-sm btn-outline-success" title="Download Invoice">
+                                                    <i class="mdi mdi-arrow-down-bold-circle-outline" style="font-size: 1.1rem;"></i>
+                                                </a></td>
                                             </tr>
                                             @endforeach
                                             @endif
@@ -92,6 +95,7 @@
                                                 <td class="text-center">৳{{$totalPayable}}/-</td>
                                                 <td class="text-center">৳{{$sumTotal}}/-</td>
                                                 <td class="text-center">৳{{$totalDue}}/-</td>
+                                                <td class="text-center"></td>
                                             </tr>
                                         </tbody>
                                     </table>
