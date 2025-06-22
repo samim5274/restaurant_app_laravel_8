@@ -4,6 +4,7 @@ namespace App\Http\Controllers\order;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Illuminate\Support\Str;
 use Barryvdh\DomPDF\Facade\Pdf;
 
 use App\Models\Table;
@@ -214,7 +215,7 @@ class OrderController extends Controller
         //dd($order,$table);
         $table->update();
         $order->update();
-        return redirect()->back()->with('success','Your payment successfully complete. Thank You!');
+        return redirect()->back()->with('success', $reg);
     }
 
     public function dueCollectionView() {
@@ -276,29 +277,5 @@ class OrderController extends Controller
         return redirect()->back()->with('success',$reg);
     }
 
-    public function getPdf($reg) {
-        $invoice = Cart::where('reg', $reg)->with('food')->get();
-        $grandTotal = Order::where('reg', $reg)->first();
-        $reg = Cart::where('reg', $reg)->with('food')->first();
-        // dd($invoice);
-        if(!$invoice) {
-            return redirect()->back()->with('warning', 'This item is not available right now.');
-        }
-        // return view('dashboard.print.invoice', compact('invoice','reg','grandTotal'));
-        
-        $pdf = Pdf::loadView('dashboard.print.invoice', compact('invoice','grandTotal','reg'));
-        return $pdf->download('Invoice-'.time().'-'.$reg->reg.'.pdf');
-    }
-
-    public function downloadPdf($reg) {
-        $invoice = Cart::where('reg', $reg)->with('food')->get();
-        $grandTotal = Order::where('reg', $reg)->first();
-        $reg = Cart::where('reg', $reg)->with('food')->first();
-        // dd($invoice);
-        if(!$invoice) {
-            return redirect()->back()->with('warning', 'This item is not available right now.');
-        }        
-        $pdf = Pdf::loadView('dashboard.print.download', compact('invoice','grandTotal','reg'));
-        return $pdf->download('Invoice-'.time().'-'.$reg->reg.'.pdf');
-    }
+    
 }

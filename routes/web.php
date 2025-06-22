@@ -57,8 +57,8 @@ Route::post('/due-payment/{reg}', [OrderController::class, 'dueCollection']);
 
 // ================================================ sale report route // ================================================
 
-Route::get('/get-invoice/{reg}', [OrderController::class, 'getPdf'])->name('invoice.get');
-Route::get('/download-invoice/{reg}', [OrderController::class, 'downloadPdf'])->name('download.pdf');
+Route::get('/get-invoice/{reg}', [SaleController::class, 'getPdf'])->name('invoice.get');
+Route::get('/download-invoice/{reg}', [SaleController::class, 'downloadPdf'])->name('download.pdf');
 
 // ================================================ sale controler route // ================================================
 

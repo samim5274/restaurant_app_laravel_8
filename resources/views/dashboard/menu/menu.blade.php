@@ -5,20 +5,16 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <title>Restaurant Manager</title>
-    <!-- plugins:css -->
+
     <link rel="stylesheet" href="/dash/assets/vendors/mdi/css/materialdesignicons.min.css">
     <link rel="stylesheet" href="/dash/assets/vendors/flag-icon-css/css/flag-icon.min.css">
     <link rel="stylesheet" href="/dash/assets/vendors/css/vendor.bundle.base.css">
-    <!-- endinject -->
-    <!-- Plugin css for this page -->
+
     <link rel="stylesheet" href="/dash/assets/vendors/font-awesome/css/font-awesome.min.css" />
     <link rel="stylesheet" href="/dash/assets/vendors/bootstrap-datepicker/bootstrap-datepicker.min.css">
-    <!-- End plugin css for this page -->
-    <!-- inject:css -->
-    <!-- endinject -->
-    <!-- Layout styles -->
+
     <link rel="stylesheet" href="/dash/assets/css/style.css">
-    <!-- End layout styles -->
+
     <link rel="shortcut icon" href="/dash/assets/images/favicon.png" />
 </head>
 <body>
@@ -43,24 +39,25 @@
                     <h3 class="page-title"> Select Table </h3>
                     <nav aria-label="breadcrumb">
                         <ol class="breadcrumb">
+                             @if($count)<li class="breadcrumb-item"><a href="{{url('/cart-view')}}">Cart  <span class="badge badge-success">[{{ $count }}]</span> </a></li>@endif
                             <li class="breadcrumb-item"><a href="{{url('/menu')}}">Menu</a></li>
                             <li class="breadcrumb-item active" aria-current="page"><a href="{{url('/dashboard/setting')}}">Setting</a></li>
                         </ol>
                     </nav>
                 </div>
                 <div class="row">     
-                    <div class="col-lg-12 grid-margin stretch-card">
+                    <!-- <div class="col-lg-12 grid-margin stretch-card">
                         <div class="card mt-2">
                             <div class="card-body">
                                 <div class="d-flex justify-content-between align-items-center mb-3">
-                                        <h4 class="card-title mb-0">Select Food</h4>
-                                        @if($count)<a href="{{url('/cart-view')}}">
-                                            <button class="btn btn-inverse-primary"><i class="mdi mdi-cart fa-lg" aria-hidden="true"></i> Cart <span class="badge badge-danger">{{$count}}</span></button>
-                                        </a>
-                                        @endif
-                                    </div>
+                                    <h4 class="card-title mb-0">Select Food</h4>
+                                    @if($count)<a href="{{url('/cart-view')}}">
+                                        <button class="btn btn-inverse-primary"><i class="mdi mdi-cart fa-lg" aria-hidden="true"></i> Cart <span class="badge badge-danger">{{$count}}</span></button>
+                                    </a>
+                                    @endif
+                                </div>
                                 <div class="table-responsive">
-                                    <table class="table table-hover">
+                                     <table class="table table-hover">
                                         <thead>
                                             <tr>
                                                 <th>SL</th>
@@ -96,25 +93,31 @@
                                                 @endforeach
                                             @endif
                                         </tbody>
-                                    </table>
+                                    </table> 
+                                </div>
+                            </div> 
+                        </div>
+                    </div> -->
+                    @if($food)
+                        @foreach($food as $val)
+                            <div class="col-xl-3 col-lg-4 col-md-6 col-sm-12 mb-4">
+                                <div class="card h-100 shadow-sm">
+                                    <img src="{{ asset('img/food/' . $val->image) }}" class="card-img-top" alt="image not found">
+                                    <div class="card-body d-flex flex-column">
+                                        <h4 class="card-title"><a href="#">{{ $val->name }} - ৳{{ $val->price }}/-</a></h4>
+                                        <p>{{ strlen($val->ingredients) > 40 ? substr($val->ingredients, 0, 40) . '...' : $val->ingredients }}</p>
+                                        <a href="{{ url('/add-to-cart/'.$val->id) }}" class="mt-auto btn btn-outline-success w-100">
+                                            <i class="mdi mdi-cart-plus fa-lg" aria-hidden="true" style="font-size: 1rem;"></i>
+                                            <span style="font-size: 1rem;" class="mb-0">Add Cart</span>
+                                        </a>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                    </div>
+                        @endforeach
+                    @endif
+                        
                 </div>
             </div>
-
-
-            <!-- partial:../../partials/_footer.html -->
-            <footer class="footer">
-                <div class="footer-inner-wraper">
-                <div class="d-sm-flex justify-content-center justify-content-sm-between">
-                    <span class="text-muted d-block text-center text-sm-left d-sm-inline-block">Copyright © bootstrapdash.com 2020</span>
-                    <span class="float-none float-sm-right d-block mt-1 mt-sm-0 text-center"> Free <a href="https://www.bootstrapdash.com/" target="_blank">Bootstrap dashboard templates</a> from Bootstrapdash.com</span>
-                </div>
-                </div>
-            </footer>
-            <!-- partial -->
 
         </div>
     </div>

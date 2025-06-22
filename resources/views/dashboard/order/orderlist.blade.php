@@ -36,7 +36,7 @@
 
         <div class="main-panel">
 
-            @include('dashboard.message.message')
+            <!-- @include('dashboard.message.message') -->
 
             <div class="content-wrapper">
 
@@ -182,6 +182,14 @@
     <script src="/dash/assets/js/dashboard.js"></script>
     <!-- End custom js for this page -->
     <script src="/dash/assets/js/orderPayment.js"></script>
-
+    @if(session('success'))
+        <script>
+            window.onload = function () {
+                const reg = "{{ session('success') }}";
+                const url = `/download-invoice/${reg}`;
+                window.open(url, '_blank');
+            };
+        </script>
+    @endif
 </body>
 </html>

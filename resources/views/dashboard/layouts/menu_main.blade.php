@@ -10,6 +10,20 @@
     </li>
 
     <li class="nav-item">
+      <a class="nav-link {{ request()->is('menu') ? 'active' : '' }}" href="{{ url('/menu') }}">
+        <span class="icon-bg"><i class="mdi mdi-menu menu-icon"></i></span>
+        <span class="menu-title">Menu</span>
+      </a>
+    </li>
+
+    <li class="nav-item">
+      <a class="nav-link {{ request()->is('cart-view') ? 'active' : '' }}" href="{{url('/cart-view')}}">
+        <span class="icon-bg"><i class="mdi mdi-cart menu-icon"></i></span>
+        <span class="menu-title">Cart</span>
+      </a>
+    </li>
+
+    <li class="nav-item">
       <a class="nav-link {{ request()->is('order-list') ? 'active' : '' }}" href="{{ url('/order-list') }}">
         <span class="icon-bg"><i class="mdi mdi-contacts menu-icon"></i></span>
         <span class="menu-title">Order List</span>
@@ -27,13 +41,6 @@
       <a class="nav-link" href="#">
         <span class="icon-bg"><i class="mdi mdi-format-list-bulleted menu-icon"></i></span>
         <span class="menu-title">Booking list</span>
-      </a>
-    </li>
-
-    <li class="nav-item">
-      <a class="nav-link {{ request()->is('menu') ? 'active' : '' }}" href="{{ url('/menu') }}">
-        <span class="icon-bg"><i class="mdi mdi-menu menu-icon"></i></span>
-        <span class="menu-title">Menu</span>
       </a>
     </li>
 
