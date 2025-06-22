@@ -80,7 +80,7 @@ class OrderController extends Controller
             //dd($cart);
             $data->update();
             $cart->save();
-            return redirect()->route('menu.view')->with('success', 'Item add to card successfully.');
+            return redirect()->back()->with('success', 'Item add to card successfully.');
         } else {
             return redirect()->back()->with('warning','This item not availabel righ now');
         }

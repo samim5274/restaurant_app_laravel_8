@@ -102,9 +102,9 @@
                         @foreach($food as $val)
                             <div class="col-xl-3 col-lg-4 col-md-6 col-sm-12 mb-4">
                                 <div class="card h-100 shadow-sm">
-                                    <img src="{{ asset('img/food/' . $val->image) }}" class="card-img-top" alt="image not found">
+                                    <a href="{{url('/specific-food-view/'.$val->id)}}"><img src="{{ asset('img/food/' . $val->image) }}" class="card-img-top" alt="image not found"></a>
                                     <div class="card-body d-flex flex-column">
-                                        <h4 class="card-title"><a href="#">{{ $val->name }} - ৳{{ $val->price }}/-</a></h4>
+                                        <h4 class="card-title"><a href="{{url('/specific-food-view/'.$val->id)}}">{{strlen($val->name) > 22 ? substr($val->name, 0, 22).'...' : $val->name}} - ৳{{ $val->price }}/-</a></h4>
                                         <p>{{ strlen($val->ingredients) > 40 ? substr($val->ingredients, 0, 40) . '...' : $val->ingredients }}</p>
                                         <a href="{{ url('/add-to-cart/'.$val->id) }}" class="mt-auto btn btn-outline-success w-100">
                                             <i class="mdi mdi-cart-plus fa-lg" aria-hidden="true" style="font-size: 1rem;"></i>

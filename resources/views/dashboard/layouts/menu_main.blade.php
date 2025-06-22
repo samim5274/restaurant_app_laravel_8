@@ -1,4 +1,7 @@
-<!-- partial:partials/_sidebar.html -->
+@php
+    $currentUrl = request()->path();
+@endphp
+
 <nav class="sidebar sidebar-offcanvas" id="sidebar">
   <ul class="nav">
     <li class="nav-item nav-category">Main</li>

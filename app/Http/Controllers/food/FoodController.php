@@ -134,7 +134,7 @@ class FoodController extends Controller
         } else {
             return redirect()->back()->with('warning','This item not availabel righ now');
         }
-        
+
     }
 
     public function foodDelete($id) {
@@ -151,5 +151,12 @@ class FoodController extends Controller
     public function foodStockView() {
         $data = Food::all();
         return view('dashboard.food.stock', compact('data'));
+    }
+
+    public function SpecificFoodView($id) {
+        $food = Food::where('id',$id)->first();
+        $category = Food::where('category', $food->category)->where('id', '!=', $food->id)->paginate(4);
+        // dd($category);
+        return view('dashboard.food.one_Food', compact('food','category'));
     }
 }

@@ -37,6 +37,7 @@ Route::post('/create-new-food', [FoodController::class, 'createFood']);
 Route::get('/food-edit-view/{id}', [FoodController::class, 'foodEditView']);
 Route::post('/food/update/{id}', [FoodController::class, 'foodEdit']);
 Route::get('/food/delete/{id}', [FoodController::class, 'foodDelete']);
+Route::get('/specific-food-view/{id}', [FoodController::class, 'SpecificFoodView'])->name('specific.food.view');
 
 // ================================================ Order controler route // ================================================
 
