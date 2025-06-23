@@ -55,6 +55,7 @@ Route::get('/delere/order/{reg}', [OrderController::class, 'deleteOrder']);
 Route::get('/edit/order/{reg}', [OrderController::class, 'editOrder'])->name('edit.order');
 Route::get('/add/item/cart/{reg}', [OrderController::class, 'editCartItem'])->name('edit.cart.item.order');
 Route::get('/edit/add/item/cart/{id}/{reg}', [OrderController::class, 'addEditCartItem'])->name('add.edit.cart.item.order');
+Route::post('/order/modify/{reg}', [OrderController::class, 'orderModify']);
 
 Route::get('/order-list', [OrderController::class, 'orderList'])->name('order.list.view');
 Route::post('/payment/{reg}',[OrderController::class, 'payment']);

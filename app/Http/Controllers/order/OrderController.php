@@ -160,7 +160,7 @@ class OrderController extends Controller
         $order->tableId = $table_id;
         $order->status = 1; // 1 order confrim and 2 bill paid, 3 due
         $table = Table::where('id', $table_id)->first();
-        $table->status = 3;
+        $table->status = 3; // order
         $order->save();
         $table->update();
         return redirect()->route('menu.view')->with('success', 'Your order is confirmed.');
@@ -245,7 +245,7 @@ class OrderController extends Controller
             if ($cartItems->isNotEmpty()) {
                 $cartItems->each->delete(); // delete cart item
             }
-            return redirect()->back()->with('success', 'Your order and cart item(s) were deleted successfully.');
+            return redirect()->back()->with('error', 'Your order and cart item(s) were deleted successfully.');
         }
 
         return redirect()->back()->with('warning', 'Order cannot be deleted. Food is already made and payment is complete.');
@@ -312,14 +312,14 @@ class OrderController extends Controller
 
     public function editOrder($reg) {
         $data = Cart::where('reg',$reg)->with('food')->get();
-        // dd($data);
-        $order = optional($data->get(1) ?? $data->first())->reg ?? '0000';
-        $table = Table::where('status', 1)->get();
-        $invoice = Carbon::now()->format('Ymd').Auth::guard('admin')->id().$order;
+        $order = Order::where('reg', $reg)->first();
+        $table = Table::where('status', 1)->when($order, fn($q) => $q->orWhere('id', $order->tableId))->get();
+        // dd($order->toArray());
+        // dd($order->tableId);
+        $invoice = $reg;
         $count = Cart::where('reg', $invoice)->count();
         $cart = Cart::where('reg', $invoice)->with('food','user')->get();
-        dd();
-        return view('dashboard.cart.cart_edit', compact('count', 'cart','table','invoice','data'));
+        return view('dashboard.cart.cart_edit', compact('count', 'cart','table','order','invoice','data'));
     }
 
     public function editCartItem($reg)
@@ -352,5 +352,36 @@ class OrderController extends Controller
             return redirect()->back()->with('success', 'Item add to card successfully.');
         }
         
+    }
+
+    public function orderModify(Request $request, $reg) {
+        $order = Order::where('reg', $reg)->first();        
+        if(!$order) {
+            return redirect()->back()->with('warning','This order not availabel righ now');
+        } 
+        
+        $order->total = $request->input('txtSubTotal', '');
+
+        // free old table
+        $oldTableStatus = Table::where('id', $order->tableId)->first();
+        if(!$oldTableStatus) {
+            return redirect()->back()->with('warning','This table not availabel righ now');
+        } 
+        
+        $oldTableStatus->status = 1; // empty table
+
+        $order->tableId = $table = $request->input('cbxTable', '');
+        
+        $newTableStatus = Table::where('id', $table)->first();
+        if(!$newTableStatus) {
+            return redirect()->back()->with('warning','This table update not possible righ now');
+        } 
+        
+        $newTableStatus->status = 3; // order table
+
+        $oldTableStatus->update();
+        $newTableStatus->update();
+        $order->update();
+        return redirect()->route('order.list.view')->with('warning','Your order updated successfully');
     }
 }

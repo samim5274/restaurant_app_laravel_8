@@ -46,25 +46,27 @@ document.addEventListener('DOMContentLoaded', function () {
 function updateSubtotalAndTotal() {
     let total = 0;
 
-    $('tbody tr').each(function () {
-        const price = parseFloat($(this).find('td[data-price]').data('price'));
+    $('.card-body').each(function () {
+        const price = parseFloat($(this).find('[data-price]').data('price'));
         const qty = parseInt($(this).find('.qty-input').val());
 
         if (!isNaN(price) && !isNaN(qty)) {
             const subtotal = price * qty;
-            $(this).find('.item-subtotal').text(`$${Math.round(subtotal)}`);
+            $(this).find('.item-subtotal').text(`৳${subtotal.toFixed(2)}`);
+
             total += subtotal;
         }
     });
 
     const shipping = 0;
 
-    $('#cart-subtotal').text(Math.round(total));
-    $('#shipping-fee').text(Math.round(shipping));
-    $('#cart-total').text(Math.round(total + shipping));
+    $('#cart-subtotal').text(total.toFixed(2));
+    $('#shipping-fee').text(shipping.toFixed(2));
+    $('#cart-total').text(total.toFixed(2));
 
     $('#cart-total-input').val(Math.round(total));
 }
+
 
 // order confrim button enable and disable
 

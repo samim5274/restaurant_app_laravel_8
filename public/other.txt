@@ -1,0 +1,72 @@
+<div class="row">
+        <div class="col-lg-8 col-md-12 grid-margin stretch-card">
+            <div class="card mt-2">
+                <div class="card-body p-2 p-md-4">
+                    <div class="table-responsive">
+                        <div class="table-responsive">
+                            <table class="table table-sm table-striped table-hover align-middle text-center border shadow-sm" style="font-size: 13px;">
+                                <thead class="bg-success text-white">
+                                    <tr>
+                                        <th scope="col">SL</th>
+                                        <th scope="col">Food Name</th>
+                                        <th scope="col">Price</th>
+                                        <th scope="col">Qty</th>
+                                        <th scope="col">Total</th>
+                                        <th scope="col" style="width: 50px;"></th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @if($data)
+                                        @foreach($data as $key => $val)
+                                            <tr>
+                                                <td>{{ $key + 1 }}</td>
+                                                <td class="text-start">{{ $val->food->name }}</td>
+                                                <td data-price="{{ $val->price }}">৳{{ number_format($val->price, 2) }}</td>
+                                                <td>
+                                                    <div class="d-flex justify-content-center align-items-center">
+                                                        <div class="input-group input-group-sm" style="max-width: 100px;">
+                                                            <button type="button" 
+                                                                    class="btn btn-outline-secondary btn-minus"
+                                                                    data-id="{{ $val->id }}"
+                                                                    style="padding: 0 6px; font-size: 14px; height: 28px;">−</button>
+                                                            
+                                                            <input type="number"
+                                                                class="form-control text-center qty-input"
+                                                                value="{{ $val->quantity }}"
+                                                                min="1"
+                                                                name="txtStock"
+                                                                readonly
+                                                                data-id="{{ $val->id }}"
+                                                                style="width: 36px; height: 28px; font-size: 13px; padding: 0;">
+
+                                                            <button type="button" 
+                                                                    class="btn btn-outline-secondary btn-plus"
+                                                                    data-id="{{ $val->id }}"
+                                                                    style="padding: 0 6px; font-size: 14px; height: 28px;">+</button>
+                                                        </div>
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    <span class="item-subtotal">৳{{ number_format($val->price * $val->quantity, 2) }}</span>
+                                                </td>
+                                                <td>
+                                                    <a href="#" class="text-danger remove-item-link" data-id="{{ $val->id }}" title="Remove">
+                                                        <i class="mdi mdi-cart-off mdi-18px"></i>
+                                                    </a>
+                                                </td>
+                                            </tr>
+                                        @endforeach
+                                    @else
+                                        <tr>
+                                            <td colspan="6" class="text-muted text-center">No items in cart.</td>
+                                        </tr>
+                                    @endif
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>

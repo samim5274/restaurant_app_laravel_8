@@ -45,7 +45,7 @@
                     <nav aria-label="breadcrumb">
                         <ol class="breadcrumb">
                             <li class="breadcrumb-item"><a href="{{url('/order-list')}}">Order list</a></li>
-                            <li class="breadcrumb-item active" aria-current="page"><a href="{{url('/table')}}">Table</a></li>
+                            <li class="breadcrumb-item active" aria-current="page"><a href="{{url('/menu')}}">Menu</a></li>
                         </ol>
                     </nav>
                 </div>
