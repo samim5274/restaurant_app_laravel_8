@@ -36,7 +36,7 @@
 
         <div class="main-panel">
 
-            <!-- @include('dashboard.message.message') -->
+            @include('dashboard.message.message')
 
             <div class="content-wrapper">
 
@@ -55,38 +55,63 @@
                         <div class="card mt-2">
                             <div class="card-body p-2 p-md-4">
                                 <div class="table-responsive">
-                                    <table class="table table-hover mb-0">
-                                        <thead>
-                                            <tr>
-                                                <th>SL</th>
-                                                <th>Date</th>
-                                                <th class="text-center">REG</th>
-                                                <th class="text-center">Table</th>
-                                                <th class="text-center">Total</th>
-                                                <th class="text-center">Action</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            @if($order)
-                                            @foreach($order as $key => $val)
-                                            <tr>
-                                                <td>{{ ++$key }}</td>
-                                                <td>{{$val->date}}</td>
-                                                <td class="text-center">ORD-{{$val->reg}}</td>
-                                                <td class="text-center">{{$val->table->tName}}</td>
-                                                <td class="text-center">৳{{$val->total}}/-</td>
-                                                <td class="text-center"><a href="#"><button class="btn btn-sm btn-success text-white" data-toggle="modal" data-target="#exampleModal{{$val->id}}"><h4 class="m-0">Pay</h4></button></a></td>
-                                            </tr>
-                                            @endforeach
-                                            @endif
-                                            <tr>
-                                                <td class="text-center" colspan="3"></td>
-                                                <td class="text-center">Total order: </td>
-                                                <td class="text-center">৳{{$totalOrder}}/-</td>
-                                                <td class="text-center"></td>
-                                            </tr>
-                                        </tbody>
-                                    </table>
+                                    <div class="table-responsive">
+                                        <table class="table table-sm table-striped table-hover align-middle text-center border">
+                                            <thead class="bg-success text-white">
+                                                <tr>
+                                                    <th scope="col">#SL</th>
+                                                    <th scope="col">Date</th>
+                                                    <th scope="col">REG</th>
+                                                    <th scope="col">Table</th>
+                                                    <th scope="col">Total</th>
+                                                    <th scope="col" style="width: 80px;">Pay</th>
+                                                    <th scope="col" style="width: 50px;">Delete</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                @if($order)
+                                                    @foreach($order as $key => $val)
+                                                        <tr>
+                                                            <td>{{ $key + 1 }}</td>
+                                                            <td>{{ $val->date }}</td>
+                                                            <td>
+                                                                <a href="{{ url('/edit/order/' . $val->reg) }}" class="text-primary font-weight-bold">
+                                                                    ORD-{{ $val->reg }}
+                                                                </a>
+                                                            </td>
+                                                            <td>
+                                                                <a href="{{ url('/edit/order/' . $val->reg) }}">
+                                                                    {{ $val->table->tName ?? 'N/A' }}
+                                                                </a>
+                                                            </td>
+                                                            <td>৳{{ number_format($val->total, 2) }}/-</td>
+                                                            <td>
+                                                                <button class="btn btn-outline-success btn-sm" data-toggle="modal" data-target="#exampleModal{{ $val->id }}">
+                                                                    Pay
+                                                                </button>
+                                                            </td>
+                                                            <td>
+                                                                <a href="{{url('/delere/order/'.$val->reg)}}" onclick="return confirm('Are you sure you want to DELETE this bill?')">
+                                                                    <i class="mdi mdi-delete-forever text-danger"></i>
+                                                                </a>
+                                                            </td>
+                                                        </tr>
+                                                    @endforeach
+                                                @else
+                                                    <tr>
+                                                        <td colspan="7" class="text-muted">No order data available.</td>
+                                                    </tr>
+                                                @endif
+
+                                                <tr class="bg-light font-weight-bold">
+                                                    <td colspan="3"></td>
+                                                    <td>Total Order:</td>
+                                                    <td>৳{{ number_format($totalOrder ?? 0, 2) }}/-</td>
+                                                    <td colspan="2"></td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
                                     <div class="d-flex justify-content-end mt-3">
                                         {{ $order->links() }}
                                     </div>
@@ -146,6 +171,7 @@
 
                                 <div class="modal-footer">
                                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                    <a href="{{url('/delere/order/'.$val->reg)}}"><button type="button" class="btn btn-danger" onclick="return confirm('Are you sure you want to DELETE this bill?')">Delete</button></a>
                                     <button type="submit" id="btnSave{{$val->id}}" class="btn btn-success mr-2" disabled onclick="return confirm('Are you sure you want to Payment this bill?')">Payment</button>
                                 </div>
 

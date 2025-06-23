@@ -23,13 +23,12 @@ class OrderController extends Controller
     }
 
     public function menuView() {
-        $table = Table::where('status','1')->paginate(10);
         $food = Food::where('status', 1)->paginate(10);
         $order = Order::count() + 1;
         $invoice = Carbon::now()->format('Ymd').Auth::guard('admin')->id().$order;
         $count = Cart::where('reg', $invoice)->count();
         // dd($table, $food);
-        return view('dashboard.menu.menu', compact('food','table','count'));
+        return view('dashboard.menu.menu', compact('food','count'));
     }
 
     public function tableBooked($id) {
@@ -210,12 +209,46 @@ class OrderController extends Controller
             $order->due = 0;
         }
 
-        $table->status = 1;
+        $table->status = 1; // table empty
 
         //dd($order,$table);
         $table->update();
         $order->update();
         return redirect()->back()->with('success', $reg);
+    }
+
+    public function deleteOrder($reg) {
+        $order = Order::where('reg', $reg)->first();
+        $cartItems = Cart::where('reg', $reg)->get(); 
+        $table = Table::where('id', $order->tableId)->first();
+        $table->status = 1; // table empty
+        //dd($table);
+
+        if (!$order && $cartItems->isEmpty()) {
+            return redirect()->back()->with('warning', 'This item is not available right now.');
+        }
+
+        if ($order && is_null($order->payable) && is_null($order->pay)) {
+            
+
+            // update food stock 
+            foreach($cartItems as $item) {
+                if($item->food) {
+                    $item->food->stock += $item->quantity;
+                    $item->food->save();
+                }
+            }
+
+            $order->delete(); // delete order
+            $table->update();
+
+            if ($cartItems->isNotEmpty()) {
+                $cartItems->each->delete(); // delete cart item
+            }
+            return redirect()->back()->with('success', 'Your order and cart item(s) were deleted successfully.');
+        }
+
+        return redirect()->back()->with('warning', 'Order cannot be deleted. Food is already made and payment is complete.');
     }
 
     public function dueCollectionView() {
@@ -277,5 +310,47 @@ class OrderController extends Controller
         return redirect()->back()->with('success',$reg);
     }
 
+    public function editOrder($reg) {
+        $data = Cart::where('reg',$reg)->with('food')->get();
+        // dd($data);
+        $order = optional($data->get(1) ?? $data->first())->reg ?? '0000';
+        $table = Table::where('status', 1)->get();
+        $invoice = Carbon::now()->format('Ymd').Auth::guard('admin')->id().$order;
+        $count = Cart::where('reg', $invoice)->count();
+        $cart = Cart::where('reg', $invoice)->with('food','user')->get();
+        dd();
+        return view('dashboard.cart.cart_edit', compact('count', 'cart','table','invoice','data'));
+    }
+
+    public function editCartItem($reg)
+    {
+        $food = Food::where('status', 1)->paginate(10);
+        $count = Cart::where('reg', $reg)->count();
+        return view('dashboard.menu.addItem', compact('food','count','reg'));
+    }
     
+    public function addEditCartItem($id, $reg) {
+        $food = Food::where('id', $id)->first();
+        // dd($food, $id, $reg);
+        if($food->stock <= 0) {
+            return redirect()->back()->with('warning','This item not availabel righ now');
+        }
+        $find = Cart::where('reg', $reg)->where('foodId', $id)->first();
+        if($find) {
+            return redirect()->back()->with('warning', 'Item already added. Try to another item. If you add more quentity then go to cart.');
+        } else {
+            $cart = new Cart;
+
+            $cart->reg = $reg;
+            $cart->date = Carbon::now()->format('Y-m-d'); 
+            $cart->userId = Auth::guard('admin')->id();
+            $cart->foodId = $food->id;
+            $cart->price = $food->price;
+            $food->stock -= 1;
+            $food->update();
+            $cart->save();
+            return redirect()->back()->with('success', 'Item add to card successfully.');
+        }
+        
+    }
 }

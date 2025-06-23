@@ -50,6 +50,11 @@ Route::get('/cart-view', [OrderController::class, 'cartView'])->name('cart.view'
 Route::post('/cart/update-quantity', [OrderController::class, 'updateQuantity'])->name('cart.updateQuantity');
 Route::get('/remove-to-cart/{id}', [OrderController::class, 'removeCart']);
 Route::post('/confirm-order', [OrderController::class, 'confirmOrder']);
+Route::get('/delere/order/{reg}', [OrderController::class, 'deleteOrder']);
+
+Route::get('/edit/order/{reg}', [OrderController::class, 'editOrder'])->name('edit.order');
+Route::get('/add/item/cart/{reg}', [OrderController::class, 'editCartItem'])->name('edit.cart.item.order');
+Route::get('/edit/add/item/cart/{id}/{reg}', [OrderController::class, 'addEditCartItem'])->name('add.edit.cart.item.order');
 
 Route::get('/order-list', [OrderController::class, 'orderList'])->name('order.list.view');
 Route::post('/payment/{reg}',[OrderController::class, 'payment']);
