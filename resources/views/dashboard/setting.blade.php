@@ -59,7 +59,11 @@
                 <div class="col-lg-6 grid-margin stretch-card">
                     <div class="card">
                         <div class="card-body">
-                            <a href="{{url('/backup')}}">Backup DB</a>
+                            <h4 class="card-title">Back Up</h4>
+                            <a href="{{url('/backup')}}">
+                                <i class="mdi mdi-download" style="font-size: 16px; vertical-align: middle; margin-right: 6px;"></i>
+                                Backup DB
+                            </a>
                         </div>
                     </div>
                 </div>

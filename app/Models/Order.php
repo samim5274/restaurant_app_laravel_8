@@ -18,6 +18,7 @@ class Order extends Model
         'payable',
         'pay',
         'due',
+        'kitchen',
         'status'
     ];
 
