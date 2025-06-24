@@ -51,125 +51,124 @@
                 </div>
 
     <div class="row">
-        <div class="col-lg-8 col-md-12 grid-margin stretch-card">
-            <div class="card mt-2">
-                <div class="card-body p-2 p-md-4">
-                    <div class="table-responsive">
-                        <table class="table table-hover mb-0">
-                            <thead>
-                                <tr>
-                                    <th>SL</th>
-                                    <th>Food Name</th>
-                                    <th class="text-center">Price</th>
-                                    <th class="text-center">Qty</th>
-                                    <th class="text-center">Subtotal</th>
-                                    <th class="text-center">Action</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                @if($cart)
-                                    @foreach($cart as $key => $val)
-                                        <tr>
-                                            <td>{{ ++$key }}</td>
-                                            <td>{{ $val->food->name }}</td>
-                                            <td class="text-center" data-price="{{ $val->price }}">
-                                                ${{ number_format($val->price, 2) }}
-                                            </td>
-                                            <td class="text-center align-middle p-1">
-                                                <div class="input-group input-group-sm mx-auto" style="max-width: 100px;">
-                                                    <div class="input-group-prepend">
-                                                        <button type="button" 
-                                                            class="btn btn-outline-secondary btn-minus d-flex justify-content-center align-items-center px-2"
-                                                            data-id="{{ $val->id }}"
-                                                            style="height: 28px; width: 28px;">−</button>
-                                                    </div>
-                                                    <input type="number"
-                                                        class="form-control text-center qty-input p-0"
-                                                        value="{{ $val->quantity }}"
-                                                        min="1"
-                                                        name="txtStock"
-                                                        readonly
-                                                        data-id="{{ $val->id }}"
-                                                        style="width: 36px; height: 28px; font-size: 12px;">
-                                                    <div class="input-group-append">
-                                                        <button type="button" 
-                                                            class="btn btn-outline-secondary btn-plus d-flex justify-content-center align-items-center px-2"
-                                                            data-id="{{ $val->id }}"
-                                                            style="height: 28px; width: 28px;">+</button>
-                                                    </div>
-                                                </div>
-                                            </td>
-                                            <td class="text-center align-middle">
-                                                <span class="item-subtotal">${{ number_format($val->price * $val->quantity, 2) }}</span>
-                                            </td>
-                                            <td class="text-center">
-                                                <!-- <a href="{{ url('/remove-to-cart/' . $val->id) }}" class="text-danger" title="Remove Item">
-                                                    <i class="mdi mdi-cart-off fa-lg"></i>
-                                                </a> -->
-                                                <a href="#" class="text-danger remove-item-link" data-id="{{ $val->id }}">
-                                                    <i class="mdi mdi-cart-off fa-lg"></i>
-                                                </a>
-                                            </td>
-                                        </tr>
-                                    @endforeach
-                                @endif
-                            </tbody>
-                        </table>
+        <div class="col-lg-8 col-md-6">
+            <div class="row g-3">
+                @if($cart)
+                @foreach($cart as $key => $val)
+                <div class="col-lg-4 col-md-6 mt-3">
+                    <div class="card shadow-sm border-0 h-100">
+                        <div class="card-body p-3">
+                            <div class="d-flex justify-content-between align-items-center mb-2">
+                                <h5 class="mb-0 text-success">{{ $val->food->name }}</h5>
+                                <span class="badge bg-light text-dark">#{{ $key + 1 }}</span>
+                            </div>
+
+                            <div class="mb-2">
+                                <small class="text-muted">Price per item:</small><br>
+                                <strong class="text-dark" data-price="{{ $val->price }}">৳{{ number_format($val->price, 2) }}</strong>
+                            </div>
+
+                            <div class="d-flex align-items-center justify-content-between mb-3">
+                                <div class="text-muted">Quantity:</div>
+                                <div class="input-group input-group-sm" style="width: 120px;">
+                                    <button type="button" 
+                                        class="btn btn-outline-secondary btn-minus"
+                                        data-id="{{ $val->id }}"
+                                        style="padding: 0 6px; font-size: 14px; height: 28px;">−</button>
+
+                                    <input type="number"
+                                        class="form-control text-center qty-input"
+                                        value="{{ $val->quantity }}"
+                                        min="1"
+                                        name="txtStock"
+                                        readonly
+                                        data-id="{{ $val->id }}"
+                                        style="width: 36px; height: 28px; font-size: 13px; padding: 0;">
+
+                                    <button type="button" 
+                                            class="btn btn-outline-secondary btn-plus"
+                                            data-id="{{ $val->id }}"
+                                            style="padding: 0 6px; font-size: 14px; height: 28px;">+</button>
+                                </div>
+                            </div>
+
+                            <div class="d-flex justify-content-between align-items-center">
+                                <div class="text-muted">Total:</div>
+                                <h6 class="mb-0 text-success">
+                                    <span class="item-subtotal">৳{{ number_format($val->price * $val->quantity, 2) }}</span>
+                                </h6>
+                            </div>
+                        </div>
+
+                        <div class="card-footer bg-white border-0 d-flex justify-content-end">
+                            <button class="btn btn-sm btn-outline-danger remove-item-link"
+                                    data-id="{{ $val->id }}" title="Remove item">
+                                <i class="mdi mdi-cart-off"></i> Remove
+                            </button>
+                        </div>
                     </div>
                 </div>
+                @endforeach
+                @else
+                <div class="col-12 text-center py-4 text-muted">
+                    <i class="mdi mdi-cart-outline display-4 d-block mb-2"></i>
+                    <p class="mb-0">No items in your cart.</p>
+                </div>
+                @endif
             </div>
         </div>
-
-        <!-- Order Summary & Location -->
-        <div class="col-lg-4 col-md-12 grid-margin stretch-card">
+        <div class="col-lg-4 col-md-6 mt-2">
             <div class="card mt-2">
-                <form action="{{url('/confirm-order')}}" method="POST">
-                    @csrf
-                    <div class="card-body p-3 p-md-4">
-                        <input type="number" id="cart-total-input" hidden name="txtSubTotal" class="form-control mb-2" readonly value="{{ number_format($cart->sum(fn($i) => $i->price * $i->quantity), 0) }}">
-                        <input type="text" class="form-control mb-2" hidden value="{{ $invoice }}" readonly name="txtReg">
-                        <h4>Location</h4>
-                        <p><i class="mdi mdi-map-marker"></i> Uttara, Dhaka-1230</p>
-                        <hr>
-                        <div class="d-flex justify-content-between align-items-center mb-3">
-                            <h5 class="m-0">Subtotal ({{ $count }} items)</h5>
-                            <h5 class="card-title m-0">$<span id="cart-subtotal">{{ number_format($cart->sum(fn($i) => $i->price * $i->quantity), 0) }}</span>/-</h5>
+                <div class="card-body p-2 p-md-4">
+                    <form action="{{url('/confirm-order')}}" method="POST">
+                        @csrf
+                        <div class="card-body p-3 p-md-4">
+                            <input type="number" id="cart-total-input" hidden name="txtSubTotal" class="form-control mb-2" readonly value="{{ number_format($cart->sum(fn($i) => $i->price * $i->quantity), 0) }}">
+                            <input type="text" class="form-control mb-2" hidden value="{{ $invoice }}" readonly name="txtReg">
+                            <h4>Location</h4>
+                            <p><i class="mdi mdi-map-marker"></i> Uttara, Dhaka-1230</p>
+                            <hr>
+                            <div class="d-flex justify-content-between align-items-center mb-3">
+                                <h5 class="m-0">Subtotal ({{ $count }} items)</h5>
+                                <h5 class="card-title m-0">$<span id="cart-subtotal">{{ number_format($cart->sum(fn($i) => $i->price * $i->quantity), 0) }}</span>/-</h5>
+                            </div>
+                            <div class="d-flex justify-content-between align-items-center mb-3">
+                                <!-- <h5 class="m-0">Shipping Fee</h5>
+                                <h5 class="card-title m-0">$<span id="shipping-fee">0.00</span>/-</h5> -->
+                            </div>
+                            <div class="d-flex justify-content-between align-items-center mb-3">
+                                <!-- <h5 class="m-0">VAT %</h5>
+                                <h5 class="card-title m-0">$<span id="shipping-fee">0.00</span>/-</h5> -->
+                            </div>
+                            <div class="d-flex justify-content-between align-items-center mb-3">
+                                <!-- <h5 class="m-0">Discount</h5>
+                                <h5 class="card-title m-0">$<span id="shipping-fee">0.00</span>/-</h5> -->
+                            </div>
+                            <hr>
+                            <div class="d-flex justify-content-between align-items-center mb-3">
+                                <p class="m-0">Total</p>
+                                <h5 class="card-title m-0">$<span id="cart-total">{{ number_format($cart->sum(fn($i) => $i->price * $i->quantity), 0) }}</span>/-</h5>
+                            </div>
+                            <div class="d-flex justify-content-between align-items-center mb-3">
+                                <select class="form-control" id="exampleSelect" name="cbxTable">
+                                    <option disabled {{ empty($order->tableId) ? 'selected' : '' }}>-- Select Table --</option>
+                                    @foreach($table as $val)
+                                        <option value="{{ $val->id }}" 
+                                            {{ (isset($order) && $order->tableId == $val->id) ? 'selected' : '' }}>
+                                            {{ $val->tName }}
+                                        </option>
+                                    @endforeach
+                                </select>
+                            </div>
+                            <button type="submit" id="confirmBtn" class="btn btn-outline-success w-100" disabled>
+                                <h4 class="m-0">Confirm Order</h4>
+                            </button>
                         </div>
-                        <div class="d-flex justify-content-between align-items-center mb-3">
-                            <!-- <h5 class="m-0">Shipping Fee</h5>
-                            <h5 class="card-title m-0">$<span id="shipping-fee">0.00</span>/-</h5> -->
-                        </div>
-                        <div class="d-flex justify-content-between align-items-center mb-3">
-                            <!-- <h5 class="m-0">VAT %</h5>
-                            <h5 class="card-title m-0">$<span id="shipping-fee">0.00</span>/-</h5> -->
-                        </div>
-                        <div class="d-flex justify-content-between align-items-center mb-3">
-                            <!-- <h5 class="m-0">Discount</h5>
-                            <h5 class="card-title m-0">$<span id="shipping-fee">0.00</span>/-</h5> -->
-                        </div>
-                        <hr>
-                        <div class="d-flex justify-content-between align-items-center mb-3">
-                            <p class="m-0">Total</p>
-                            <h5 class="card-title m-0">$<span id="cart-total">{{ number_format($cart->sum(fn($i) => $i->price * $i->quantity), 0) }}</span>/-</h5>
-                        </div>
-                        <div class="d-flex justify-content-between align-items-center mb-3">
-                            <select class="form-control" id="exampleSelect" name="cbxTable">
-                                <option selected disabled >-- Select Table --</option>
-                                @foreach($table as $val)
-                                <option value="{{ $val->id }}">{{ $val->tName }}</option>
-                                @endforeach
-                            </select>
-                        </div>
-
-                        <button type="submit" id="confirmBtn" class="btn btn-outline-success w-100" disabled>
-                            <h4 class="m-0">Confirm Order</h4>
-                        </button>
-                    </div>
-                </form>                
-            </div>
+                    </form> 
+                </div>
+            </div>        
         </div>
     </div>
-
             </div>
 
         </div>

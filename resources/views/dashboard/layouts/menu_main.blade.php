@@ -84,7 +84,7 @@
       <div class="collapse" id="auth">
         <ul class="nav flex-column sub-menu">
           <li class="nav-item"> <a class="nav-link" href="{{url('/total-sale')}}"> Total Sale </a></li>
-          <li class="nav-item"> <a class="nav-link" href="#"> Total Order </a></li>
+          <li class="nav-item"> <a class="nav-link" href="{{url('/day-wise-report')}}"> Day wise Reports </a></li>
           <li class="nav-item"> <a class="nav-link" href="{{url('/report-due-list')}}"> Due List </a></li>
         </ul>
       </div>

@@ -71,3 +71,6 @@ Route::get('/download-invoice/{reg}', [SaleController::class, 'downloadPdf'])->n
 
 Route::get('/total-sale', [SaleController::class, 'totalSale'])->name('sale.view');
 Route::get('/report-due-list', [SaleController::class, 'dueCollectioListView'])->name('due.view');
+Route::get('/day-wise-report', [SaleController::class, 'dayWiseReport'])->name('day.wise.report.view');
+Route::post('/search-report-date-wise', [SaleController::class, 'SearchReportDateWise']);
+Route::get('/download', [SaleController::class, 'download']);
