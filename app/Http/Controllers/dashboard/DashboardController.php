@@ -5,6 +5,10 @@ namespace App\Http\Controllers\dashboard;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
+use Illuminate\Support\Facades\Artisan;
+use Illuminate\Support\Facades\Storage;
+use Symfony\Component\HttpFoundation\StreamedResponse;
+
 use App\Models\Table;
 use App\Models\Food;
 use App\Models\Order;
@@ -86,4 +90,18 @@ class DashboardController extends Controller
         }        
     }
 
+    public function backup() {
+        Artisan::call('backup:run', [
+            '--only-db' => true
+        ]);
+        
+        $files = Storage::disk('local')->files('Laravel');
+
+        if (empty($files)) {
+            return response()->json(['message' => 'No backup file found.'], 404);
+        }
+
+        $latestFile = collect($files)->sortDesc()->first();
+        return Storage::disk('local')->download($latestFile);
+    }
 }

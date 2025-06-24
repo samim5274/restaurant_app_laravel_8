@@ -29,6 +29,8 @@ Route::post('/table-detail-update/{id}', [DashboardController::class, 'editTable
 Route::get('/table-detail-delete/{id}', [DashboardController::class, 'deleteTable']);
 Route::get('/table', [DashboardController::class, 'tableView']);
 
+Route::get('/backup', [DashboardController::class, 'backup']);
+
 // ================================================ Food controler route // ================================================
 
 Route::get('/food', [FoodController::class, 'foodView'])->name('food.view');
