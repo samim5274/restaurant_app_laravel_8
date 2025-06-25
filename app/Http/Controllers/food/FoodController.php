@@ -159,4 +159,35 @@ class FoodController extends Controller
         // dd($category);
         return view('dashboard.food.one_Food', compact('food','category'));
     }
+
+    public function liveSearch(Request $request) {
+        // https://www.youtube.com/watch?v=BL0v0pduwPo
+        $output = "";
+
+        $food = Food::where('name', 'like','%'.$request->search.'%')->orWhere('category', 'like','%'.$request->search.'%')->get();
+
+        foreach($food as $val) {
+            $name = strlen($val->name) > 22 ? substr($val->name, 0, 22) . '...' : $val->name;
+            $ingradient = strlen($val->ingredients) > 40 ? substr($val->ingredients, 0, 40) . '...' : $val->ingredients;
+            $imagePath = asset('img/food/' . $val->image);
+            $link = url('/specific-food-view/'.$val->id);
+            $addCart = url('/add-to-cart/'.$val->id);
+
+            $output .= '
+            <div class="col-xl-3 col-lg-4 col-md-6 col-sm-12 mb-4">
+                <div class="card h-100 shadow-sm">
+                    '.'<a href="'.$link.'"><img src="'.$imagePath.'" class="card-img-top" alt="image not found"></a>'.'
+                    <div class="card-body d-flex flex-column">
+                        <h4 class="card-title">'.'<a href="'.$link.'">'.$name.' - ৳'.$val->price.'/-</a>'.'</h4>
+                        <p>'.$ingradient.'</p>
+                        '.'<a href="'.$addCart.'" class="mt-auto btn btn-outline-success w-100">
+                            <i class="mdi mdi-cart-plus fa-lg" aria-hidden="true" style="font-size: 1rem;"></i>
+                            <span style="font-size: 1rem;" class="mb-0">Add Cart</span>
+                        </a>'.'
+                    </div>  
+                </div>  
+            </div>';
+        }
+        return response($output);
+    }
 }

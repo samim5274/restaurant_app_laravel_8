@@ -16,6 +16,7 @@
     <link rel="stylesheet" href="/dash/assets/css/style.css">
 
     <link rel="shortcut icon" href="/dash/assets/images/favicon.png" />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 </head>
 <body>
 
@@ -36,7 +37,7 @@
             <div class="content-wrapper">
 
                 <div class="page-header">
-                    <h3 class="page-title"> Select Table </h3>
+                    <h3 class="page-title"> Food List </h3>
                     <nav aria-label="breadcrumb">
                         <ol class="breadcrumb">
                              @if($count)<li class="breadcrumb-item"><a href="{{url('/cart-view')}}">Cart  <span class="badge badge-success">[{{ $count }}]</span> </a></li>@endif
@@ -45,77 +46,46 @@
                         </ol>
                     </nav>
                 </div>
-                <div class="row">     
-                    <!-- <div class="col-lg-12 grid-margin stretch-card">
+                <div class="row">
+                    
+                    <div class="col-lg-12 grid-margin stretch-card">
                         <div class="card mt-2">
                             <div class="card-body">
                                 <div class="d-flex justify-content-between align-items-center mb-3">
-                                    <h4 class="card-title mb-0">Select Food</h4>
+                                    <h4 class="card-title mb-0">Search Food</h4>
+                                    <div class="container">
+                                        <div class="py-4">
+                                            <input type="search" name="search" id="search" class="form-control py-4" placeholder="Search bt food name or category">
+                                        </div>
+                                    </div>
                                     @if($count)<a href="{{url('/cart-view')}}">
                                         <button class="btn btn-inverse-primary"><i class="mdi mdi-cart fa-lg" aria-hidden="true"></i> Cart <span class="badge badge-danger">{{$count}}</span></button>
                                     </a>
                                     @endif
                                 </div>
-                                <div class="table-responsive">
-                                     <table class="table table-hover">
-                                        <thead>
-                                            <tr>
-                                                <th>SL</th>
-                                                <th>Image</th>
-                                                <th>Food Name</th>
-                                                <th>Ingredients</th>
-                                                <th>Details</th>
-                                                <th class="text-center">Price</th>
-                                                <th class="text-center">Action</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            @if($food)
-                                                @php
-                                                    $sl = ($food->currentPage() - 1) * $food->perPage() + 1;
-                                                @endphp
-                                                @foreach($food as $val)
-                                                    <tr>
-                                                        <td>{{ $sl++ }}</td>
-                                                        <td>
-                                                            <img src="{{ asset('img/food/' . $val->image) }}" alt="Image not found" width="100">
-                                                        </td>
-                                                        <td>{{ $val->name }}</td>
-                                                        <td>{{ $val->ingredients }}</td>
-                                                        <td>{{ $val->remark }}</td>
-                                                        <td class="text-center">{{ $val->price }}</td>
-                                                        <td class="text-center">
-                                                            <a href="{{ url('/add-to-cart/' . $val->id) }}">
-                                                                <i class="mdi mdi-cart-plus fa-lg" aria-hidden="true"></i>
-                                                            </a>
-                                                        </td>
-                                                    </tr>
-                                                @endforeach
-                                            @endif
-                                        </tbody>
-                                    </table> 
-                                </div>
                             </div> 
                         </div>
-                    </div> -->
+                    </div>
+                           
                     @if($food)
-                        @foreach($food as $val)
-                            <div class="col-xl-3 col-lg-4 col-md-6 col-sm-12 mb-4">
-                                <div class="card h-100 shadow-sm">
-                                    <a href="{{url('/specific-food-view/'.$val->id)}}"><img src="{{ asset('img/food/' . $val->image) }}" class="card-img-top" alt="image not found"></a>
-                                    <div class="card-body d-flex flex-column">
-                                        <h4 class="card-title"><a href="{{url('/specific-food-view/'.$val->id)}}">{{strlen($val->name) > 22 ? substr($val->name, 0, 22).'...' : $val->name}} - ৳{{ $val->price }}/-</a></h4>
-                                        <p>{{ strlen($val->ingredients) > 40 ? substr($val->ingredients, 0, 40) . '...' : $val->ingredients }}</p>
-                                        <a href="{{ url('/add-to-cart/'.$val->id) }}" class="mt-auto btn btn-outline-success w-100">
-                                            <i class="mdi mdi-cart-plus fa-lg" aria-hidden="true" style="font-size: 1rem;"></i>
-                                            <span style="font-size: 1rem;" class="mb-0">Add Cart</span>
-                                        </a>
-                                    </div>
-                                </div>
+                    @foreach($food as $val)
+                    <div class="col-xl-3 col-lg-4 col-md-6 col-sm-12 mb-4 allData">
+                        <div class="card h-100 shadow-sm">
+                            <a href="{{url('/specific-food-view/'.$val->id)}}"><img src="{{ asset('img/food/' . $val->image) }}" class="card-img-top" alt="image not found"></a>
+                            <div class="card-body d-flex flex-column">
+                                <h4 class="card-title"><a href="{{url('/specific-food-view/'.$val->id)}}">{{strlen($val->name) > 22 ? substr($val->name, 0, 22).'...' : $val->name}} - ৳{{ $val->price }}/-</a></h4>
+                                <!-- <span>Category: {{$val->category }}</span> -->
+                                <p>Ingredients: {{ strlen($val->ingredients) > 40 ? substr($val->ingredients, 0, 40) . '...' : $val->ingredients }}</p>
+                                <a href="{{ url('/add-to-cart/'.$val->id) }}" class="mt-auto btn btn-outline-success w-100">
+                                    <i class="mdi mdi-cart-plus fa-lg" aria-hidden="true" style="font-size: 1rem;"></i>
+                                    <span style="font-size: 1rem;" class="mb-0">Add Cart</span>
+                                </a>
                             </div>
-                        @endforeach
+                        </div>
+                    </div>
+                    @endforeach
                     @endif
-                        
+                    <div class="row searchData" id="content"></div>
                 </div>
             </div>
 
@@ -144,6 +114,31 @@
     <!-- End custom js for this page -->
     <script src="/dash/assets/js/food.js"></script>
     
+    <script type="text/javascript">
+        //https://www.youtube.com/watch?v=BL0v0pduwPo live search
+        $('#search').on('keyup', function() {
+            $value = $(this).val(); 
+            if($value) {
+                $('.allData').hide();
+                $('.searchData').show();
+            } else {
+                $('.allData').show();
+                $('.searchData').hide();
+            }
+            $.ajax({
+                type:'get',
+                url: '{{URL::to("live-search-food-menu")}}',
+                data:{'search':$value},
 
+                success:function(data) {
+                    console.log(data);
+                    $('#content').html(data);
+                },
+                error: function(xhr, status, error) {
+                    console.error('Search AJAX error:', error);
+                }
+            });
+        });
+    </script>
 </body>
 </html>

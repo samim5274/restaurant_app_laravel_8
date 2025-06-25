@@ -43,6 +43,8 @@ Route::group(['middleware' => ['admin']], function () {
     Route::get('/food/delete/{id}', [FoodController::class, 'foodDelete']);
     Route::get('/specific-food-view/{id}', [FoodController::class, 'SpecificFoodView'])->name('specific.food.view');
 
+    Route::get('/live-search-food-menu', [FoodController::class, 'liveSearch']);
+
     // ================================================ Order controler route // ================================================
 
     Route::get('/empty', [OrderController::class, 'orderView'])->name('order.view');
