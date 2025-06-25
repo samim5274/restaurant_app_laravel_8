@@ -64,7 +64,7 @@
     <li class="nav-item">
       <a class="nav-link" data-toggle="collapse" href="#ui-basic-2" aria-expanded="false" aria-controls="ui-basic-2">
         <span class="icon-bg"><i class="mdi mdi-crosshairs-gps menu-icon"></i></span>
-        <span class="menu-title">Kitchen</span>
+        <span class="menu-title">Kitchen</span>@if($kitchen) <div class="badge badge-success">{{$kitchen}}</div>@endif
         <i class="menu-arrow"></i>
       </a>
       <div class="collapse" id="ui-basic-2">

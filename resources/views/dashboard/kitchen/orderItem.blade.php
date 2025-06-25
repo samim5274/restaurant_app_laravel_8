@@ -58,7 +58,8 @@
                                 <th scope="col">Date</th>
                                 <th scope="col">REG</th>
                                 <th scope="col">Table</th>
-                                <th scope="col" style="width: 80px;">Status</th>
+                                <th scope="col">Status</th>
+                                <th scope="col" style="width: 80px;">Action</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -67,22 +68,28 @@
                                     <tr>
                                         <td>{{ $key + 1 }}</td>
                                         <td>{{ $val->date }}</td>
+                                        <td><a href="{{ url('/list/order/' . $val->reg) }}" class="text-primary font-weight-bold">ORD-{{ $val->reg }}</a></td>
+                                        <td><a href="{{ url('/list/order/' . $val->reg) }}">{{ $val->table->tName ?? 'N/A' }}</a></td>                                        
                                         <td>
-                                            <a href="{{ url('/list/order/' . $val->reg) }}" class="text-primary font-weight-bold">
-                                                ORD-{{ $val->reg }}
-                                            </a>
+                                            @php
+                                                $statuses = [
+                                                    1 => 'Pending',
+                                                    2 => 'Preparing',
+                                                    3 => 'Ready',
+                                                    4 => 'Served'
+                                                ];
+                                                $colors = [
+                                                    1 => 'danger',
+                                                    2 => 'warning',
+                                                    3 => 'info text-white',
+                                                    4 => 'success'
+                                                ];
+                                            @endphp    
+                                            <span class="badge bg-{{ $colors[$val->kitchen] ?? 'secondary' }}">
+                                                {{ $statuses[$val->kitchen] ?? 'Unknown' }}
+                                            </span>
                                         </td>
-                                        <td>
-                                            <a href="{{ url('/list/order/' . $val->reg) }}">
-                                                {{ $val->table->tName ?? 'N/A' }}
-                                            </a>
-                                        </td>
-                                        
-                                        <td>
-                                            <button class="btn btn-outline-success btn-sm" data-toggle="modal" data-target="#exampleModal{{ $val->id }}">
-                                                Status
-                                            </button>
-                                        </td>
+                                        <td><button class="btn btn-outline-success btn-sm" data-toggle="modal" data-target="#exampleModal{{ $val->id }}">Status</button></td>
                                     </tr>
                                 @endforeach
                             @else
@@ -92,7 +99,7 @@
                             @endif
 
                             <tr class="bg-light font-weight-bold">
-                                <td colspan="5">Note: All Order is urgent.</td>
+                                <td colspan="6">Note: All Order is urgent.</td>
                             </tr>
                         </tbody>
                     </table>
@@ -121,7 +128,7 @@
                                     <div class="form-group row align-items-center mb-3">
                                         <label for="statusSelect{{ $val->id }}" class="col-sm-3 col-form-label">Status:</label>
                                         <div class="col-sm-9">
-                                            <select class="form-control" id="statusSelect{{ $val->id }}" name="status">
+                                            <select class="form-control" id="statusSelect{{ $val->id }}" name="cbxStatus">
                                                 <option disabled {{ empty($order->tableId) ? 'selected' : '' }}>-- Select Status --</option>
                                                 <option value="1">Pending</option>
                                                 <option value="2">Preparing</option>

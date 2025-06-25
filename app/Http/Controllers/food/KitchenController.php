@@ -15,8 +15,7 @@ use Auth;
 class KitchenController extends Controller
 {
     public function showOrder() {
-        $date = Carbon::now()->format('Y-m-d');
-        $order = Order::where('date', $date)->where('status', 1)->get();
+        $order = Order::where('date', Carbon::now()->format('Y-m-d'))->orderBy('id', 'desc')->get();
         // dd($order);
         return view('dashboard.kitchen.orderItem', compact('order'));
     }
@@ -27,13 +26,13 @@ class KitchenController extends Controller
     }
 
     public function updateKitchenStatus(Request $request, $reg) {
-        $order = Order::where('reg', $reg)->get();
+        $order = Order::where('reg', $reg)->first();
         if(!$order) {
             return redirect()->back()->with('warning','Somethimg is wrong. Please try again');
         }
-        $order->kitchen = $request->input('status');
+        $order->kitchen = $request->input('cbxStatus');
         // dd($order);
-        // $order->update();
+        $order->save();
         return redirect()->back()->with('success','Your order status updated successfully.');
     }
 }

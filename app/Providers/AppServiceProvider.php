@@ -33,8 +33,13 @@ class AppServiceProvider extends ServiceProvider
         Paginator::useBootstrap();
         View::composer('dashboard.layouts.*', function ($view) {
             $order = Order::count() + 1;
+            $kitchen = Order::where('kitchen','!=', 4)->count();
             $invoice = Carbon::now()->format('Ymd').Auth::guard('admin')->id().$order;
-            $view->with('count', Cart::where('reg', $invoice)->count());
+
+            $view->with([
+                'kitchen' => $kitchen,
+                'count' => Cart::where('reg', $invoice)->count()
+            ]);
         });
     }
 }
