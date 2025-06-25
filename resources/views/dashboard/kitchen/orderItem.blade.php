@@ -21,6 +21,7 @@
     <link rel="stylesheet" href="/dash/assets/css/style.css">
     <!-- End layout styles -->
     <link rel="shortcut icon" href="/dash/assets/images/favicon.png" />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 </head>
 <body>
 
@@ -42,6 +43,11 @@
 
                 <div class="page-header">
                     <h3 class="page-title"> Total Order list</h3>
+                    <div class="container">
+                        <div class="py-4">
+                            <input type="search" name="search" id="search" class="form-control py-4" placeholder="Search by order">
+                        </div>
+                    </div>
                     <nav aria-label="breadcrumb">
                         <ol class="breadcrumb">
                             <li class="breadcrumb-item"><a href="{{url('/show-order-item')}}">Order list</a></li>
@@ -51,58 +57,61 @@
                 </div>
 
                 <div class="row">
-                    <table class="table table-sm table-striped table-hover align-middle text-center border">
-                        <thead class="bg-success text-white">
-                            <tr>
-                                <th scope="col">#SL</th>
-                                <th scope="col">Date</th>
-                                <th scope="col">REG</th>
-                                <th scope="col">Table</th>
-                                <th scope="col">Status</th>
-                                <th scope="col" style="width: 80px;">Action</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @if($order)
-                                @foreach($order as $key => $val)
-                                    <tr>
-                                        <td>{{ $key + 1 }}</td>
-                                        <td>{{ $val->date }}</td>
-                                        <td><a href="{{ url('/list/order/' . $val->reg) }}" class="text-primary font-weight-bold">ORD-{{ $val->reg }}</a></td>
-                                        <td><a href="{{ url('/list/order/' . $val->reg) }}">{{ $val->table->tName ?? 'N/A' }}</a></td>                                        
-                                        <td>
-                                            @php
-                                                $statuses = [
-                                                    1 => 'Pending',
-                                                    2 => 'Preparing',
-                                                    3 => 'Ready',
-                                                    4 => 'Served'
-                                                ];
-                                                $colors = [
-                                                    1 => 'danger',
-                                                    2 => 'warning',
-                                                    3 => 'info text-white',
-                                                    4 => 'success'
-                                                ];
-                                            @endphp    
-                                            <span class="badge bg-{{ $colors[$val->kitchen] ?? 'secondary' }}">
-                                                {{ $statuses[$val->kitchen] ?? 'Unknown' }}
-                                            </span>
-                                        </td>
-                                        <td><button class="btn btn-outline-success btn-sm" data-toggle="modal" data-target="#exampleModal{{ $val->id }}">Status</button></td>
-                                    </tr>
-                                @endforeach
-                            @else
+                    <div class="table-responsive">
+                        <table class="table table-sm table-striped table-hover align-middle text-center border">
+                            <thead class="bg-success text-white">
                                 <tr>
-                                    <td colspan="7" class="text-muted">No order data available.</td>
+                                    <th scope="col">#SL</th>
+                                    <th scope="col">Date</th>
+                                    <th scope="col">REG</th>
+                                    <th scope="col">Table</th>
+                                    <th scope="col">Status</th>
+                                    <th scope="col" style="width: 80px;">Action</th>
                                 </tr>
-                            @endif
+                            </thead>
+                            <tbody class="searchData" id="content"></tbody>
+                            <tbody class="allData">
+                                @if($order)
+                                    @foreach($order as $key => $val)
+                                        <tr>
+                                            <td>{{ $key + 1 }}</td>
+                                            <td>{{ $val->date }}</td>
+                                            <td><a href="{{ url('/list/order/' . $val->reg) }}" class="text-primary font-weight-bold">ORD-{{ $val->reg }}</a></td>
+                                            <td><a href="{{ url('/list/order/' . $val->reg) }}">{{ $val->table->tName ?? 'N/A' }}</a></td>                                        
+                                            <td>
+                                                @php
+                                                    $statuses = [
+                                                        1 => 'Pending',
+                                                        2 => 'Preparing',
+                                                        3 => 'Ready',
+                                                        4 => 'Served'
+                                                    ];
+                                                    $colors = [
+                                                        1 => 'danger',
+                                                        2 => 'warning',
+                                                        3 => 'info text-white',
+                                                        4 => 'success'
+                                                    ];
+                                                @endphp    
+                                                <span class="badge bg-{{ $colors[$val->kitchen] ?? 'secondary' }}">
+                                                    {{ $statuses[$val->kitchen] ?? 'Unknown' }}
+                                                </span>
+                                            </td>
+                                            <td><button class="btn btn-outline-success btn-sm" data-toggle="modal" data-target="#exampleModal{{ $val->id }}">Status</button></td>
+                                        </tr>
+                                    @endforeach
+                                @else
+                                    <tr>
+                                        <td colspan="7" class="text-muted">No order data available.</td>
+                                    </tr>
+                                @endif
 
-                            <tr class="bg-light font-weight-bold">
-                                <td colspan="6">Note: All Order is urgent.</td>
-                            </tr>
-                        </tbody>
-                    </table>
+                                <tr class="bg-light font-weight-bold">
+                                    <td colspan="6">Note: All Order is urgent.</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
 
 
@@ -180,6 +189,30 @@
     <!-- Custom js for this page -->
     <script src="/dash/assets/js/dashboard.js"></script>
     <!-- End custom js for this page -->
-    
+    <script type="text/javascript">
+        $('#search').on('keyup', function() {
+            $value = $(this).val();
+            if($value) {
+                $('.allData').hide();
+                $('.searchData').show();
+            } else {
+                $('.allData').show();
+                $('.searchData').hide();
+            }
+            $.ajax({
+                type: 'get',
+                url: '{{URL::to("live-search-kitchen")}}',
+                data:{'search':$value},
+
+                success:function(data) {
+                    console.log(data);
+                    $('#content').html(data);
+                },
+                error: function(xhr, status, error) {
+                    console.error('Search AJAX error:', error);
+                }
+            });
+        });
+    </script>
 </body>
 </html>

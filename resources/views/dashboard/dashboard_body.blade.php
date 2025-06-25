@@ -94,12 +94,23 @@
             </div>
 
             {{-- Stock --}}
-            <div class="col-xl-6 col-lg-6 col-sm-6 mb-4">
+            <div class="col-xl-3 col-lg-6 col-sm-6 mb-4">
               <div class="card border-success shadow-sm h-100">
                 <div class="card-body d-flex flex-column justify-content-center align-items-center text-center">
                   <i class="fas fa-boxes mb-2 text-success"></i> 
                   <h6 class="text-muted mb-1">Stock</h6>
                   <h3 class="text-success font-weight-bold mb-0">{{ $stock }}</h3>
+                </div>
+              </div>
+            </div>
+
+            {{-- Short Stock --}}
+            <div class="col-xl-3 col-lg-6 col-sm-6 mb-4">
+              <div class="card border-success shadow-sm h-100">
+                <div class="card-body d-flex flex-column justify-content-center align-items-center text-center">
+                  <i class="mdi mdi-clipboard-arrow-down  mb-2 text-warning"></i> 
+                  <h6 class="text-muted mb-1">Short Stock</h6>
+                  <h3 class="text-warning font-weight-bold mb-0">{{ $shortStock }}</h3>
                 </div>
               </div>
             </div>
@@ -128,17 +139,6 @@
               </div>
             </div>
 
-            {{-- Ordered --}}
-            <div class="col-xl-3 col-lg-6 col-sm-6 mb-4">
-              <div class="card border-danger shadow-sm h-100">
-                <div class="card-body d-flex flex-column justify-content-center align-items-center text-center">
-                  <i class="fas fa-concierge-bell mb-2 text-warning"></i> 
-                  <h6 class="text-muted mb-1">Ordered</h6>
-                  <h3 class="text-warning font-weight-bold mb-0">{{ $tableOrder }}</h3>
-                </div>
-              </div>
-            </div>
-
             {{-- Reserved --}}
             <div class="col-xl-3 col-lg-6 col-sm-6 mb-4">
               <div class="card border-warning shadow-sm h-100">
@@ -146,6 +146,17 @@
                   <i class="fas fa-calendar-check mb-2 text-danger"></i> 
                   <h6 class="text-muted mb-1">Reserved</h6>
                   <h3 class="text-danger font-weight-bold mb-0">{{ $tableReserved }}</h3>
+                </div>
+              </div>
+            </div>
+
+            {{-- Ordered --}}
+            <div class="col-xl-3 col-lg-6 col-sm-6 mb-4">
+              <div class="card border-danger shadow-sm h-100">
+                <div class="card-body d-flex flex-column justify-content-center align-items-center text-center">
+                  <i class="fas fa-concierge-bell mb-2 text-warning"></i> 
+                  <h6 class="text-muted mb-1">Ordered</h6>
+                  <h3 class="text-warning font-weight-bold mb-0">{{ $tableOrder }}</h3>
                 </div>
               </div>
             </div>

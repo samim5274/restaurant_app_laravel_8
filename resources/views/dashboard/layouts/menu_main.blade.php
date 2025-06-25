@@ -22,37 +22,37 @@
     <li class="nav-item">
       <a class="nav-link {{ request()->is('cart-view') ? 'active' : '' }}" href="{{url('/cart-view')}}">
         <span class="icon-bg"><i class="mdi mdi-cart menu-icon"></i></span>
-        <span class="menu-title">Cart</span>
+        <span class="menu-title">Cart</span>@if($count) <div class="badge badge-success">{{$count}}</div>@endif
       </a>
     </li>
 
     <li class="nav-item">
       <a class="nav-link {{ request()->is('order-list') ? 'active' : '' }}" href="{{ url('/order-list') }}">
         <span class="icon-bg"><i class="mdi mdi-contacts menu-icon"></i></span>
-        <span class="menu-title">Order List</span>
+        <span class="menu-title">Order List</span></span>@if($order) <div class="badge badge-success">{{$order}}</div>@endif
       </a>
     </li>
 
     <li class="nav-item">
       <a class="nav-link {{ request()->is('due-collection') ? 'active' : '' }}" href="{{ url('/due-collection') }}">
         <span class="icon-bg"><i class=" mdi mdi-view-list menu-icon"></i></span>
-        <span class="menu-title">Due Collection</span>
+        <span class="menu-title">Due Collection</span>@if($due) <div class="badge badge-success">{{$due}}</div>@endif
       </a>
     </li>
 
-    <li class="nav-item">
+    <!-- <li class="nav-item">
       <a class="nav-link" href="#">
         <span class="icon-bg"><i class="mdi mdi-format-list-bulleted menu-icon"></i></span>
         <span class="menu-title">Booking list</span>
       </a>
-    </li>
+    </li> -->
 
-    <li class="nav-item">
+    <!-- <li class="nav-item">
       <a class="nav-link" href="#">
         <span class="icon-bg"><i class="mdi mdi-chart-bar menu-icon"></i></span>
         <span class="menu-title">Populer Food</span>
       </a>
-    </li>
+    </li> -->
 
     <li class="nav-item">
       <a class="nav-link {{ request()->is('empty') ? 'active' : '' }}" href="{{ url('/empty') }}">
@@ -63,7 +63,7 @@
 
     <li class="nav-item">
       <a class="nav-link" data-toggle="collapse" href="#ui-basic-2" aria-expanded="false" aria-controls="ui-basic-2">
-        <span class="icon-bg"><i class="mdi mdi-crosshairs-gps menu-icon"></i></span>
+        <span class="icon-bg"><i class=" mdi mdi-chart-bubble menu-icon"></i></span>
         <span class="menu-title">Kitchen</span>@if($kitchen) <div class="badge badge-success">{{$kitchen}}</div>@endif
         <i class="menu-arrow"></i>
       </a>

@@ -55,7 +55,7 @@
                                     <h4 class="card-title mb-0">Search Food</h4>
                                     <div class="container">
                                         <div class="py-4">
-                                            <input type="search" name="search" id="search" class="form-control py-4" placeholder="Search bt food name or category">
+                                            <input type="search" name="search" id="search" class="form-control py-4" placeholder="Search by food name or category">
                                         </div>
                                     </div>
                                     @if($count)<a href="{{url('/cart-view')}}">

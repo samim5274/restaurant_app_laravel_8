@@ -33,7 +33,9 @@ class DashboardController extends Controller
         // food stock
         $food = Food::count();
         $stock = Food::sum('stock');
-        return view('dashboard.dashboard', compact('data','total','totalPay','totalDiscount','totalPayable','totalDue','totalTable','tableEmpty','tableOrder','tableReserved','food','stock'));
+        $shortStock = Food::where('stock','<=', 5)->count();
+
+        return view('dashboard.dashboard', compact('data','total','totalPay','totalDiscount','totalPayable','totalDue','totalTable','tableEmpty','tableOrder','tableReserved','food','stock','shortStock'));
     }
 
     // ================================================================= table create section =================================================================

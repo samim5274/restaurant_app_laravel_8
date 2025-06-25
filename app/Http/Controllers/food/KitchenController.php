@@ -35,4 +35,46 @@ class KitchenController extends Controller
         $order->save();
         return redirect()->back()->with('success','Your order status updated successfully.');
     }
+
+    public function searchKitchen(Request $request) {
+        $output = "";
+
+        $orderList = Order::where('date', Carbon::now()->format('Y-m-d'))->where('reg', 'like', '%'.$request->search.'%')->with('table')->get();
+        
+        $statuses = [
+            1 => 'Pending',
+            2 => 'Preparing',
+            3 => 'Ready',
+            4 => 'Served'
+        ];
+
+        $colors = [
+            1 => 'danger',
+            2 => 'warning',
+            3 => 'info text-white',
+            4 => 'success'
+        ];
+
+        foreach($orderList as $key => $val) {
+            $statusText = $statuses[$val->kitchen] ?? 'Unknown';
+            $statusColor = $colors[$val->kitchen] ?? 'secondary';
+            $link = url('/list/order/' . $val->reg);
+            $output .= '
+            <tr>
+                <td>' . ++$key . '</td>
+                <td>' . $val->date . '</td>
+                <td class="text-center"><a href="'.$link.'" class="text-primary font-weight-bold">ORD-' . $val->reg . '</a></td>
+                <td class="text-center"><a href="'.$link.'" class="text-primary font-weight-bold">' . ($val->table->tName ?? 'N/A') . '</a></td>
+                <td class="text-center">
+                    <span class="badge bg-' . $statusColor . '">' . $statusText . '</span>
+                </td>
+                <td class="text-center">
+                    <button class="btn btn-sm btn-success text-white" data-toggle="modal" data-target="#exampleModal' . $val->id . '">
+                        <h6 class="m-0">Pay</h6>
+                    </button>
+                </td>
+            </tr>';
+        }
+        return response($output);
+    }
 }

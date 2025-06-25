@@ -68,6 +68,9 @@ Route::group(['middleware' => ['admin']], function () {
     Route::get('/due-collection', [OrderController::class, 'dueCollectionView'])->name('due.list');
     Route::post('/due-payment/{reg}', [OrderController::class, 'dueCollection']);
 
+    Route::get('/live-search-order', [OrderController::class, 'liveSearchOrder']);
+    Route::get('/live-search-due', [OrderController::class, 'liveSearchDue']);
+
     // ================================================ sale report route // ================================================
 
     Route::get('/get-invoice/{reg}', [SaleController::class, 'getPdf'])->name('invoice.get');
@@ -84,5 +87,7 @@ Route::group(['middleware' => ['admin']], function () {
     Route::get('/show-order-item', [KitchenController::class, 'showOrder'])->name('kitchen.order.show');
     Route::get('/list/order/{reg}', [KitchenController::class, 'listOrder'])->name('list.order.view');
     Route::post('/update-kitchen-status/{reg}', [KitchenController::class, 'updateKitchenStatus']);
+
+    Route::get('/live-search-kitchen', [KitchenController::class, 'searchKitchen']);
 
 });

@@ -21,6 +21,7 @@
     <link rel="stylesheet" href="/dash/assets/css/style.css">
     <!-- End layout styles -->
     <link rel="shortcut icon" href="/dash/assets/images/favicon.png" />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 </head>
 <body>
 
@@ -42,6 +43,11 @@
 
                 <div class="page-header">
                     <h3 class="page-title"> Total Order list</h3>
+                    <div class="container">
+                        <div class="py-4">
+                            <input type="search" name="search" id="search" class="form-control py-4" placeholder="Search by order">
+                        </div>
+                    </div>
                     <nav aria-label="breadcrumb">
                         <ol class="breadcrumb">
                             <li class="breadcrumb-item"><a href="{{url('/order-list')}}">Order list</a></li>
@@ -68,7 +74,8 @@
                                                     <th scope="col" style="width: 50px;">Delete</th>
                                                 </tr>
                                             </thead>
-                                            <tbody>
+                                            <tbody class="searchData" id="content"></tbody>
+                                            <tbody class="allData">
                                                 @if($order)
                                                     @foreach($order as $key => $val)
                                                         <tr>
@@ -86,8 +93,11 @@
                                                             </td>
                                                             <td>৳{{ number_format($val->total, 2) }}/-</td>
                                                             <td>
-                                                                <button class="btn btn-outline-success btn-sm" data-toggle="modal" data-target="#exampleModal{{ $val->id }}">
-                                                                    Pay
+                                                                <button class="btn btn-outline-success btn-sm py-1 px-2" 
+                                                                        data-toggle="modal" 
+                                                                        data-target="#exampleModal{{ $val->id }}" 
+                                                                        style="width: auto; font-size: 0.8rem;">
+                                                                    <i class="mdi mdi-cash" style="font-size: 1.5rem;"></i>
                                                                 </button>
                                                             </td>
                                                             <td>
@@ -217,5 +227,31 @@
             };
         </script>
     @endif
+
+    <script type="text/javascript">
+        $('#search').on('keyup', function() {
+            $value = $(this).val();
+            if($value) {
+                $('.allData').hide();
+                $('.searchData').show();
+            } else {
+                $('.allData').show();
+                $('.searchData').hide();
+            }
+            $.ajax({
+                type: 'get',
+                url: '{{URL::to("live-search-order")}}',
+                data:{'search':$value},
+
+                success:function(data) {
+                    console.log(data);
+                    $('#content').html(data);
+                },
+                error: function(xhr, status, error) {
+                    console.error('Search AJAX error:', error);
+                }
+            });
+        });
+    </script>
 </body>
 </html>

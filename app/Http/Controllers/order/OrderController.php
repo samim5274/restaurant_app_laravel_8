@@ -218,7 +218,12 @@ class OrderController extends Controller
     }
 
     public function deleteOrder($reg) {
-        $order = Order::where('reg', $reg)->first();
+        $order = Order::where('reg', $reg)->where('kitchen', 0)->orWhere('kitchen', 1)->first();
+
+        if(!$order) {
+            return redirect()->back()->with('warning', 'This order can not cancel. Because food already preparing.');
+        }
+        
         $cartItems = Cart::where('reg', $reg)->get(); 
         $table = Table::where('id', $order->tableId)->first();
         $table->status = 1; // table empty
@@ -383,5 +388,62 @@ class OrderController extends Controller
         $newTableStatus->update();
         $order->update();
         return redirect()->route('order.list.view')->with('warning','Your order updated successfully');
+    }
+
+    public function liveSearchOrder(Request $request) {
+        $output = "";
+
+        $orderList = Order::where('status', 1)->where('reg', 'like', '%'.$request->search.'%')->with('table')->get();
+
+        foreach($orderList as $key => $val) {
+            $link = url('/delere/order/'.$val->reg);
+            $editOrder = url('/edit/order/' . $val->reg);
+            $output .= '
+            <tr>
+                <td>'.++$key.'</td>
+                <td>'.$val->date.'</td>
+                <td><a href="'.$editOrder.'" class="text-primary font-weight-bold">ORD-'.$val->reg.'</a></td>
+                <td><a href="'.$editOrder.'" class="text-primary font-weight-bold">'.$val->table->tName.'</a></td>
+                <td>৳'.$val->total.'</td>
+                <td>
+                    <button class="btn btn-outline-success btn-sm py-1 px-2" 
+                            data-toggle="modal" 
+                            data-target="#exampleModal'.$val->id.'" 
+                            style="width: auto; font-size: 0.8rem;">
+                        <i class="mdi mdi-cash" style="font-size: 1.5rem;"></i>
+                    </button>
+                </td>
+                <td>
+                    <a href="'.$link .'" onclick="return confirm(\'Are you sure you want to DELETE this bill?\')">
+                        <i class="mdi mdi-delete-forever text-danger"></i>
+                    </a>
+                </td>
+            </tr>';
+        }
+        return response($output);
+    }
+
+    public function liveSearchDue(Request $request) {
+        $output = "";
+
+        $orderList = Order::where('status', 3)->where('reg', 'like', '%'.$request->search.'%')->with('table')->get();
+
+        foreach($orderList as $key => $val) {
+            
+            $output .= '
+            <tr>
+                <td>'. ++$key .'</td>
+                <td>'.$val->date.'</td>
+                <td class="text-center">ORD-'.$val->reg.'</td>
+                <td class="text-center">'.$val->table->tName.'</td>
+                <td class="text-center">৳'.$val->total.'</td>
+                <td class="text-center">৳'.$val->discount.'</td>
+                <td class="text-center">৳'.$val->payable.'</td>
+                <td class="text-center">৳'.$val->pay.'</td>
+                <td class="text-center">৳'.$val->due.'</td>
+                <td class="text-center"><a href="#"><button class="btn btn-sm btn-success text-white" data-toggle="modal" data-target="#exampleModal'.$val->id.'"><h4 class="m-0">Pay</h4></button></a></td>
+            </tr>';
+        }
+        return response($output);
     }
 }
