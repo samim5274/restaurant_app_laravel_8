@@ -2,7 +2,7 @@
 <html>
 <head>
     <meta charset="UTF-8">
-    <title>INV # {{$reg->reg}}</title>
+    <title>INV # {{$grandTotal->reg}}</title>
     <style>
         body { font-family: DejaVu Sans, sans-serif; }
         table { width: 100%; border-collapse: collapse; margin-top: 20px; }
@@ -13,8 +13,8 @@
     </style>
 </head>
 <body>
-    <h2>Invoice # {{$reg->reg}}</h2>
-    <p><strong>Date:</strong> {{$reg->date}}</p>
+    <h2>Invoice # {{$grandTotal->reg}}</h2>
+    <p><strong>Date:</strong> {{$grandTotal->date}}</p>
     <p><strong>Customer:</strong> Shamim Hossain</p>
 
     <table>

@@ -39,7 +39,7 @@ class KitchenController extends Controller
     public function searchKitchen(Request $request) {
         $output = "";
 
-        $orderList = Order::where('date', Carbon::now()->format('Y-m-d'))->where('reg', 'like', '%'.$request->search.'%')->with('table')->get();
+        $orderList = Order::where('date', Carbon::now()->format('Y-m-d'))->where('reg', 'like', '%'.$request->search.'%')->with('table')->orderBy('id', 'desc')->get();
         
         $statuses = [
             1 => 'Pending',
@@ -69,10 +69,11 @@ class KitchenController extends Controller
                     <span class="badge bg-' . $statusColor . '">' . $statusText . '</span>
                 </td>
                 <td class="text-center">
-                    <button class="btn btn-sm btn-success text-white" data-toggle="modal" data-target="#exampleModal' . $val->id . '">
-                        <h6 class="m-0">Pay</h6>
-                    </button>
+                    <button class="btn btn-outline-success btn-sm" data-toggle="modal" data-target="#exampleModal'.$val->id.'">Status</button>
                 </td>
+            </tr>
+            <tr class="bg-light font-weight-bold">
+                <td colspan="6">Note: All Order is urgent.</td>
             </tr>';
         }
         return response($output);

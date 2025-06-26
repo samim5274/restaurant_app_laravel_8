@@ -42,11 +42,11 @@ class SaleController extends Controller
         $invoice = Cart::where('reg', $reg)->with('food')->get();
         $grandTotal = Order::where('reg', $reg)->first();
         $cart = Cart::where('reg', $reg)->with('food')->first();
-        // dd($invoice);
+        // dd($grandTotal);
         if($invoice->isEmpty()) {
             return redirect()->back()->with('warning', 'This item is not available right now.');
         }
-               
+        // return view('dashboard.print.invoice', compact('invoice','grandTotal','cart'));
         $pdf = Pdf::loadView('dashboard.print.invoice', compact('invoice','grandTotal','cart'));
         return $pdf->download('Invoice-'.time().'-'.$cart->reg.'.pdf');
     }
@@ -110,5 +110,14 @@ class SaleController extends Controller
         // return view('dashboard.print.report_print', compact('order'));
         $pdf = Pdf::loadView('dashboard.print.report_print', compact('order'));
         return $pdf->download('RPT-'.time().'-'.$sevenDaysAgo.'-to-'.$today.'.pdf');
+    }
+
+    public function viewOrder($reg) {
+        $food = Cart::where('reg', $reg)->get();
+        $total = Cart::where('reg', $reg)->sum('price');
+        $count = Cart::where('reg', $reg)->count();
+        $order = Order::where('reg', $reg)->first();
+        // dd($food);
+        return view('dashboard.print.cart', compact('food','order','count','total','reg'));
     }
 }

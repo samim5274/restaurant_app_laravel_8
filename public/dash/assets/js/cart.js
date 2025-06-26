@@ -109,48 +109,48 @@ document.addEventListener('DOMContentLoaded', function () {
 
 
 function printreport() {
-            var header = `
-                <h1 style="text-align:center;">Restaurant Management System</h1>
-                <p style="text-align:center;">House # 02, Road # 11, Sector # 6, Uttara, Dhaka-1230</p>
-                <h3 style="text-align:center;">Kitchen Invoice Copy</h3>
-                <hr>
-            `;
-            var style = `
-                <style>
-                    @font-face {
-                    font-family: 'BanglaFont';
-                    src: url('{{ public_path("fonts/NotoSansBengali-Regular.ttf") }}') format('truetype');}
-                    body { 
-                        font-family: 'BanglaFont', DejaVu Sans, sans-serif; 
-                    }
-                    table {
-                        width: 100%;
-                        border-collapse: collapse;
-                        margin-top: 20px;
-                    }
+    var header = `
+        <h1 style="text-align:center;">Restaurant Management System</h1>
+        <p style="text-align:center;">House # 02, Road # 11, Sector # 6, Uttara, Dhaka-1230</p>
+        <h3 style="text-align:center;">Kitchen Invoice Copy</h3>
+        <hr>
+    `;
+    var style = `
+        <style>
+            @font-face {
+            font-family: 'BanglaFont';
+            src: url('{{ public_path("fonts/NotoSansBengali-Regular.ttf") }}') format('truetype');}
+            body { 
+                font-family: 'BanglaFont', DejaVu Sans, sans-serif; 
+            }
+            table {
+                width: 100%;
+                border-collapse: collapse;
+                margin-top: 20px;
+            }
 
-                    th, td {
-                        border: 1px solid #ddd;
-                        padding: 8px;
-                        text-align: left;
-                    }
+            th, td {
+                border: 1px solid #ddd;
+                padding: 8px;
+                text-align: left;
+            }
 
-                    th {
-                        background-color: #f4f4f4;
-                    }
+            th {
+                background-color: #f4f4f4;
+            }
 
-                    h2 { margin-bottom: 0; }
-                    p { margin-top: 2px; margin-bottom: 5px; }
-                </style>
-            `;
+            h2 { margin-bottom: 0; }
+            p { margin-top: 2px; margin-bottom: 5px; }
+        </style>
+    `;
 
-            var printContent = document.getElementById('printableTable').outerHTML;
-            var originalContents = document.body.innerHTML;
+    var printContent = document.getElementById('printableTable').outerHTML;
+    var originalContents = document.body.innerHTML;
 
-            document.body.innerHTML = header + style + printContent;
-            window.print();
-            setTimeout(function () {
-                location.reload();
-            }, 100);
-            document.body.innerHTML = originalContents;
-        }
+    document.body.innerHTML = header + style + printContent;
+    window.print();
+    setTimeout(function () {
+        location.reload();
+    }, 100);
+    document.body.innerHTML = originalContents;
+}

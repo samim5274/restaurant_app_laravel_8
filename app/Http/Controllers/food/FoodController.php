@@ -161,10 +161,10 @@ class FoodController extends Controller
     }
 
     public function liveSearch(Request $request) {
-        // https://www.youtube.com/watch?v=BL0v0pduwPo
+        
         $output = "";
 
-        $food = Food::where('name', 'like','%'.$request->search.'%')->orWhere('category', 'like','%'.$request->search.'%')->get();
+        $food = Food::where('name', 'like','%'.$request->search.'%')->orWhere('id', 'like','%'.$request->search.'%')->orWhere('category', 'like','%'.$request->search.'%')->get();
 
         foreach($food as $val) {
             $name = strlen($val->name) > 22 ? substr($val->name, 0, 22) . '...' : $val->name;

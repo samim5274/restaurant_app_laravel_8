@@ -85,6 +85,43 @@ class OrderController extends Controller
         }
     }
 
+    public function addCart2(Request $request) {
+        $request->validate([
+            'search' => ['nullable', 'regex:/^[0-9]+$/']
+        ]);
+
+        $id = $request->input('search', '');
+        $data = Food::where('id', $id)->first();
+        if($data->stock <= 0) {
+            return redirect()->back()->with('warning','This item not availabel righ now');
+        }
+        if($data) {
+            $cart = new Cart;
+
+            $order = Order::count() + 1;
+            $invoice = Carbon::now()->format('Ymd').Auth::guard('admin')->id().$order;
+
+            $findFood = Cart::where('reg', $invoice)->where('foodId', $data->id)->first();
+            if($findFood) {
+                return redirect()->route('menu.view')->with('warning', 'Item already added. Try to another item. If you add more quentity then go to cart.');
+            }
+
+            $cart->reg = $invoice; 
+            $cart->date = Carbon::now()->format('Y-m-d'); 
+            $cart->userId = Auth::guard('admin')->id();
+            $cart->foodId = $data->id;
+            $cart->price = $data->price;
+
+            $data->stock -= 1;
+            //dd($cart);
+            $data->update();
+            $cart->save();
+            return redirect()->back()->with('success', 'Item add to card successfully.');
+        } else {
+            return redirect()->back()->with('warning','This item not availabel righ now');
+        }
+    }
+
     public function removeCart(Request $request, $id)
     {
         $data = Cart::where('id', $id)->first();
@@ -151,6 +188,7 @@ class OrderController extends Controller
         $request->validate([
             'txtReg' => 'required',
             'txtSubTotal' => 'required',
+            'cbxTable' => 'required'
         ]);
 
         $table_id = $request->input('cbxTable', '');

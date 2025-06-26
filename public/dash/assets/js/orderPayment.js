@@ -42,3 +42,34 @@ function calculateAmount(id) {
         result.textContent = "Due: " + sum + "/-";
     }
 }
+
+
+
+function printreport() {
+    var header = `
+        <h1 style="text-align:center;">Restaurant Management System</h1>
+        <p style="text-align:center;">House # 02, Road # 11, Sector # 6, Uttara, Dhaka-1230</p>
+        <h3 style="text-align:center;">Kitchen Invoice Copy</h3>
+        <hr>
+    `;
+    var style = `
+        <style>
+            body { font-family: DejaVu Sans, sans-serif; }
+            table { width: 100%; border-collapse: collapse; margin-top: 20px; }
+            th, td { border: 1px solid #ddd; padding: 8px; text-align: left; }
+            th { background-color: #f4f4f4; }
+            h2 { margin-bottom: 0; }
+            p { margin-top: 2px; margin-bottom: 5px; }
+        </style>
+    `;
+
+    var printContent = document.getElementById('printableTable').outerHTML;
+    var originalContents = document.body.innerHTML;
+
+    document.body.innerHTML = header + style + printContent;
+    window.print();
+    setTimeout(function () {
+        location.reload();
+    }, 100);
+    document.body.innerHTML = originalContents;
+}

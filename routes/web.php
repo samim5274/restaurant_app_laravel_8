@@ -22,7 +22,7 @@ Route::post('/user-login', [AdminController::class, 'login']);
 
 Route::group(['middleware' => ['admin']], function () {
 
-    // ================================================ dashboard controler route // ================================================
+    // ================================================ dashboard Controller route // ================================================
 
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard.view');
     Route::get('/dashboard/setting', [DashboardController::class, 'setting'])->name('dashboard.main');
@@ -33,7 +33,7 @@ Route::group(['middleware' => ['admin']], function () {
 
     Route::get('/backup', [DashboardController::class, 'backup']);
 
-    // ================================================ Food controler route // ================================================
+    // ================================================ Food Controller route // ================================================
 
     Route::get('/food', [FoodController::class, 'foodView'])->name('food.view');
     Route::get('/stock-in', [FoodController::class, 'foodStockView'])->name('food.stock.view');
@@ -45,13 +45,14 @@ Route::group(['middleware' => ['admin']], function () {
 
     Route::get('/live-search-food-menu', [FoodController::class, 'liveSearch']);
 
-    // ================================================ Order controler route // ================================================
+    // ================================================ Order Controller route // ================================================
 
     Route::get('/empty', [OrderController::class, 'orderView'])->name('order.view');
     Route::get('/menu', [OrderController::class, 'menuView'])->name('menu.view');
 
     Route::get('/booked/table/{id}', [OrderController::class, 'tableBooked']);
     Route::get('/add-to-cart/{id}', [OrderController::class, 'addCart']);
+    Route::get('/add-to-cart-2', [OrderController::class, 'addCart2']);
     Route::get('/cart-view', [OrderController::class, 'cartView'])->name('cart.view');
     Route::post('/cart/update-quantity', [OrderController::class, 'updateQuantity'])->name('cart.updateQuantity');
     Route::get('/remove-to-cart/{id}', [OrderController::class, 'removeCart']);
@@ -76,13 +77,16 @@ Route::group(['middleware' => ['admin']], function () {
     Route::get('/get-invoice/{reg}', [SaleController::class, 'getPdf'])->name('invoice.get');
     Route::get('/download-invoice/{reg}', [SaleController::class, 'downloadPdf'])->name('download.pdf');
 
-    // ================================================ sale controler route // ================================================
+    // ================================================ sale Controller route // ================================================
 
     Route::get('/total-sale', [SaleController::class, 'totalSale'])->name('sale.view');
     Route::get('/report-due-list', [SaleController::class, 'dueCollectioListView'])->name('due.view');
     Route::get('/day-wise-report', [SaleController::class, 'dayWiseReport'])->name('day.wise.report.view');
     Route::post('/search-report-date-wise', [SaleController::class, 'SearchReportDateWise']);
     Route::get('/download', [SaleController::class, 'download']);
+    Route::get('/view/order/{reg}', [SaleController::class, 'viewOrder'])->name('view.order.item.from.report');
+
+    // ================================================ Kitchen Controller route // ================================================
 
     Route::get('/show-order-item', [KitchenController::class, 'showOrder'])->name('kitchen.order.show');
     Route::get('/list/order/{reg}', [KitchenController::class, 'listOrder'])->name('list.order.view');

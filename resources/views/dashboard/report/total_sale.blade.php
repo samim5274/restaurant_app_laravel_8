@@ -44,6 +44,7 @@
                     <h3 class="page-title"> Total Order list</h3>
                     <nav aria-label="breadcrumb">
                         <ol class="breadcrumb">
+                            <li class="breadcrumb-item"><a href="#" onclick="printreport()"><i class="mdi mdi-printer"></i> Print</a></li>
                             <li class="breadcrumb-item"><a href="{{url('/order-list')}}">Order list</a></li>
                             <li class="breadcrumb-item active" aria-current="page"><a href="{{url('/table')}}">Table</a></li>
                         </ol>
@@ -55,7 +56,7 @@
                         <div class="card mt-2">
                             <div class="card-body p-2 p-md-4">
                                 <div class="table-responsive">
-                                    <table class="table table-hover mb-0">
+                                    <table class="table table-hover mb-0" id="printableTable">
                                         <thead>
                                             <tr>
                                                 <th>SL</th>
@@ -75,16 +76,19 @@
                                             <tr>
                                                 <td>{{ ++$key }}</td>
                                                 <td>{{$val->date}}</td>
-                                                <td class="text-center">ORD-{{$val->reg}}</td>
+                                                <td class="text-center"><a href="{{url('/view/order/'.$val->reg)}}">ORD-{{$val->reg}}</a></td>
                                                 <td class="text-center">{{$val->table->tName}}</td>
                                                 <td class="text-center">৳{{$val->total}}/-</td>
                                                 <td class="text-center">৳{{$val->discount}}/-</td>
                                                 <td class="text-center">৳{{$val->payable}}/-</td>
                                                 <td class="text-center">৳{{$val->pay}}/-</td>
                                                 <td class="text-center">৳{{$val->due}}/-</td>
-                                                <td class="text-center"><a href="{{ route('invoice.get', $val->reg) }}" class="btn btn-sm btn-outline-success" title="Download Invoice">
-                                                    <i class="mdi mdi-arrow-down-bold-circle-outline" style="font-size: 1.1rem;"></i>
-                                                </a></td>
+                                                <td class="text-center" style="width: 60px">
+                                                    <div class="d-flex justify-content-center gap-1">
+                                                        <a href="{{ route('invoice.get', $val->reg) }}" class=" btn-sm px-2 py-1" title="Download Invoice">   <i class="mdi mdi-arrow-down-bold-circle-outline" style="font-size: 1rem;"></i></a>
+                                                    </div>
+                                                </td>
+
                                             </tr>
                                             @endforeach
                                             @endif
