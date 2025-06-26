@@ -187,7 +187,7 @@
     <script src="/dash/assets/js/misc.js"></script>
     <!-- endinject -->
     <!-- Custom js for this page -->
-    <script src="/dash/assets/js/dashboard.js"></script>
+     
     <!-- End custom js for this page -->
     <script type="text/javascript">
         $('#search').on('keyup', function() {

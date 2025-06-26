@@ -89,5 +89,4 @@ Route::group(['middleware' => ['admin']], function () {
     Route::post('/update-kitchen-status/{reg}', [KitchenController::class, 'updateKitchenStatus']);
 
     Route::get('/live-search-kitchen', [KitchenController::class, 'searchKitchen']);
-
 });

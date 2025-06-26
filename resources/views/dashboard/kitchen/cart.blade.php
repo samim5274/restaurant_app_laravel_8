@@ -44,6 +44,7 @@
                     <h3 class="page-title"> Cart Details of Reg No : {{$reg}}</h3>
                     <nav aria-label="breadcrumb">
                         <ol class="breadcrumb">
+                            <li class="breadcrumb-item"><a href="#" onclick="printreport()"><i class="mdi mdi-printer"></i> Print</a></li>
                             <li class="breadcrumb-item"><a href="{{url('/show-order-item')}}">View List</a></li>
                             <li class="breadcrumb-item active" aria-current="page"><a href="#">Served</a></li>
                         </ol>
@@ -52,7 +53,7 @@
 
     <div class="row">
         <div class="col-lg-12 col-md-6">
-            <div class="row g-3">
+            <div class="row g-3" id="printableTable">
                 @if($food)
                 @foreach($food as $key => $val)
                 <div class="col-lg-4 col-md-6 mt-3">

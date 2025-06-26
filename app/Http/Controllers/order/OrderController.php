@@ -159,6 +159,7 @@ class OrderController extends Controller
         $order->total = $request->input('txtSubTotal', '');
         $order->tableId = $table_id;
         $order->status = 1; // 1 order confrim and 2 bill paid, 3 due
+        $order->kitchen = 1; // 1 pendin,2 preparing, 3 ready & 4 served
         $table = Table::where('id', $table_id)->first();
         $table->status = 3; // order
         $order->save();
