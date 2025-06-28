@@ -76,6 +76,7 @@ Route::group(['middleware' => ['admin']], function () {
 
     Route::get('/get-invoice/{reg}', [SaleController::class, 'getPdf'])->name('invoice.get');
     Route::get('/download-invoice/{reg}', [SaleController::class, 'downloadPdf'])->name('download.pdf');
+    Route::get('/invoice/print/{reg}', [OrderController::class, 'printInvoice'])->name('invoice.print');
 
     // ================================================ sale Controller route // ================================================
 

@@ -37,7 +37,7 @@
 
         <div class="main-panel">
 
-            <!-- @include('dashboard.message.message') -->
+            @include('dashboard.message.message')
 
             <div class="content-wrapper">
 
@@ -73,7 +73,6 @@
                                                 <th class="text-center">Payable</th>
                                                 <th class="text-center">Pay</th>
                                                 <th class="text-center">Due</th>
-                                                <th class="text-center">Action</th>
                                             </tr>
                                         </thead>
                                         <tbody class="searchData" id="content"></tbody>
@@ -89,8 +88,15 @@
                                                 <td class="text-center">৳{{$val->discount}}</td>
                                                 <td class="text-center">৳{{$val->payable}}</td>
                                                 <td class="text-center">৳{{$val->pay}}</td>
-                                                <td class="text-center">৳{{$val->due}}</td>
-                                                <td class="text-center"><a href="#"><button class="btn btn-sm btn-success text-white" data-toggle="modal" data-target="#exampleModal{{$val->id}}"><h4 class="m-0">Pay</h4></button></a></td>
+                                                <td class="text-center">৳{{$val->due}}</td>                                                
+                                                <td class="text-center">
+                                                    <button class="btn btn-outline-success btn-sm py-1 px-2" 
+                                                            data-toggle="modal" 
+                                                            data-target="#exampleModal{{ $val->id }}" 
+                                                            style="width: auto; font-size: 0.8rem;">
+                                                        <i class="mdi mdi-cash" style="font-size: 1.5rem;"></i>
+                                                    </button>
+                                                </td>
                                             </tr>
                                             @endforeach
                                             @endif
@@ -199,13 +205,13 @@
     <script src="/dash/assets/js/orderPayment.js"></script>
     @if(session('success'))
         <script>
-            window.onload = function () {
-                const reg = "{{ session('success') }}";
-                const url = `/download-invoice/${reg}`;
+            document.addEventListener("DOMContentLoaded", function () {
+                const url = "{{ url('/invoice/print/' . session('success')) }}";
                 window.open(url, '_blank');
-            };
+            });
         </script>
     @endif
+
     <script type="text/javascript">
         $('#search').on('keyup', function() {
             $value = $(this).val();

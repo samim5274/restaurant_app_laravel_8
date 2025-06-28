@@ -220,11 +220,10 @@
     <script src="/dash/assets/js/orderPayment.js"></script>
     @if(session('success'))
         <script>
-            window.onload = function () {
-                const reg = "{{ session('success') }}";
-                const url = `/download-invoice/${reg}`;
+            document.addEventListener("DOMContentLoaded", function () {
+                const url = "{{ url('/download-invoice/' . session('success')) }}";
                 window.open(url, '_blank');
-            };
+            });
         </script>
     @endif
 

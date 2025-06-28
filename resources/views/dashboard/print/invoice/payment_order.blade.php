@@ -13,6 +13,12 @@
     </style>
 </head>
 <body>
+
+        <h1 style="text-align:center;">Restaurant Management System</h1>
+        <p style="text-align:center;">House # 02, Road # 11, Sector # 6, Uttara, Dhaka-1230</p>
+        <h3 style="text-align:center;">Sale Invoice</h3>
+        <hr>
+
     <h2>Invoice # {{$cart->reg}}</h2>
     <p><strong>Date:</strong> {{$cart->date}}</p>
     <p><strong>Customer:</strong> Shamim Hossain</p>
@@ -56,5 +62,14 @@
         </tbody>
     </table>
     <p class="small"><strong>Note:</strong> This Software develop by <strong>BGMIT</strong> created by <strong>SAMIM-HosseN</strong>. Call: +8801 62420 9291. Thank You!</p>
+
+
+    <script>
+        window.onload = function() {
+            setTimeout(() => {
+                window.print();
+            }, 300); 
+        };
+    </script>
 </body>
 </html>

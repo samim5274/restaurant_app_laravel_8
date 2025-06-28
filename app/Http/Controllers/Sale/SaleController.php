@@ -47,7 +47,7 @@ class SaleController extends Controller
             return redirect()->back()->with('warning', 'This item is not available right now.');
         }
         // return view('dashboard.print.invoice', compact('invoice','grandTotal','cart'));
-        $pdf = Pdf::loadView('dashboard.print.invoice', compact('invoice','grandTotal','cart'));
+        $pdf = Pdf::loadView('dashboard.print.report.invoice', compact('invoice','grandTotal','cart'));
         return $pdf->download('Invoice-'.time().'-'.$cart->reg.'.pdf');
     }
 
@@ -59,9 +59,9 @@ class SaleController extends Controller
         if($invoice->isEmpty()) {
             return redirect()->back()->with('warning', 'This item is not available right now.');
         }
-        // return view('dashboard.print.download', compact('invoice','cart','grandTotal'));
-        $pdf = Pdf::loadView('dashboard.print.download', compact('invoice','grandTotal','cart'));
-        return $pdf->download('Invoice-'.time().'-'.$cart->reg.'.pdf');
+        return view('dashboard.print.invoice.payment_order', compact('invoice','cart','grandTotal'));
+        // $pdf = Pdf::loadView('dashboard.print.invoice.payment_order', compact('invoice','grandTotal','cart'));
+        // return $pdf->download('Invoice-'.time().'-'.$cart->reg.'.pdf');
     }
 
     public function dayWiseReport() {
@@ -96,7 +96,7 @@ class SaleController extends Controller
         }
 
         if ($request->has('download')) {
-            $pdf = Pdf::loadView('dashboard.print.report_print', compact('order', 'startDate', 'endDate'));
+            $pdf = Pdf::loadView('dashboard.print.report.report_print', compact('order', 'startDate', 'endDate'));
             return $pdf->download('RPT-'.time().'-'.$startDate.'-to-'.$endDate.'.pdf');
         }
         

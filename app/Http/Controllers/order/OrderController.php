@@ -92,6 +92,9 @@ class OrderController extends Controller
 
         $id = $request->input('search', '');
         $data = Food::where('id', $id)->first();
+        if(!$data) {
+            return redirect()->back()->with('warning','This item not availabel righ now');
+        }
         if($data->stock <= 0) {
             return redirect()->back()->with('warning','This item not availabel righ now');
         }
@@ -351,7 +354,20 @@ class OrderController extends Controller
         // dd($order,$order->due,$order->pay);
         $order->update();
         
-        return redirect()->back()->with('success',$reg);
+        return redirect()->back()->with('success', $reg);
+        // return redirect()->route('invoice.print', $reg);
+    }
+
+    public function printInvoice($reg) {
+        $order = Order::where('reg', $reg)->firstOrFail();
+        $invoice = Cart::where('reg', $reg)->with('food')->get();
+        $grandTotal = Order::where('reg', $reg)->first();
+        $cart = Cart::where('reg', $reg)->with('food')->first();
+        // dd($invoice);
+        if($invoice->isEmpty()) {
+            return redirect()->back()->with('warning', 'This item is not available right now.');
+        }
+        return view('dashboard.print.invoice.print_due', compact('order','invoice','grandTotal', 'cart'));
     }
 
     public function editOrder($reg) {

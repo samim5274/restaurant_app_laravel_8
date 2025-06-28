@@ -56,7 +56,7 @@
                                     <div class="container">
                                         <div class="py-4">
                                             <form action="/add-to-cart-2" method="GET">
-                                                <input type="search" name="search" id="search" class="form-control py-4" placeholder="Search by food name or category or food iD">
+                                                <input type="search" name="search" id="search" class="form-control py-4" placeholder="Search by food name or category or food ID">
                                             </form>
                                         </div>
                                     </div>

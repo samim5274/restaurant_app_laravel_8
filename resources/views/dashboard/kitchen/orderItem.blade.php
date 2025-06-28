@@ -89,7 +89,7 @@
                                                     $colors = [
                                                         1 => 'danger',
                                                         2 => 'warning',
-                                                        3 => 'info text-white',
+                                                        3 => 'primary text-white',
                                                         4 => 'success'
                                                     ];
                                                 @endphp    
