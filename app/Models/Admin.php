@@ -25,4 +25,9 @@ class Admin extends Authenticatable
     {
         return $this->hasMany(User::class, 'userId', 'id');
     }
+
+    public function Expenses()
+    {
+        return $this->belongsTo(Expenses::class, 'userId', 'id');
+    }
 }

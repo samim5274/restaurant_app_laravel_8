@@ -8,6 +8,7 @@ use App\Http\Controllers\admin\AdminController;
 use App\Http\Controllers\food\FoodController;
 use App\Http\Controllers\food\KitchenController;
 use App\Http\Controllers\Sale\SaleController;
+use App\Http\Controllers\Account\AccountController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -94,4 +95,15 @@ Route::group(['middleware' => ['admin']], function () {
     Route::post('/update-kitchen-status/{reg}', [KitchenController::class, 'updateKitchenStatus']);
 
     Route::get('/live-search-kitchen', [KitchenController::class, 'searchKitchen']);
+
+    // ================================================ Account Controller route // ================================================
+
+    Route::get('/expenses-setting', [AccountController::class, 'setting'])->name('expenses.setting.view');
+    Route::post('/add-category', [AccountController::class, 'addCategory']);
+    Route::post('/add-sub-category', [AccountController::class, 'addSubCategory']);
+    Route::get('/getSubCategory/{id}', [AccountController::class, 'getSubcategory']);
+    Route::get('/daily-expenses', [AccountController::class, 'dailyExpenses'])->name('daily.expenses.view');
+    Route::post('/add-daily-expenses', [AccountController::class, 'addExpenses']);
+
+    Route::get('/print-expenses', [AccountController::class, 'printExpenses']);
 });

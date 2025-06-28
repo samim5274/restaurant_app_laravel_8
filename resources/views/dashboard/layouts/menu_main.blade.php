@@ -90,6 +90,20 @@
       </div>
     </li>
     <li class="nav-item">
+      <a class="nav-link" data-toggle="collapse" href="#account1" aria-expanded="false" aria-controls="account1">
+        <span class="icon-bg"><i class="mdi mdi-cash-100 menu-icon"></i></span>
+        <span class="menu-title">Accounts</span>
+        <i class="menu-arrow"></i>
+      </a>
+      <div class="collapse" id="account1">
+        <ul class="nav flex-column sub-menu">
+          <li class="nav-item"> <a class="nav-link" href="{{url('/daily-expenses')}}"> Daily Expenses </a></li>
+          <li class="nav-item"> <a class="nav-link" href="#"> Revinew </a></li>
+          <li class="nav-item"> <a class="nav-link" href="{{url('/expenses-setting')}}"> Setting </a></li>
+        </ul>
+      </div>
+    </li>
+    <li class="nav-item">
       <a class="nav-link" data-toggle="collapse" href="#auth" aria-expanded="false" aria-controls="auth">
         <span class="icon-bg"><i class="mdi mdi-lock menu-icon"></i></span>
         <span class="menu-title">Reports</span>
