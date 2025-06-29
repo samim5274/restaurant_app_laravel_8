@@ -61,7 +61,7 @@ class AccountController extends Controller
         
         $userId = optional(Auth::guard('admin')->user())->id;
         if (!$userId) {
-            return back()->withErrors(['message' => 'No admin user is logged in.']);
+            return back()->withErrors(['error' => 'No admin user is logged in.']);
         }
         $data = new Expenses();
         
@@ -80,5 +80,99 @@ class AccountController extends Controller
         $expenses = Expenses::where('date', $date)->with(['category', 'subcategory'])->orderBy('date', 'desc')->get();
         $total = Expenses::where('date', $date)->sum('amount');
         return view('dashboard.account.expensesPrint', compact('expenses','total'));
+    }
+
+    public function specificPrint($id) {
+        $date = Carbon::now()->format('Ymd');
+        $expenses = Expenses::where('id', $id)->where('date', $date)->with(['category', 'subcategory', 'user'])->orderBy('date', 'desc')->get();
+        if (!$expenses) {
+            return back()->withErrors(['error' => 'Expenses item not find. Please try again.']);
+        }
+        return view('dashboard.account.specificExpensesPrint', compact('expenses'));
+    }
+
+    public function catRpt() {
+        $category = Category::all();
+        $date = Carbon::now()->format('Ymd');
+        $expenses = Expenses::where('date', $date)->with(['category', 'subcategory', 'user'])->orderBy('date', 'desc')->get();
+        $total = Expenses::where('date', $date)->sum('amount');
+        return view('dashboard.account.report.category', compact('expenses','category','total'));
+    }
+
+    public function searchCategory(Request $request) {
+        $validatedData = $request->validate([
+            'dtpStartDate' => ['required', 'date'],
+            'dtpEndDate' => ['required', 'date', 'after_or_equal:dtpStartDate'],
+            'cbxCategory' => ['required'],  
+        ], [
+            'dtpStartDate.required' => 'Start Date is required.',
+            'dtpStartDate.date' => 'Start Date must be a valid date.',
+            'dtpEndDate.required' => 'End Date is required.',
+            'dtpEndDate.date' => 'End Date must be a valid date.',
+            'dtpEndDate.after_or_equal' => 'End Date cannot be earlier than Start Date.',
+            'cbxCategory.required' => 'Please select a category.',
+            'cbxCategory.exists' => 'Selected category is invalid.',
+        ]);
+        $category = Category::all();
+        $dateStart = $request->dtpStartDate;
+        $dateEnd = $request->dtpEndDate;
+        $expenses = Expenses::with(['category', 'subcategory'])
+                            ->where('catId', $request->cbxCategory)
+                            ->whereBetween('date', [$dateStart, $dateEnd])                            
+                            ->orderBy('id', 'desc')
+                            ->get();
+        $total = Expenses::where('catId', $request->cbxCategory)
+                            ->whereBetween('date', [$dateStart, $dateEnd])   
+                            ->sum('amount');
+        // dd($expenses);
+        return view('dashboard.account.report.category', compact('expenses','category','total'));
+    }
+
+    public function subCatRpt() {
+        $category = Category::all();
+        $subCategory = Subcategory::all();
+        $date = Carbon::now()->format('Ymd');
+        $expenses = Expenses::where('date', $date)->with(['category', 'subcategory', 'user'])->orderBy('date', 'desc')->get();
+        $total = Expenses::where('date', $date)->sum('amount');
+        return view('dashboard.account.report.sub_category', compact('expenses','category','subCategory','total'));
+    }
+
+    public function searchSubCat(Request $request) {
+        $validatedData = $request->validate([
+            'dtpStartDate'   => ['required', 'date'],
+            'dtpEndDate'     => ['required', 'date', 'after_or_equal:dtpStartDate'],
+            'cbxCategory'    => ['required', 'exists:categories,id'],  
+            'cbxsubcategory' => ['required', 'exists:subcategories,id'],
+        ], [
+            'dtpStartDate.required'        => 'Start Date is required.',
+            'dtpStartDate.date'            => 'Start Date must be a valid date.',
+            
+            'dtpEndDate.required'          => 'End Date is required.',
+            'dtpEndDate.date'              => 'End Date must be a valid date.',
+            'dtpEndDate.after_or_equal'    => 'End Date cannot be earlier than Start Date.',
+            
+            'cbxCategory.required'         => 'Please select a category.',
+            'cbxCategory.exists'           => 'Selected category is invalid.',
+            
+            'cbxsubcategory.required'      => 'Please select a sub-category.',
+            'cbxsubcategory.exists'        => 'Selected sub-category is invalid.',
+        ]);
+
+        $category = Category::all();
+        $subCategory = Subcategory::all();
+        $dateStart = $request->dtpStartDate;
+        $dateEnd = $request->dtpEndDate;
+        $expenses = Expenses::with(['category', 'subcategory'])
+                            ->where('catId', $request->cbxCategory)
+                            ->where('subcatId', $request->cbxsubcategory)
+                            ->whereBetween('date', [$dateStart, $dateEnd])                            
+                            ->orderBy('id', 'desc')
+                            ->get();
+        $total = Expenses::where('catId', $request->cbxCategory)
+                            ->where('subcatId', $request->cbxsubcategory)
+                            ->whereBetween('date', [$dateStart, $dateEnd])   
+                            ->sum('amount');
+        // dd($expenses, $total);
+        return view('dashboard.account.report.sub_category', compact('expenses','category','subCategory','total'));
     }
 }

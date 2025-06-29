@@ -90,20 +90,6 @@
       </div>
     </li>
     <li class="nav-item">
-      <a class="nav-link" data-toggle="collapse" href="#account1" aria-expanded="false" aria-controls="account1">
-        <span class="icon-bg"><i class="mdi mdi-cash-100 menu-icon"></i></span>
-        <span class="menu-title">Accounts</span>
-        <i class="menu-arrow"></i>
-      </a>
-      <div class="collapse" id="account1">
-        <ul class="nav flex-column sub-menu">
-          <li class="nav-item"> <a class="nav-link" href="{{url('/daily-expenses')}}"> Daily Expenses </a></li>
-          <li class="nav-item"> <a class="nav-link" href="#"> Revinew </a></li>
-          <li class="nav-item"> <a class="nav-link" href="{{url('/expenses-setting')}}"> Setting </a></li>
-        </ul>
-      </div>
-    </li>
-    <li class="nav-item">
       <a class="nav-link" data-toggle="collapse" href="#auth" aria-expanded="false" aria-controls="auth">
         <span class="icon-bg"><i class="mdi mdi-lock menu-icon"></i></span>
         <span class="menu-title">Reports</span>
@@ -114,6 +100,34 @@
           <li class="nav-item"> <a class="nav-link" href="{{url('/total-sale')}}"> Total Sale </a></li>
           <li class="nav-item"> <a class="nav-link" href="{{url('/day-wise-report')}}"> Day wise Reports </a></li>
           <li class="nav-item"> <a class="nav-link" href="{{url('/report-due-list')}}"> Due List </a></li>
+        </ul>
+      </div>
+    </li>
+
+    <li class="nav-item">
+      <a class="nav-link" data-toggle="collapse" href="#account1" aria-expanded="false" aria-controls="account1">
+        <span class="icon-bg"><i class="mdi mdi-cash-100 menu-icon"></i></span>
+        <span class="menu-title">Accounts</span>
+        <i class="menu-arrow"></i>
+      </a>
+      <div class="collapse" id="account1">
+        <ul class="nav flex-column sub-menu">
+          <li class="nav-item"> <a class="nav-link" href="{{url('/daily-expenses')}}"> Daily Expenses </a></li>
+          <li class="nav-item"> <a class="nav-link" href="{{url('/expenses-setting')}}"> Setting </a></li>
+        </ul>
+      </div>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" data-toggle="collapse" href="#account2" aria-expanded="false" aria-controls="account2">
+        <span class="icon-bg"><i class="mdi mdi-cash-100 menu-icon"></i></span>
+        <span class="menu-title">Accounts Report</span>
+        <i class="menu-arrow"></i>
+      </a>
+      <div class="collapse" id="account2">
+        <ul class="nav flex-column sub-menu">
+          <li class="nav-item"> <a class="nav-link" href="{{url('/category-report')}}"> Category</a></li>
+          <li class="nav-item"> <a class="nav-link" href="{{url('/sub-category-report')}}"> Sub-Category</a></li>
+          <li class="nav-item"> <a class="nav-link" href="{{url('/total-day-wise-report')}}"> Total</a></li>
         </ul>
       </div>
     </li>

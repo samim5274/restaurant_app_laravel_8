@@ -105,5 +105,12 @@ Route::group(['middleware' => ['admin']], function () {
     Route::get('/daily-expenses', [AccountController::class, 'dailyExpenses'])->name('daily.expenses.view');
     Route::post('/add-daily-expenses', [AccountController::class, 'addExpenses']);
 
+    Route::get('/category-report', [AccountController::class, 'catRpt']);
+    Route::get('/search-category', [AccountController::class, 'searchCategory']);
+    Route::get('/sub-category-report', [AccountController::class, 'subCatRpt']);
+    Route::get('/search-sub-category', [AccountController::class, 'searchSubCat']);
+    Route::get('/total-day-wise-report', [AccountController::class, 'totalDay']);
+
     Route::get('/print-expenses', [AccountController::class, 'printExpenses']);
+    Route::get('/print-expenses-specific/{id}', [AccountController::class, 'specificPrint']);
 });

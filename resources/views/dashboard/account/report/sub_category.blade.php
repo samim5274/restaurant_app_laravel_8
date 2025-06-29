@@ -22,29 +22,23 @@
         <link rel="shortcut icon" href="/dash/assets/images/favicon.png" />
         <style>
             .loader {
-                width: 30px;
-                aspect-ratio: 1;
-                display: grid;
-                border: 4px solid #0000;
+                border: 4px solid #f3f3f3;
                 border-radius: 50%;
-                border-right-color: #25b09b;
-                animation: l15 1s infinite linear;
+                border-top: 4px solid #3498db;
+                width: 40px;
+                height: 40px;
+                animation: spin 1s linear infinite;
             }
-            .loader::before,
-            .loader::after {
-                content: "";
-                grid-area: 1/1;
-                margin: 2px;
-                border: inherit;
-                border-radius: 50%;
-                animation: l15 2s infinite;
+
+            /* Safari */
+            @-webkit-keyframes spin {
+                0% { -webkit-transform: rotate(0deg); }
+                100% { -webkit-transform: rotate(360deg); }
             }
-            .loader::after {
-                margin: 8px;
-                animation-duration: 3s;
-            }
-            @keyframes l15{
-                100%{transform: rotate(1turn)}
+
+            @keyframes spin {
+                0% { transform: rotate(0deg); }
+                100% { transform: rotate(360deg); }
             }
         </style>
     </head>
@@ -81,14 +75,52 @@
                         <div class="col-lg-12 col-md-12 grid-margin stretch-card">
                             <div class="card mt-2">
                                 <div class="card-body p-2 p-md-4">
-                                    <div class="d-flex justify-content-end mb-3">
-                                        <button type="button" class="btn btn-success btn-sm" data-toggle="modal" data-target="#exampleModal">
-                                            <i class="mdi mdi-plus" style="font-size:1rem"></i>
+                                    <div class="d-flex justify-content-between align-items-center mb-3">
+                                        <h2 class="cart-title mb-0">Selected day and category wise Report</h2>
+                                        <button type="button" onclick="printreport()" class="btn btn-primary btn-sm">
+                                            <i class="mdi mdi-printer" style="font-size:1rem"></i>
                                         </button>
-                                        <a href="{{url('/print-expenses')}}" target="_blank"><button type="button" class="btn btn-primary btn-sm ml-1"><i class="mdi mdi-printer" style="font-size:1rem"></i></button></a>
                                     </div>
-                                    <div class="table-responsive">                                        
-                                        <table class="table table-hover mb-0" >
+                                    <form action="{{ url('/search-sub-category') }}" method="GET" class="p-3 border rounded shadow-sm bg-white">
+                                        @csrf
+                                        <div class="loader" id="loader"></div>
+                                        <div class="row mb-3">
+                                            <div class="col-md-6">
+                                                <label for="dtpStartDate" class="form-label">Start Date</label>
+                                                <input type="date" id="dtpStartDate" name="dtpStartDate" required class="form-control">
+                                            </div>
+                                            <div class="col-md-6">
+                                                <label for="dtpEndDate" class="form-label">End Date</label>
+                                                <input type="date" id="dtpEndDate" name="dtpEndDate" required class="form-control">
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <select name="cbxCategory" id="category" required class="form-control me-2">
+                                                    <option disabled selected>-- Select Category --</option>
+                                                    @if($category)
+                                                    @foreach($category as $key => $val)
+                                                    <option value="{{ $val->id }}">{{ $val->name }}</option>
+                                                    @endforeach
+                                                    @endif
+                                                </select> 
+                                            </div>
+                                            
+                                            <div class="col-md-6">
+                                                <select name="cbxsubcategory" id="subcategory" required class="form-control">
+                                                    <option disabled selected>-- Select Sub-Category --</option>                                                    
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <br>
+                                        <button type="submit" class="btn btn-success btn-sm w-100">
+                                            <i class="mdi mdi-file-find" style="font-size:1rem"></i> Search
+                                        </button>
+                                    </form>                                    
+                                </div>
+                                <div class="card-body p-2 pb-md-4 px-md-4">                                    
+                                    <div class="table-responsive border rounded shadow-sm bg-white">                                        
+                                        <table class="table table-hover mb-0" id="printableTable">
                                             <thead>
                                                 <tr>
                                                     <th>SL</th>
@@ -109,93 +141,21 @@
                                                     <td>{{$val->subcategory->name}}</td>
                                                     <td>{{$val->remark}}</td>
                                                     <td class="text-center">৳{{$val->amount}}/-</td>
-                                                    <td class="text-center p-1" style="white-space: nowrap; width: 1%;">
-                                                        <a href="{{ url('/print-expenses-specific/'.$val->id) }}" target="_blank">
-                                                            <i class="mdi mdi-printer" style="font-size:1.5rem;"></i>
-                                                        </a>
-                                                    </td>
                                                 </tr>
                                                 @endforeach
                                                 @endif
                                                 <tr>
                                                     <td colspan="5">Total:</td>
                                                     <td class="text-center">৳{{$total}}/-</td>
-                                                    <td class="text-center"></td>
                                                 </tr>
                                             </tbody>
                                         </table>                                        
-                                    </div>
-                                    <div class="d-flex justify-content-end mt-3">
-                                        {{ $expenses->links('pagination::tailwind') }}
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-
-                    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                        <div class="modal-dialog" role="document">
-                            <form action="{{url('/add-daily-expenses')}}" method="POST">
-                                @csrf
-                                <div class="modal-content">
-                                    <div class="modal-header">
-                                        <h5 class="modal-title" id="exampleModalLabel">Daily Expenses</h5>
-                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                        <span aria-hidden="true">&times;</span>
-                                        </button>
-                                    </div>
-                                    <div class="modal-body">                                        
-                                        <div class="form-group row">
-                                            <label for="category" class="col-sm-3 col-form-label">Category</label>
-                                            <div class="col-sm-9">
-                                                <select name="cbxCategory" id="category" required class="form-control">
-                                                    <option disabled selected>-- Select Category --</option>
-                                                    @if($category)
-                                                        @foreach($category as $key => $val)
-                                                            <option value="{{ $val->id }}">{{ $val->name }}</option>
-                                                        @endforeach
-                                                    @endif
-                                                </select>
-                                            </div>
-                                        </div>
-
-                                        <div class="loader" id="loader" style="display:none;">Loading...</div>
-
-                                        <div class="form-group row">
-                                            <label for="subcategory" class="col-sm-3 col-form-label">Sub-Category</label>
-                                            <div class="col-sm-9">
-                                                <select name="cbxsubcategory" id="subcategory" required class="form-control">
-                                                    <option disabled selected>-- Select Sub-Category --</option>                                                    
-                                                </select>
-                                            </div>
-                                        </div>
-
-                                        <div class="form-group row">
-                                            <label for="Amount" class="col-sm-3 col-form-label">Amount</label>
-                                            <div class="col-sm-9">
-                                                <input type="number" class="form-control" id="Amount" name="txtAmount" required placeholder="Amount">
-                                            </div>
-                                        </div>
-                                        <div class="form-group row">
-                                            <label for="Remark" class="col-sm-3 col-form-label">Remark</label>
-                                            <div class="col-sm-9">
-                                                <input type="text" class="form-control" id="Remark" name="txtRemark" value="N/A" required placeholder="Remark">
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="modal-footer">
-                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                        <button type="submit" class="btn btn-success">Submit</button>
-                                    </div>
-                                </div>
-                            </form>
-                        </div>
-                    </div>
-
-
                 </div>
-
-                
 
             </div>
         </div>
@@ -220,10 +180,12 @@
         <!-- Custom js for this page -->
         <script src="/dash/assets/js/dashboard.js"></script>
         <!-- End custom js for this page -->
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
         <script>
-            $(document).ready(function(){
-                var loader = $('#loader');  // Correct selector with $
+            document.getElementById('dtpStartDate').valueAsDate = new Date();
+            document.getElementById('dtpEndDate').valueAsDate = new Date();
+
+            $(document).ready(function(){    
+                var loader = $('#loader');            
                 var category = $('#category');
 
                 loader.hide();
@@ -236,13 +198,12 @@
                         $("#subcategory").html("<option disabled selected>-- Select Sub-Category --</option>");
                     } else {
                         loader.show();
-
                         $.ajax({
                             url: "/getSubCategory/" + categoryId,
                             type: "GET",
                             success: function(data){
                                 var subCategory = data.subCategory;
-                                var html = "<option disabled selected>-- Select Sub Category --</option>";
+                                var html = "<option disabled selected>-- Select Sub-Category --</option>";
 
                                 for(let i = 0; i < subCategory.length; i++){
                                     html += `<option value="${subCategory[i].id}">${subCategory[i].name}</option>`;
@@ -259,7 +220,40 @@
                     }
                 });
             });
-        </script>
 
+            function printreport() {
+                var header = `
+                    <h1 style="text-align:center;">Restaurant Management System</h1>
+                    <p style="text-align:center;">House # 02, Road # 11, Sector # 6, Uttara, Dhaka-1230</p>
+                    <h3 style="text-align:center;">Selected day , category and sub-category wise Report</h3>
+                    <hr>
+                `;
+
+                var style = `
+                    <style>
+                        table { 
+                            width: 100%; 
+                            border-collapse: collapse; 
+                            margin-top: 10px;
+                        }
+                        th, td {
+                            border: 1px solid #000;
+                            padding: 6px;
+                            text-align: center;
+                        }
+                        th {
+                            background-color: #f4f4f4;
+                        }
+                    </style>
+                `;
+
+                var printContent = document.getElementById('printableTable').outerHTML;
+                var originalContents = document.body.innerHTML;
+
+                document.body.innerHTML = header + style + printContent;
+                window.print();
+                document.body.innerHTML = originalContents;
+            }
+        </script>
     </body>
     </html>
