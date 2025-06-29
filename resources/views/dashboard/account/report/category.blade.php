@@ -74,15 +74,14 @@
                                         </div>
 
                                         <div class="form-group row align-items-center">
-                                            <label for="category" class="col-sm-3 col-form-label">Category</label>
-                                            <div class="col-sm-9 d-flex">
+                                            <div class="col-sm-12 d-flex">
                                                 <select name="cbxCategory" id="category" required class="form-control me-2">
-                                                <option disabled selected>-- Select Category --</option>
-                                                @if($category)
+                                                    <option disabled selected>-- Select Category --</option>
+                                                    @if($category)
                                                     @foreach($category as $key => $val)
                                                     <option value="{{ $val->id }}">{{ $val->name }}</option>
                                                     @endforeach
-                                                @endif
+                                                    @endif
                                                 </select>                                                
                                             </div>
                                         </div>

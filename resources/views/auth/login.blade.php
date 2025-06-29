@@ -1,27 +1,27 @@
-    <!DOCTYPE html>
-    <html lang="en">
-    <head>
-        <!-- Required meta tags -->
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-        <title>Restaurant Manager</title>
-        <!-- plugins:css -->
-        <link rel="stylesheet" href="/dash/assets/vendors/mdi/css/materialdesignicons.min.css">
-        <link rel="stylesheet" href="/dash/assets/vendors/flag-icon-css/css/flag-icon.min.css">
-        <link rel="stylesheet" href="/dash/assets/vendors/css/vendor.bundle.base.css">
-        <!-- endinject -->
-        <!-- Plugin css for this page -->
-        <link rel="stylesheet" href="/dash/assets/vendors/font-awesome/css/font-awesome.min.css" />
-        <link rel="stylesheet" href="/dash/assets/vendors/bootstrap-datepicker/bootstrap-datepicker.min.css">
-        <!-- End plugin css for this page -->
-        <!-- inject:css -->
-        <!-- endinject -->
-        <!-- Layout styles -->
-        <link rel="stylesheet" href="/dash/assets/css/style.css">
-        <!-- End layout styles -->
-        <link rel="shortcut icon" href="/dash/assets/images/favicon.png" />
-    </head>
-    <body>
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+      <!-- Required meta tags -->
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+      <title>Restaurant Manager</title>
+      <!-- plugins:css -->
+      <link rel="stylesheet" href="/dash/assets/vendors/mdi/css/materialdesignicons.min.css">
+      <link rel="stylesheet" href="/dash/assets/vendors/flag-icon-css/css/flag-icon.min.css">
+      <link rel="stylesheet" href="/dash/assets/vendors/css/vendor.bundle.base.css">
+      <!-- endinject -->
+      <!-- Plugin css for this page -->
+      <link rel="stylesheet" href="/dash/assets/vendors/font-awesome/css/font-awesome.min.css" />
+      <link rel="stylesheet" href="/dash/assets/vendors/bootstrap-datepicker/bootstrap-datepicker.min.css">
+      <!-- End plugin css for this page -->
+      <!-- inject:css -->
+      <!-- endinject -->
+      <!-- Layout styles -->
+      <link rel="stylesheet" href="/dash/assets/css/style.css">
+      <!-- End layout styles -->
+      <link rel="shortcut icon" href="/dash/assets/images/favicon.png" />
+  </head>
+<body>
 
 
 
@@ -57,11 +57,11 @@
                     </div>
                     <a href="#" class="auth-link text-black">Forgot password?</a>
                   </div>
-                  <div class="mb-2">
+                  <!-- <div class="mb-2">
                     <button type="button" class="btn btn-block btn-facebook auth-form-btn">
                       <i class="mdi mdi-facebook mr-2"></i>Connect using facebook </button>
-                  </div>
-                  <div class="text-center mt-4 font-weight-light"> Don't have an account? <a href="register.html" class="text-primary">Create</a>
+                  </div> -->
+                  <div class="text-center mt-4 font-weight-light"> Don't have an account? <a href="{{url('/create-user-view')}}" class="text-primary">Create new account</a>
                   </div>
                 </form>
               </div>
@@ -78,23 +78,23 @@
 
 
 
-        <!-- plugins:js -->
-        <script src="/dash/assets/vendors/js/vendor.bundle.base.js"></script>
-        <!-- endinject -->
-        <!-- Plugin js for this page -->
-        <script src="/dash/assets/vendors/chart.js/Chart.min.js"></script>
-        <script src="/dash/assets/vendors/jquery-circle-progress/js/circle-progress.min.js"></script>
-        <!-- End plugin js for this page -->
-        <!-- inject:js -->
-        <script src="/dash/assets/js/off-canvas.js"></script>
-        <script src="/dash/assets/js/hoverable-collapse.js"></script>
-        <script src="/dash/assets/js/misc.js"></script>
-        <!-- endinject -->
-        <!-- Custom js for this page -->
-        <script src="/dash/assets/js/dashboard.js"></script>
-        <!-- End custom js for this page -->
-        <script src="/dash/assets/js/food.js"></script>
+    <!-- plugins:js -->
+    <script src="/dash/assets/vendors/js/vendor.bundle.base.js"></script>
+    <!-- endinject -->
+    <!-- Plugin js for this page -->
+    <script src="/dash/assets/vendors/chart.js/Chart.min.js"></script>
+    <script src="/dash/assets/vendors/jquery-circle-progress/js/circle-progress.min.js"></script>
+    <!-- End plugin js for this page -->
+    <!-- inject:js -->
+    <script src="/dash/assets/js/off-canvas.js"></script>
+    <script src="/dash/assets/js/hoverable-collapse.js"></script>
+    <script src="/dash/assets/js/misc.js"></script>
+    <!-- endinject -->
+    <!-- Custom js for this page -->
+    <script src="/dash/assets/js/dashboard.js"></script>
+    <!-- End custom js for this page -->
+    <script src="/dash/assets/js/food.js"></script>
         
 
-    </body>
-    </html>
+</body>
+</html>

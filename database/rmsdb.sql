@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Jun 28, 2025 at 01:45 PM
+-- Generation Time: Jun 29, 2025 at 03:18 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -36,7 +36,6 @@ CREATE TABLE `admins` (
   `phone` varchar(255) DEFAULT NULL,
   `address` varchar(255) NOT NULL,
   `dob` date DEFAULT NULL,
-  `departmentId` int(11) DEFAULT NULL,
   `role` int(11) NOT NULL,
   `status` int(11) NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
@@ -47,8 +46,10 @@ CREATE TABLE `admins` (
 -- Dumping data for table `admins`
 --
 
-INSERT INTO `admins` (`id`, `name`, `email`, `password`, `photo`, `phone`, `address`, `dob`, `departmentId`, `role`, `status`, `created_at`, `updated_at`) VALUES
-(1, 'samim', 'samim@gmail.com', '$2y$10$wKC61DMpRiv/YPTV9QPcPeaeYbYU899vQ62kYOzGELXGQ8PDBTGTa', NULL, NULL, 'Dhaka', NULL, NULL, 1, 1, NULL, NULL);
+INSERT INTO `admins` (`id`, `name`, `email`, `password`, `photo`, `phone`, `address`, `dob`, `role`, `status`, `created_at`, `updated_at`) VALUES
+(1, 'SAMIM-HosseN', 'samim@gmail.com', '$2y$10$wKC61DMpRiv/YPTV9QPcPeaeYbYU899vQ62kYOzGELXGQ8PDBTGTa', NULL, NULL, 'Dhaka', NULL, 1, 1, NULL, NULL),
+(2, 'Shamim', 'asdf@asdf.asdf', '$2y$10$XErGlTHRXT5vM7iN9MyN5ODxxWuvO2pAzm5Tp9XZrN4/Z1/W4rTb6', NULL, '123456789', 'Dhaka', '2025-05-29', 3, 0, '2025-06-29 07:16:49', '2025-06-29 07:16:49'),
+(3, 'Akbor', 'akbor@gmail.com', '$2y$10$kBKACZq6vFof1kQqQeaE3uOV4uiyCN4kTtKYf9TDmyZbRHP8Jgx1O', NULL, '123123123', 'Dhaka', '2025-06-02', 2, 0, '2025-06-29 07:18:06', '2025-06-29 07:18:06');
 
 -- --------------------------------------------------------
 
@@ -151,7 +152,18 @@ INSERT INTO `carts` (`id`, `reg`, `date`, `userId`, `foodId`, `quantity`, `price
 (88, 20250628135, '2025-06-28', 1, 9, 1, 180, '2025-06-27 23:53:30', '2025-06-27 23:53:30'),
 (89, 20250628135, '2025-06-28', 1, 11, 1, 230, '2025-06-27 23:53:33', '2025-06-27 23:53:33'),
 (90, 20250628135, '2025-06-28', 1, 12, 1, 320, '2025-06-27 23:53:35', '2025-06-27 23:53:35'),
-(91, 20250628135, '2025-06-28', 1, 13, 1, 180, '2025-06-27 23:53:36', '2025-06-27 23:53:36');
+(91, 20250628135, '2025-06-28', 1, 13, 1, 180, '2025-06-27 23:53:36', '2025-06-27 23:53:36'),
+(93, 20250629136, '2025-06-29', 1, 12, 1, 320, '2025-06-28 22:22:36', '2025-06-28 22:22:36'),
+(94, 20250629136, '2025-06-29', 1, 8, 1, 450, '2025-06-28 22:22:37', '2025-06-28 22:22:37'),
+(95, 20250629137, '2025-06-29', 1, 9, 3, 180, '2025-06-29 02:39:45', '2025-06-29 02:39:52'),
+(96, 20250629137, '2025-06-29', 1, 13, 3, 180, '2025-06-29 02:39:46', '2025-06-29 02:39:51'),
+(97, 20250629137, '2025-06-29', 1, 11, 3, 230, '2025-06-29 02:39:47', '2025-06-29 02:39:49'),
+(98, 20250629138, '2025-06-29', 1, 13, 2, 180, '2025-06-29 02:39:56', '2025-06-29 02:40:03'),
+(99, 20250629138, '2025-06-29', 1, 7, 2, 850, '2025-06-29 02:39:57', '2025-06-29 02:40:02'),
+(100, 20250629138, '2025-06-29', 1, 9, 2, 180, '2025-06-29 02:39:58', '2025-06-29 02:40:01'),
+(101, 20250629139, '2025-06-29', 1, 9, 1, 180, '2025-06-29 02:41:28', '2025-06-29 02:41:28'),
+(102, 20250629139, '2025-06-29', 1, 6, 1, 450, '2025-06-29 02:41:29', '2025-06-29 02:41:29'),
+(103, 20250629140, '2025-06-29', 1, 9, 1, 180, '2025-06-29 03:31:20', '2025-06-29 03:31:20');
 
 -- --------------------------------------------------------
 
@@ -218,7 +230,12 @@ INSERT INTO `expenses` (`id`, `catId`, `subcatId`, `userId`, `date`, `amount`, `
 (10, 9, 47, 1, '2025-06-28', 250, 'N/A', '2025-06-28 04:47:20', '2025-06-28 04:47:20'),
 (11, 9, 45, 1, '2025-06-28', 150, 'N/A', '2025-06-28 04:47:29', '2025-06-28 04:47:29'),
 (12, 2, 15, 1, '2025-06-28', 230, 'N/A', '2025-06-28 04:49:05', '2025-06-28 04:49:05'),
-(13, 1, 6, 1, '2025-06-28', 190, 'N/A', '2025-06-28 05:39:58', '2025-06-28 05:39:58');
+(13, 1, 6, 1, '2025-06-28', 190, 'N/A', '2025-06-28 05:39:58', '2025-06-28 05:39:58'),
+(14, 8, 43, 1, '2025-06-29', 500, 'N/A', '2025-06-28 22:23:48', '2025-06-28 22:23:48'),
+(15, 1, 9, 1, '2025-06-29', 450, 'N/A', '2025-06-28 22:24:34', '2025-06-28 22:24:34'),
+(16, 2, 13, 1, '2025-06-29', 250, 'N/A', '2025-06-28 23:05:15', '2025-06-28 23:05:15'),
+(17, 1, 9, 1, '2025-06-29', 650, 'N/A', '2025-06-28 23:12:07', '2025-06-28 23:12:07'),
+(18, 1, 3, 1, '2025-06-29', 1800, 'N/A', '2025-06-29 00:39:08', '2025-06-29 00:39:08');
 
 -- --------------------------------------------------------
 
@@ -261,13 +278,13 @@ CREATE TABLE `food` (
 --
 
 INSERT INTO `food` (`id`, `name`, `price`, `category`, `stock`, `status`, `image`, `ingredients`, `remark`, `created_at`, `updated_at`) VALUES
-(6, 'Butter Chicken', 450, 'main', 33, 1, 'food-1749884892.jpg', 'Chicken, butter, tomato, cream, spices.', 'Tender chicken cooked in a creamy tomato-based sauce.', '2025-06-13 17:30:24', '2025-06-27 23:53:28'),
-(7, 'Paneer Tikka Masala', 850, 'main', 62, 1, 'food-1749879095.jpg', 'Paneer, yogurt, tomato puree, onion, masala.', 'Grilled paneer cubes in a spicy tikka masala sauce.', '2025-06-13 17:31:35', '2025-06-27 23:53:29'),
-(8, 'Grilled Salmon', 450, 'main', 12, 1, 'food-1749879251.jpg', 'Salmon, garlic, lemon, herbs, olive oil.', 'Fresh salmon grilled with herbs and lemon.', '2025-06-13 17:34:11', '2025-06-27 23:53:29'),
-(9, 'Chicken Wings', 180, 'starter', 13, 1, 'food-1749880468.jpg', 'Chicken wings, flour, chili powder, garlic, butter, vinegar.', 'Spicy and crispy deep-fried chicken wings served with hot sauce.', '2025-06-13 17:54:28', '2025-06-27 23:53:30'),
-(11, 'Vegetable Spring Rolls', 230, 'starter', 12, 1, 'food-1749885187.jpg', 'Carrot, cabbage, onion, noodles, flour wrap, soy sauce.', 'Crispy rolls stuffed with vegetables and noodles.', '2025-06-13 19:13:07', '2025-06-27 23:53:33'),
-(12, 'Nachos', 320, 'starter', 67, 1, 'food-1749896193.jpg', 'Corn tortilla chips, cheddar cheese, jalapeños, salsa, sour cream.', 'Crispy tortilla chips topped with melted cheese and toppings.', '2025-06-13 22:16:33', '2025-06-27 23:53:35'),
-(13, 'Garlic Bread', 180, 'starter', 7, 1, 'food-1749896253.jpg', 'Baguette, butter, garlic, parsley, olive oil.', 'Toasted bread topped with garlic butter and herbs.', '2025-06-13 22:17:33', '2025-06-27 23:56:33');
+(6, 'Butter Chicken', 450, 'main', 32, 1, 'food-1749884892.jpg', 'Chicken, butter, tomato, cream, spices.', 'Tender chicken cooked in a creamy tomato-based sauce.', '2025-06-13 17:30:24', '2025-06-29 02:41:29'),
+(7, 'Paneer Tikka Masala', 850, 'main', 60, 1, 'food-1749879095.jpg', 'Paneer, yogurt, tomato puree, onion, masala.', 'Grilled paneer cubes in a spicy tikka masala sauce.', '2025-06-13 17:31:35', '2025-06-29 02:40:02'),
+(8, 'Grilled Salmon', 450, 'main', 11, 1, 'food-1749879251.jpg', 'Salmon, garlic, lemon, herbs, olive oil.', 'Fresh salmon grilled with herbs and lemon.', '2025-06-13 17:34:11', '2025-06-28 22:22:37'),
+(9, 'Chicken Wings', 180, 'starter', 78, 1, 'food-1749880468.jpg', 'Chicken wings, flour, chili powder, garlic, butter, vinegar.', 'Spicy and crispy deep-fried chicken wings served with hot sauce.', '2025-06-13 17:54:28', '2025-06-29 03:31:20'),
+(11, 'Vegetable Spring Rolls', 230, 'starter', 90, 1, 'food-1749885187.jpg', 'Carrot, cabbage, onion, noodles, flour wrap, soy sauce.', 'Crispy rolls stuffed with vegetables and noodles.', '2025-06-13 19:13:07', '2025-06-29 02:39:49'),
+(12, 'Nachos', 320, 'starter', 66, 1, 'food-1749896193.jpg', 'Corn tortilla chips, cheddar cheese, jalapeños, salsa, sour cream.', 'Crispy tortilla chips topped with melted cheese and toppings.', '2025-06-13 22:16:33', '2025-06-28 22:22:36'),
+(13, 'Garlic Bread', 180, 'starter', 40, 1, 'food-1749896253.jpg', 'Baguette, butter, garlic, parsley, olive oil.', 'Toasted bread topped with garlic butter and herbs.', '2025-06-13 22:17:33', '2025-06-29 02:40:03');
 
 -- --------------------------------------------------------
 
@@ -360,7 +377,12 @@ INSERT INTO `orders` (`id`, `date`, `reg`, `tableId`, `total`, `discount`, `paya
 (36, '2025-06-28', 20250628132, 8, 180, 0, 180, 180, 0, 4, 2, '2025-06-27 23:34:42', '2025-06-27 23:44:21'),
 (37, '2025-06-28', 20250628133, 5, 2660, 60, 2600, 2600, 0, 4, 2, '2025-06-27 23:42:51', '2025-06-27 23:44:17'),
 (38, '2025-06-28', 20250628134, 7, 1890, 0, 1890, 1890, 0, 4, 2, '2025-06-27 23:46:24', '2025-06-28 00:03:11'),
-(39, '2025-06-28', 20250628135, 5, 2660, 0, 2660, 2660, 0, 4, 2, '2025-06-27 23:53:46', '2025-06-28 00:03:05');
+(39, '2025-06-28', 20250628135, 5, 2660, 0, 2660, 2660, 0, 4, 2, '2025-06-27 23:53:46', '2025-06-28 00:03:05'),
+(40, '2025-06-29', 20250629136, 4, 770, 70, 700, 700, 0, 4, 2, '2025-06-28 22:22:40', '2025-06-28 22:23:19'),
+(41, '2025-06-29', 20250629137, 4, 1770, 0, 1770, 1700, 70, 4, 3, '2025-06-29 02:39:54', '2025-06-29 02:40:36'),
+(42, '2025-06-29', 20250629138, 1, 2420, 0, 2420, 2400, 20, 4, 3, '2025-06-29 02:40:04', '2025-06-29 02:40:31'),
+(43, '2025-06-29', 20250629139, 5, 630, 0, 630, 630, 0, 4, 2, '2025-06-29 02:41:31', '2025-06-29 03:31:08'),
+(44, '2025-06-29', 20250629140, 3, 180, 0, 180, 180, 0, 4, 2, '2025-06-29 03:31:23', '2025-06-29 03:31:47');
 
 -- --------------------------------------------------------
 
@@ -485,10 +507,10 @@ CREATE TABLE `tables` (
 --
 
 INSERT INTO `tables` (`id`, `tName`, `status`, `remark`, `created_at`, `updated_at`) VALUES
-(1, 'N3C', 1, 'N/A', '2025-06-12 21:05:52', '2025-06-25 06:14:56'),
-(3, 'N3B', 1, 'N/A', '2025-06-12 21:06:18', '2025-06-27 23:42:32'),
-(4, 'N3A', 1, 'N/A', '2025-06-12 21:06:31', '2025-06-27 23:38:46'),
-(5, 'N3D', 1, 'N/A', '2025-06-12 21:12:37', '2025-06-27 23:53:52'),
+(1, 'N3C', 1, 'N/A', '2025-06-12 21:05:52', '2025-06-29 02:40:21'),
+(3, 'N3B', 1, 'N/A', '2025-06-12 21:06:18', '2025-06-29 03:31:30'),
+(4, 'N3A', 1, 'N/A', '2025-06-12 21:06:31', '2025-06-29 02:40:13'),
+(5, 'N3D', 1, 'N/A', '2025-06-12 21:12:37', '2025-06-29 03:31:08'),
 (7, 'S2A', 1, 'N/A', '2025-06-12 21:30:13', '2025-06-27 23:46:45'),
 (8, 'S2B', 1, 'N/A', '2025-06-12 21:30:23', '2025-06-27 23:34:50'),
 (9, 'S2C', 1, 'N/A', '2025-06-12 21:30:32', '2025-06-17 21:58:18'),
@@ -619,13 +641,13 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `admins`
 --
 ALTER TABLE `admins`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `carts`
 --
 ALTER TABLE `carts`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=93;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=104;
 
 --
 -- AUTO_INCREMENT for table `categories`
@@ -637,7 +659,7 @@ ALTER TABLE `categories`
 -- AUTO_INCREMENT for table `expenses`
 --
 ALTER TABLE `expenses`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
 
 --
 -- AUTO_INCREMENT for table `failed_jobs`
@@ -661,7 +683,7 @@ ALTER TABLE `migrations`
 -- AUTO_INCREMENT for table `orders`
 --
 ALTER TABLE `orders`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=40;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=45;
 
 --
 -- AUTO_INCREMENT for table `personal_access_tokens`

@@ -20,6 +20,8 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 
 Route::get('/login', [AdminController::class, 'loginView']);
 Route::post('/user-login', [AdminController::class, 'login']);
+Route::get('/create-user-view', [AdminController::class, 'userCreateView'])->name('user.create.view');
+Route::post('/new-user', [AdminController::class, 'createUser']);
 
 Route::group(['middleware' => ['admin']], function () {
 
@@ -110,6 +112,7 @@ Route::group(['middleware' => ['admin']], function () {
     Route::get('/sub-category-report', [AccountController::class, 'subCatRpt']);
     Route::get('/search-sub-category', [AccountController::class, 'searchSubCat']);
     Route::get('/total-day-wise-report', [AccountController::class, 'totalDay']);
+    Route::get('/search-total-day', [AccountController::class, 'totalDaySearch']);
 
     Route::get('/print-expenses', [AccountController::class, 'printExpenses']);
     Route::get('/print-expenses-specific/{id}', [AccountController::class, 'specificPrint']);

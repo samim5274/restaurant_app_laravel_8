@@ -132,7 +132,7 @@
       </div>
     </li>
     
-    <li class="nav-item sidebar-user-actions">
+    <!-- <li class="nav-item sidebar-user-actions">
       <div class="user-details">
         <div class="d-flex justify-content-between align-items-center">
           <div>
@@ -148,7 +148,7 @@
           <div class="badge badge-success">3</div>
         </div>
       </div>
-    </li>
+    </li> -->
     <li class="nav-item sidebar-user-actions">
       <div class="sidebar-user-menu">
         <a href="{{url('/dashboard/setting')}}" class="nav-link"><i class="mdi mdi-settings menu-icon"></i>

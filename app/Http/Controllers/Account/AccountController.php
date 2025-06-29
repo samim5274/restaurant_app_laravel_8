@@ -175,4 +175,23 @@ class AccountController extends Controller
         // dd($expenses, $total);
         return view('dashboard.account.report.sub_category', compact('expenses','category','subCategory','total'));
     }
+
+    public function totalDay() {
+        $date = Carbon::now()->format('Ymd');
+        $expenses = Expenses::where('date', $date)->with(['category', 'subcategory', 'user'])->orderBy('date', 'desc')->get();
+        $total = Expenses::where('date', $date)->sum('amount');
+        return view('dashboard.account.report.total_day', compact('expenses','total'));
+    }
+
+    public function totalDaySearch(Request $request) {
+        $dateStart = $request->dtpStartDate;
+        $dateEnd = $request->dtpEndDate;
+        $expenses = Expenses::with(['category', 'subcategory'])
+                            ->whereBetween('date', [$dateStart, $dateEnd])                            
+                            ->orderBy('id', 'desc')
+                            ->get();
+        $total = Expenses::whereBetween('date', [$dateStart, $dateEnd])   
+                            ->sum('amount');
+        return view('dashboard.account.report.total_day', compact('expenses','total'));
+    }
 }

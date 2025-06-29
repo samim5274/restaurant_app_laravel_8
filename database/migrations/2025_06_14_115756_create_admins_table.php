@@ -22,9 +22,8 @@ class CreateAdminsTable extends Migration
             $table->string('phone')->nullable();
             $table->string('address');
             $table->date('dob')->nullable();
-            $table->integer('departmentId')->nullable();
             $table->integer('role');
-            $table->integer('status');
+            $table->integer('status')->default(0);
             $table->timestamps();
         });
     }
