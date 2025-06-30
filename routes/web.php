@@ -25,11 +25,17 @@ Route::post('/new-user', [AdminController::class, 'createUser']);
 
 Route::group(['middleware' => ['admin']], function () {
 
+    // ================================================ Admin Controller route // ================================================
+
     Route::get('/employee-details', [AdminController::class, 'employeeView'])->name('employee.details.view');
     Route::get('/update-employee-status/{id}', [AdminController::class, 'editEmpStatus']);
     Route::get('/live-search-employee', [AdminController::class, 'SearchEmp']);
 
     Route::get('/print-employee', [AdminController::class, 'printEmp']);
+
+    Route::get('/profile/{id}', [AdminController::class, 'profileView'])->name('profile,view');
+    Route::post('/edit-profile/{id}', [AdminController::class, 'editProfile']);
+    Route::post('/change-password/{id}', [AdminController::class, 'changePass']);
 
     // ================================================ dashboard Controller route // ================================================
 

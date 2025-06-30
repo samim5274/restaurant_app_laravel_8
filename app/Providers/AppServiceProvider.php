@@ -37,11 +37,13 @@ class AppServiceProvider extends ServiceProvider
             $invoice = Carbon::now()->format('Ymd').Auth::guard('admin')->id().$order;
             $orderList = Order::where('status', 1)->count();
             $due = Order::where('status', 3)->count();
-
+            $user = Auth::guard('admin')->user();
+            
             $view->with([
                 'due' => $due,
                 'order' => $orderList,
                 'kitchen' => $kitchen,
+                'user' => $user,
                 'count' => Cart::where('reg', $invoice)->count()
             ]);
         });

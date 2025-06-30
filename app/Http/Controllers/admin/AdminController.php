@@ -125,4 +125,84 @@ class AdminController extends Controller
         $user = Admin::all();
         return view('dashboard.employee.epmloyee_Details_print', compact('user'));
     }
+
+    public function profileView($id) {
+        $user = Admin::where('id', $id)->first();
+        // dd($data);
+        return view('dashboard.profile.profile', compact('user'));
+    }
+
+    public function editProfile(Request $request, $id) {
+        $request->validate([
+            'photo' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+        ]);
+        
+        $user = Admin::where('id', $id)->first();
+
+        $user->name = $request->input('name');
+        $user->email = $request->input('email');
+        $user->phone = $request->input('phone');
+        $user->dob = $request->input('dob');
+        $password = Hash::make($request->input('password'));
+        
+        if (!Hash::check($request->input('password'), $user->password)) {
+            return redirect()->back()->with('error', 'Password not match. Please try again.');
+        } 
+
+
+        if ($request->file('photo')) {
+
+            if ($user->photo) {
+                $path = public_path('img/employee/' . $user->photo);
+                logger("Trying to delete: " . $path);
+                if (file_exists($path)) {
+                    unlink($path);
+                } else {
+                    logger("File not found: " . $path);
+                }
+            }
+
+            $file = $request->file('photo');
+            if ($file->isValid()) {
+                $ext = $file->getClientOriginalExtension();
+                $fileName = 'user-' . time() . '.' . $ext;
+
+                $location = public_path('img/employee/');
+
+                if (!file_exists($location)) {
+                    mkdir($location, 0755, true);
+                }
+
+                $file->move($location, $fileName);
+                $user->photo = $fileName;
+            }
+        }
+
+        $user->update();
+        // dd($user, $request->file('photo'));
+        return redirect()->back()->with('success', 'Status updated successfully.');
+    }
+
+    public function changePass(Request $request, $id) {
+        
+        $oldPass = $request->input('current_password','');
+        $newPass = $request->input('new_password','');
+        $reTypePass = $request->input('confirm_password','');
+
+        if($newPass == $reTypePass) {
+            $user = Admin::where('id', $id)->first();
+
+            if (!Hash::check($oldPass, $user->password)) {
+                return back()->with('error', 'Current password is incorrect.');
+            } else {
+                $user->password = Hash::make($request->input('new_password',''));
+                $user->update();
+                return redirect()->back()->with('success', 'Password changed successfully.');
+            }
+        } else {
+            return redirect()->back()->with('warning', 'Password not match successfully.');
+        }
+
+        
+    }
 }

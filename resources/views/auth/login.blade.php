@@ -42,10 +42,10 @@
                 <form class="pt-3" action="{{url('/user-login')}}" method="POST">
                     @csrf
                   <div class="form-group">
-                    <input type="email" class="form-control form-control-lg" id="exampleInputEmail1" name="txtEmail" value="samim@gmail.com" placeholder="Email">
+                    <input type="email" class="form-control form-control-lg" id="exampleInputEmail1" name="txtEmail" placeholder="Email">
                   </div>
                   <div class="form-group">
-                    <input type="password" class="form-control form-control-lg" id="exampleInputPassword1" name="txtPassword" value="123456789" placeholder="Password">
+                    <input type="password" class="form-control form-control-lg" id="exampleInputPassword1" name="txtPassword" placeholder="Password">
                   </div>
                   <div class="mt-3">
                     <input type="submit" class="btn btn-block btn-primary btn-lg font-weight-medium auth-form-btn" value="SIGN IN">
