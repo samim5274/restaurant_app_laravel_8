@@ -108,7 +108,7 @@
                   <div class="card-body d-flex flex-column justify-content-center align-items-center text-center">
                     <i class="mdi mdi-cash-multiple mb-3 text-success" style="font-size: 2.5rem;"></i> 
                     <h6 class="text-muted mb-2">Income</h6>
-                    <h3 class="text-success font-weight-bold mb-0">৳{{ $total - $expenses }}/-</h3>
+                    <h3 class="text-success font-weight-bold mb-0">৳{{ $totalPay - $expenses }}/-</h3>
                   </div>
                 </div>
               </div>
@@ -271,7 +271,7 @@
                   <div class="card-body d-flex flex-column justify-content-center align-items-center text-center">
                     <i class="mdi mdi-cash-multiple mb-3 text-success" style="font-size: 2.5rem;"></i> 
                     <h6 class="text-muted mb-2">Income</h6>
-                    <h3 class="text-success font-weight-bold mb-0">৳{{ $total7 - $expenses7 }}/-</h3>
+                    <h3 class="text-success font-weight-bold mb-0">৳{{ $totalPay7 - $expenses7 }}/-</h3>
                   </div>
                 </div>
               </div>
@@ -434,7 +434,7 @@
                   <div class="card-body d-flex flex-column justify-content-center align-items-center text-center">
                     <i class="mdi mdi-cash-multiple mb-3 text-success" style="font-size: 2.5rem;"></i> 
                     <h6 class="text-muted mb-2">Income</h6>
-                    <h3 class="text-success font-weight-bold mb-0">৳{{ $totalMonth - $expensesMonth }}/-</h3>
+                    <h3 class="text-success font-weight-bold mb-0">৳{{ $totalPayMonth  - $expensesMonth }}/-</h3>
                   </div>
                 </div>
               </div>

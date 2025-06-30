@@ -158,6 +158,13 @@
     </li>
     <li class="nav-item sidebar-user-actions">
       <div class="sidebar-user-menu">
+        <a href="{{url('/employee-details')}}" class="nav-link"><i class="mdi mdi-account-circle menu-icon"></i>
+          <span class="menu-title">Employee</span>
+        </a>
+      </div>
+    </li>
+    <li class="nav-item sidebar-user-actions">
+      <div class="sidebar-user-menu">
         <a href="#" class="nav-link"><i class="mdi mdi-speedometer menu-icon"></i>
           <span class="menu-title">Take Tour</span></a>
       </div>
