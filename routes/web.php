@@ -112,7 +112,7 @@ Route::group(['middleware' => ['admin']], function () {
 
     // ================================================ Account Controller route // ================================================
 
-    Route::get('/expenses-setting', [AccountController::class, 'setting'])->name('expenses.setting.view');
+    Route::get('/expenses-option', [AccountController::class, 'setting'])->name('expenses.setting.view');
     Route::post('/add-category', [AccountController::class, 'addCategory']);
     Route::post('/add-sub-category', [AccountController::class, 'addSubCategory']);
     Route::get('/getSubCategory/{id}', [AccountController::class, 'getSubcategory']);
