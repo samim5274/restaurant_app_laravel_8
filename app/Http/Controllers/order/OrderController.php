@@ -11,6 +11,7 @@ use App\Models\Table;
 use App\Models\Food;
 use App\Models\Order;
 use App\Models\Cart;
+use App\Models\Stock;
 use Auth;
 use Illuminate\Support\Carbon;
 
@@ -60,7 +61,8 @@ class OrderController extends Controller
         }
         if($data) {
             $cart = new Cart;
-
+            $stock = new Stock();
+        
             $order = Order::count() + 1;
             $invoice = Carbon::now()->format('Ymd').Auth::guard('admin')->id().$order;
 
@@ -75,9 +77,16 @@ class OrderController extends Controller
             $cart->foodId = $data->id;
             $cart->price = $data->price;
 
+            $stock->date = Carbon::now()->format('Y-m-d');
+            $stock->foodId = $data->id;
+            $stock->reg = $invoice;
+            $stock->stockOut += 1;
+            $stock->status = 1; // 1 sale, 2 return, 3 stock in and 4 stock out
+
             $data->stock -= 1;
             //dd($cart);
             $data->update();
+            $stock->save();
             $cart->save();
             return redirect()->back()->with('success', 'Item add to card successfully.');
         } else {
@@ -100,6 +109,7 @@ class OrderController extends Controller
         }
         if($data) {
             $cart = new Cart;
+            $stock = new Stock();
 
             $order = Order::count() + 1;
             $invoice = Carbon::now()->format('Ymd').Auth::guard('admin')->id().$order;
@@ -115,9 +125,16 @@ class OrderController extends Controller
             $cart->foodId = $data->id;
             $cart->price = $data->price;
 
+            $stock->date = Carbon::now()->format('Y-m-d');
+            $stock->foodId = $data->id;
+            $stock->reg = $invoice;
+            $stock->stockOut += 1;
+            $stock->status = 1; // 1 sale, 2 return, 3 stock in and 4 stock out
+
             $data->stock -= 1;
             //dd($cart);
             $data->update();
+            $stock->save();
             $cart->save();
             return redirect()->back()->with('success', 'Item add to card successfully.');
         } else {
@@ -129,10 +146,12 @@ class OrderController extends Controller
     {
         $data = Cart::where('id', $id)->first();
         $food = Food::where('id', $data->foodId)->first();
-        // dd($request->all());
+        $stock = Stock::where('FoodId', $data->foodId)->where('reg', $data->reg)->first();
+        
         if($data) {
             $food->stock += $request->input('txtStock','');
             $food->update();
+            $stock->delete();
             $data->delete();
             return redirect()->back()->with('success', 'Item remove to card successfully.');
         } else {
@@ -170,6 +189,29 @@ class OrderController extends Controller
         if ($newQty > $availableStock) {
             return response()->json(['status' => 'error', 'message' => 'Food stock not available']);
         }
+
+        $oldQty = $cart->quantity;
+        $diff = $newQty - $oldQty;
+
+        $stock = Stock::where('foodId', $cart->foodId)
+                        ->where('reg', $cart->reg)
+                        ->first();
+
+        if (!$stock) {
+            return response()->json(['status' => 'error', 'message' => 'Stock record not found for this registration']);
+        }
+
+        if($diff > 0) {
+            $stock->stockOut += $diff;            
+        } elseif ($diff < 0) {
+            $adjust = abs($diff);
+            if ($stock->stockOut < $adjust) {
+                return response()->json(['status' => 'error', 'message' => 'Cannot reduce stock below 0']);
+            }
+            $stock->stockOut -= $adjust;            
+        }
+
+        $stock->update();
 
         $food->stock -= ($newQty - $cart->quantity);
         $food->save();

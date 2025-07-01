@@ -50,20 +50,12 @@
                     
                     <div class="col-lg-12 grid-margin stretch-card">
                         <div class="card mt-2">
-                            <div class="card-body">
-                                <div class="d-flex justify-content-between align-items-center mb-3">
-                                    <h4 class="card-title mb-0">Search Food</h4>
-                                    <div class="container">
-                                        <div class="py-4">
-                                            <form action="/add-to-cart-2" method="GET">
-                                                <input type="search" name="search" id="search" class="form-control py-4" placeholder="Search by food name or category or food ID">
-                                            </form>
-                                        </div>
-                                    </div>
-                                    @if($count)<a href="{{url('/cart-view')}}">
-                                        <button class="btn btn-inverse-primary"><i class="mdi mdi-cart fa-lg" aria-hidden="true"></i> Cart <span class="badge badge-danger">{{$count}}</span></button>
-                                    </a>
-                                    @endif
+                            <div class="card-body"> 
+                                <h4 class="card-title mb-0">Search Food</h4>
+                                <div class="py-2">
+                                    <form action="/add-to-cart-2" method="GET">
+                                        <input type="search" name="search" id="search" class="form-control" placeholder="Search by food name or category or food ID">
+                                    </form>
                                 </div>
                             </div> 
                         </div>

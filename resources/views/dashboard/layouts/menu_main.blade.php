@@ -113,7 +113,7 @@
       <div class="collapse" id="account1">
         <ul class="nav flex-column sub-menu">
           <li class="nav-item"> <a class="nav-link" href="{{url('/daily-expenses')}}"> Daily Expenses </a></li>
-          <li class="nav-item"> <a class="nav-link {{ request()->is('expenses-option') ? 'active' : '' }}" href="{{url('/expenses-option')}}"> Option </a></li>
+          <li class="nav-item"> <a class="nav-link {{ request()->is('expenses-option') ? 'active' : '' }}" href="{{url('/expenses-option')}}"> Setting </a></li>
         </ul>
       </div>
     </li>
