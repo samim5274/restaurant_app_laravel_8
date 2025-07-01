@@ -9,6 +9,7 @@ use App\Http\Controllers\food\FoodController;
 use App\Http\Controllers\food\KitchenController;
 use App\Http\Controllers\Sale\SaleController;
 use App\Http\Controllers\Account\AccountController;
+use App\Http\Controllers\Mail\MailController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -69,7 +70,7 @@ Route::group(['middleware' => ['admin']], function () {
 
     Route::get('/add-to-cart/{id}', [OrderController::class, 'addCart']);
     Route::get('/add-to-cart-2', [OrderController::class, 'addCart2']);
-    
+
     Route::get('/add-to-cart-ajax/{id}', [OrderController::class, 'addToCartAjax']);
 
     Route::get('/cart-view', [OrderController::class, 'cartView'])->name('cart.view');
@@ -132,4 +133,9 @@ Route::group(['middleware' => ['admin']], function () {
 
     Route::get('/print-expenses', [AccountController::class, 'printExpenses']);
     Route::get('/print-expenses-specific/{id}', [AccountController::class, 'specificPrint']);
+
+    // ================================================ Account Controller route // ================================================
+
+    Route::get('/send-mail', [MailController::class, 'sendMail'])->name('send.email');
+
 });

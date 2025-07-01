@@ -17,6 +17,7 @@
           <button type="button" class="btn btn-link text-dark py-0 border-right active" data-target="today">Toda</button>
           <button type="button" class="btn btn-link text-dark py-0 border-right " data-target="week">7 Days</button>
           <button type="button" class="btn btn-link text-dark py-0 border-right" data-target="month">1 Month</button>
+          <a href="{{url('/send-mail')}}"><button type="button" class="btn btn-link text-dark py-0 border-right">Send mail</button></a>
         </div>
         <div class="dropdown ml-0 ml-md-4 mt-2 mt-lg-0">
           <button class="btn bg-white dropdown-toggle p-3 d-flex align-items-center" type="button" id="dropdownMenuButton1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="mdi mdi-calendar mr-1"></i>24 Mar 2019 - 24 Mar 2019 </button>
@@ -33,7 +34,7 @@
     </div>
 
 
-
+@include('dashboard.message.message')
 
 
 
