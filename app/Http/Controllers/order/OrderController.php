@@ -546,7 +546,11 @@ class OrderController extends Controller
 
     public function addToCartAjax($id)
     {
-        $data = Food::find($id);
+        $data = Food::where('id', $id)->first();
+
+        if($data->stock <= 0) {
+            return response()->json(['status' => 'error', 'message' => 'This item is stock out right now.']);
+        }
 
         if (!$data) {
             return response()->json(['status' => 'error', 'message' => 'Food not found']);

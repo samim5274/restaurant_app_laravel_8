@@ -4,8 +4,10 @@ namespace App\Http\Controllers\food;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Illuminate\Support\Carbon;
 
 use App\Models\Food;
+use App\Models\Stock;
 
 class FoodController extends Controller
 {
@@ -75,11 +77,30 @@ class FoodController extends Controller
         $val = Food::where('id',$id)->first();
         // dd($val);
         if($val) {
-            return view('dashboard.food_edit_view', compact('val'));
+            return view('dashboard.food.food_edit_view', compact('val'));
         }
         else {
             return redirect()->back()->with('warning','This item not availabel righ now');
         }
+    }
+
+    public function stockIn(Request $request, $id) {
+        $food = Food::where('id',$id)->first();
+        
+        if(!$food) {
+            return redirect()->back()->with('warning','This item not availabel righ now');
+        }
+        $stock = new Stock();
+        $stock->stockIn = $request->input('txtStock','');
+        $stock->date = Carbon::now()->format('Y-m-d');
+        $stock->status = 2; // stock in
+        $stock->reg = 0;
+        $stock->foodId = $id;
+        $stock->remark = 'N/A';
+        $food->stock += $request->input('txtStock','');
+        $food->update();
+        $stock->save();
+        return redirect()->back()->with('success','Food Stock in successfully.');
     }
 
     public function foodEdit(Request $request, $id) {
@@ -149,7 +170,7 @@ class FoodController extends Controller
     }
 
     public function foodStockView() {
-        $data = Food::all();
+        $data = Food::paginate(15);
         return view('dashboard.food.stock', compact('data'));
     }
 

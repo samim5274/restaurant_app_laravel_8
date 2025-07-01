@@ -155,48 +155,63 @@
                         <div class="col-lg-12 grid-margin stretch-card">
                             <div class="card">
                                 <div class="card-body">                                    
-                                    <div class="d-flex justify-content-between align-items-center mb-3">
+                                    <div class="d-flex flex-wrap justify-content-between align-items-center mb-3">
                                         <h4 class="card-title mb-0">Food Details</h4>
-                                        <button class="btn btn-inverse-secondary" onclick="toggleDiv()">
-                                            <i class="mdi mdi-library-plus"></i> Add New
+
+                                        <button class="btn btn-outline-secondary btn-sm mt-2 mt-md-0" onclick="toggleDiv()">
+                                            <i class="mdi mdi-library-plus me-1"></i> Add New
                                         </button>
-                                    </div>  
-                                    <table class="table table-hover">
-                                    <thead>
-                                        <tr>
-                                            <th>SL</th>
-                                            <th>Image</th>
-                                            <th>Food Name</th>
-                                            <th>Price</th>
-                                            <th>Status</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        @if($food)
-                                        @php
-                                            $statusText = [1 => 'Active', 2 => 'De-active'];
-                                            $statusClass = [1 => 'text-success', 2 => 'text-danger'];
-                                            $sl = ($food->currentPage() - 1) * $food->perPage() + 1;
-                                        @endphp
-                                        @foreach($food as $val)
-                                            <tr>
-                                                <td>{{ $sl++ }}</td>
-                                                <td><img src="{{ asset('img/food/' . $val->image) }}" alt="Image not found" width="100"></td>
-                                                <td>{{ $val->name }}</td>
-                                                <td>{{ $val->price }}</td>
-                                                <td class="{{ $statusClass[$val->status] ?? 'text-success' }}">
-                                                    {{ $statusText[$val->status] ?? 'Unknown' }}
-                                                </td>
-                                                <td>
-                                                    <a href="{{ url('/food-edit-view/' . $val->id) }}">
-                                                        <i class="mdi mdi-pencil-box-outline fa-lg" aria-hidden="true"></i>
-                                                    </a>
-                                                </td>
-                                            </tr>
-                                        @endforeach
-                                        @endif
-                                    </tbody>
-                                    </table>
+                                    </div>
+
+                                    <div class="table-responsive">
+                                        <table class="table table-hover table-bordered align-middle">
+                                            <thead class="table-dark text-center">
+                                                <tr>
+                                                    <th style="width: 50px;">SL</th>
+                                                    <th style="width: 100px;">Image</th>
+                                                    <th>Food Name</th>
+                                                    <th style="width: 100px;">Price</th>
+                                                    <th style="width: 120px;">Status</th>
+                                                    <th style="width: 60px;">Action</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                @if($food)
+                                                @php
+                                                    $statusText = [1 => 'Active', 2 => 'De-active'];
+                                                    $statusClass = [1 => 'bg-success', 2 => 'bg-danger'];
+                                                    $sl = ($food->currentPage() - 1) * $food->perPage() + 1;
+                                                @endphp
+                                                @foreach($food as $val)
+                                                <tr>
+                                                    <td class="text-center">{{ $sl++ }}</td>
+
+                                                    <td class="text-center">
+                                                        <img src="{{ asset('img/food/' . $val->image) }}" alt="Image not found" class="img-thumbnail" width="80">
+                                                    </td>
+
+                                                    <td>{{ $val->name }}</td>
+
+                                                    <td class="text-center">{{ $val->price }}</td>
+
+                                                    <td class="text-center">
+                                                        <span class="badge {{ $statusClass[$val->status] ?? 'bg-secondary' }}">
+                                                            {{ $statusText[$val->status] ?? 'Unknown' }}
+                                                        </span>
+                                                    </td>
+
+                                                    <td class="text-center">
+                                                        <a href="{{ url('/food-edit-view/' . $val->id) }}" class="btn btn-sm btn-outline-primary p-1 px-2" title="Edit">
+                                                            <i class="mdi mdi-pencil" style="font-size: 14px;"></i>
+                                                        </a>
+                                                    </td>
+                                                </tr>
+                                                @endforeach
+                                                @endif
+                                            </tbody>
+                                        </table>
+                                    </div>
+
                                     <!-- Pagination links -->
                                     <div class="d-flex justify-content-end mt-3">
                                         <div class="d-flex justify-content-end mt-3">

@@ -107,20 +107,40 @@
                                     </div>
                                 
                                     <div class="form-group row">
-                                        <label class="col-sm-3 col-form-label">Status</label>
-                                        <div class="col-sm-9">
-                                            <div class="form-check">
-                                                <input class="form-check-input" type="radio" name="txtStatus" {{ $val->status == 1 ? 'checked' : '' }} required id="statusActive{{$val->id}}" value="1">
-                                                <label class="form-check-label" for="statusActive{{$val->id}}">
+                                        <label class="col-sm-3 col-form-label d-flex align-items-center mb-0">Status</label>
+                                        <div class="col-sm-9 d-flex align-items-center">
+                                            <div class="form-check mr-4 d-flex align-items-center">
+                                                <input
+                                                    class="form-check-input"
+                                                    type="radio"
+                                                    name="txtStatus"
+                                                    id="statusActive{{ $val->id }}"
+                                                    value="1"
+                                                    {{ $val->status == 1 ? 'checked' : '' }}
+                                                    required
+                                                >
+                                                <label class="form-check-label mb-0 ml-2" for="statusActive{{ $val->id }}">
                                                     Active
                                                 </label>
-                                                <input class="form-check-input" type="radio" name="txtStatus" {{ $val->status == 2 ? 'checked' : '' }} required id="statusDeactive{{$val->id}}" value="2">
-                                                <label class="form-check-label" for="statusDeactive{{$val->id}}">
+                                            </div>
+
+                                            <div class="form-check d-flex align-items-center">
+                                                <input
+                                                    class="form-check-input"
+                                                    type="radio"
+                                                    name="txtStatus"
+                                                    id="statusDeactive{{ $val->id }}"
+                                                    value="2"
+                                                    {{ $val->status == 2 ? 'checked' : '' }}
+                                                    required
+                                                >
+                                                <label class="form-check-label mb-0 ml-2" for="statusDeactive{{ $val->id }}">
                                                     De-active
                                                 </label>
                                             </div>
                                         </div>
                                     </div>
+
 
                                     
                                     <div class="form-group row">

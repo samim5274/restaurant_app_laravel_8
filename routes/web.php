@@ -53,6 +53,7 @@ Route::group(['middleware' => ['admin']], function () {
 
     Route::get('/food', [FoodController::class, 'foodView'])->name('food.view');
     Route::get('/stock-in', [FoodController::class, 'foodStockView'])->name('food.stock.view');
+    Route::post('/food-stock-in/{id}', [FoodController::class, 'stockIn']);
     Route::post('/create-new-food', [FoodController::class, 'createFood']);
     Route::get('/food-edit-view/{id}', [FoodController::class, 'foodEditView']);
     Route::post('/food/update/{id}', [FoodController::class, 'foodEdit']);
