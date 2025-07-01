@@ -74,6 +74,11 @@
                                     <i class="mdi mdi-cart-plus fa-lg" aria-hidden="true" style="font-size: 1rem;"></i>
                                     <span style="font-size: 1rem;" class="mb-0">Add Cart</span>
                                 </a>
+                                <a href="{{ url('/add-to-cart-ajax/'.$val->id) }}" class="mt-auto btn btn-outline-warning w-100 addCartBtn" data-url="{{ url('add-to-cart-ajax/'.$val->id)}}">
+                                    <i class="mdi mdi-cart-plus fa-lg" aria-hidden="true" style="font-size: 1rem;"></i>
+                                    <span style="font-size: 1rem;" class="mb-0">Ajax</span>
+                                </a>
+
                             </div>
                         </div>
                     </div>
@@ -133,6 +138,29 @@
                 }
             });
         });
+
+        $(document).on('click', '.addCartBtn', function(e) {
+            e.preventDefault(); 
+
+            let url = $(this).data('url');
+
+            $.ajax({
+                type: 'GET',
+                url: url,
+                success: function(response) {
+                    console.log(response);
+                    if (response.status === 'success') {
+                        console.log('Success: ' + response.message); 
+                    } else if (response.status === 'error') {
+                        alert('Error: ' + response.message);
+                    }
+                },
+                error: function(xhr) {
+                    console.log(xhr.responseText);
+                }
+            });
+        });
+
     </script>
 </body>
 </html>

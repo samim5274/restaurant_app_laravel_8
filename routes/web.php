@@ -66,8 +66,12 @@ Route::group(['middleware' => ['admin']], function () {
     Route::get('/menu', [OrderController::class, 'menuView'])->name('menu.view');
 
     Route::get('/booked/table/{id}', [OrderController::class, 'tableBooked']);
+
     Route::get('/add-to-cart/{id}', [OrderController::class, 'addCart']);
     Route::get('/add-to-cart-2', [OrderController::class, 'addCart2']);
+    
+    Route::get('/add-to-cart-ajax/{id}', [OrderController::class, 'addToCartAjax']);
+
     Route::get('/cart-view', [OrderController::class, 'cartView'])->name('cart.view');
     Route::post('/cart/update-quantity', [OrderController::class, 'updateQuantity'])->name('cart.updateQuantity');
     Route::get('/remove-to-cart/{id}', [OrderController::class, 'removeCart']);

@@ -543,4 +543,49 @@ class OrderController extends Controller
         }
         return response($output);
     }
+
+    public function addToCartAjax($id)
+    {
+        $data = Food::find($id);
+
+        if (!$data) {
+            return response()->json(['status' => 'error', 'message' => 'Food not found']);
+        }
+
+        if($data) {
+            $cart = new Cart;
+            $stock = new Stock();
+
+            $order = Order::count() + 1;
+            $invoice = Carbon::now()->format('Ymd').Auth::guard('admin')->id().$order;
+
+            $findFood = Cart::where('reg', $invoice)->where('foodId', $data->id)->first();
+            if($findFood) {
+                return response()->json(['status' => 'error', 'message' => 'Item already added. Try to another item. If you add more quentity then go to cart.']);
+            }
+
+            $cart->reg = $invoice; 
+            $cart->date = Carbon::now()->format('Y-m-d'); 
+            $cart->userId = Auth::guard('admin')->id();
+            $cart->foodId = $data->id;
+            $cart->price = $data->price;
+
+            $stock->date = Carbon::now()->format('Y-m-d');
+            $stock->foodId = $data->id;
+            $stock->reg = $invoice;
+            $stock->stockOut += 1;
+            $stock->status = 1; // 1 sale, 2 return, 3 stock in and 4 stock out
+
+            $data->stock -= 1;
+            $data->update();
+            $stock->save();
+            $cart->save();
+
+            return response()->json(['status' => 'success', 'message' => 'Food added to cart']);
+        } else {
+            return response()->json(['status' => 'error', 'message' => 'This item not availabel righ now']);
+        }
+        
+    }
+
 }
