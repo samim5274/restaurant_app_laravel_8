@@ -10,18 +10,28 @@
         th { background-color: #f4f4f4; }
         h2 { margin-bottom: 0; }
         p { margin-top: 2px; margin-bottom: 5px; }
+        .qrCode {display: flex; justify-content: space-between; align-items: flex-start;}
+        .qrImg {padding: 1rem;}
     </style>
 </head>
 <body>
 
-        <h1 style="text-align:center;">Restaurant Management System</h1>
-        <p style="text-align:center;">House # 02, Road # 11, Sector # 6, Uttara, Dhaka-1230</p>
-        <h3 style="text-align:center;">Sale Invoice</h3>
-        <hr>
+    <h1 style="text-align:center;">Restaurant Management System</h1>
+    <p style="text-align:center;">House # 02, Road # 11, Sector # 6, Uttara, Dhaka-1230</p>
+    <h3 style="text-align:center;">Sale Invoice</h3>
+    <hr>
 
-    <h2>Invoice # {{$cart->reg}}</h2>
-    <p><strong>Date:</strong> {{$cart->date}}</p>
-    <p><strong>Customer:</strong> Shamim Hossain</p>
+    <div class="qrCode">
+        <div>
+            <h2>Invoice # {{ $cart->reg }}</h2>
+            <p><strong>Date:</strong> {{ $cart->date }}</p>
+            <p><strong>Customer:</strong> Shamim Hossain</p>
+        </div>
+        <div class="qrImg">
+            {!! QrCode::size(60)->generate($cart->reg) !!}
+        </div>
+    </div>
+
 
     <table>
         <thead>
