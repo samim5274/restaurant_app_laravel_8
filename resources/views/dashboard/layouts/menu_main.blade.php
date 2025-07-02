@@ -62,17 +62,10 @@
     </li>
 
     <li class="nav-item">
-      <a class="nav-link" data-toggle="collapse" href="#ui-basic-2" aria-expanded="false" aria-controls="ui-basic-2">
+      <a class="nav-link {{ request()->is('show-order-item') ? 'active' : '' }}" href="{{url('/show-order-item')}}">
         <span class="icon-bg"><i class=" mdi mdi-chart-bubble menu-icon"></i></span>
         <span class="menu-title">Kitchen</span>@if($kitchen) <div class="badge badge-success">{{$kitchen}}</div>@endif
-        <i class="menu-arrow"></i>
       </a>
-      <div class="collapse" id="ui-basic-2">
-        <ul class="nav flex-column sub-menu">
-          <li class="nav-item"> <a class="nav-link " href="{{url('/show-order-item')}}">Order List</a></li>
-          <li class="nav-item"> <a class="nav-link " href="{{url('/delivery-status')}}">Status</a></li>
-        </ul>
-      </div>
     </li>
 
     <li class="nav-item">

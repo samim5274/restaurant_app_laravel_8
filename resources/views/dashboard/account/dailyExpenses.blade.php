@@ -22,30 +22,24 @@
         <link rel="shortcut icon" href="/dash/assets/images/favicon.png" />
         <style>
             .loader {
-                width: 30px;
-                aspect-ratio: 1;
-                display: grid;
-                border: 4px solid #0000;
+                width: 48px;
+                height: 48px;
+                border: 5px solid #000;
+                border-bottom-color: transparent;
                 border-radius: 50%;
-                border-right-color: #25b09b;
-                animation: l15 1s infinite linear;
+                display: inline-block;
+                box-sizing: border-box;
+                animation: rotation 1s linear infinite;
             }
-            .loader::before,
-            .loader::after {
-                content: "";
-                grid-area: 1/1;
-                margin: 2px;
-                border: inherit;
-                border-radius: 50%;
-                animation: l15 2s infinite;
-            }
-            .loader::after {
-                margin: 8px;
-                animation-duration: 3s;
-            }
-            @keyframes l15{
-                100%{transform: rotate(1turn)}
-            }
+
+            @keyframes rotation {
+                0% {
+                    transform: rotate(0deg);
+                }
+                100% {
+                    transform: rotate(360deg);
+                }
+            } 
         </style>
     </head>
     <body>
@@ -159,7 +153,7 @@
                                             </div>
                                         </div>
 
-                                        <div class="loader" id="loader" style="display:none;">Loading...</div>
+                                        <span class="loader" id="loader"></span>
 
                                         <div class="form-group row">
                                             <label for="subcategory" class="col-sm-3 col-form-label">Sub-Category</label>

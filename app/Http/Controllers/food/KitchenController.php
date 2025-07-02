@@ -26,6 +26,10 @@ class KitchenController extends Controller
     }
 
     public function updateKitchenStatus(Request $request, $reg) {
+        if(!$request->input('cbxStatus')) {
+            return redirect()->back()->with('error','You must be select status.');
+        }
+
         $order = Order::where('reg', $reg)->first();
         if(!$order) {
             return redirect()->back()->with('warning','Somethimg is wrong. Please try again');

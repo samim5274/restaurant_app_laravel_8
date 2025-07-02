@@ -15,6 +15,7 @@ use App\Models\Stock;
 use Auth;
 use Illuminate\Support\Carbon;
 use App\Mail\SendInvoice;
+use App\Mail\SendDue;
 use Mail;
 
 class OrderController extends Controller
@@ -456,6 +457,63 @@ class OrderController extends Controller
         
         // dd($order,$order->due,$order->pay);
         $order->update();
+
+        // auto matic send mail when pay order
+        
+        $user = Auth::guard('admin')->user();
+
+        $cartItems = Cart::with('food')->where('reg', $reg)->get();        
+        
+        if ($cartItems->isEmpty()) {
+            return redirect()->back()->with('error', 'No cart items found for invoice.');
+        }
+
+        $OrderItems = Order::with('table')->where('reg', $reg)->first();
+
+        if (!$OrderItems) {
+            return redirect()->back()->with('error', 'No order items found for invoice.');
+        }
+
+        $data = [
+            'name' => $user->name,
+            'date' => now()->format('Y-m-d'),
+            'reg' => $reg,
+            'items' => [],
+            'totals' => []
+        ];
+
+        if($OrderItems->table) {
+            $data['totals'][] = [
+                'table' => $OrderItems->table->tName,
+                'total' => $OrderItems->total,
+                'discount' => $OrderItems->discount,
+                'payable' => $OrderItems->payable,
+                'pay' => $OrderItems->pay,
+                'due' => $OrderItems->due,
+            ];
+        }
+
+
+        foreach($cartItems as $val) {
+            if($val->food) {
+                $data['items'][] = [
+                    'name' => $val->food->name,
+                    'qty' => $val->quantity,
+                    'price' => $val->price,
+                ];
+            }            
+        }
+
+        if (empty($data['items'])) {
+            return redirect()->back()->with('error', 'No food items found in cart.');
+        }
+
+        $mailAddress = [
+            'valobashi.tumake9999@gmail.com',
+        ];    
+
+        // dd($data);
+        Mail::to($mailAddress)->send(new SendDue($data));
         
         return redirect()->back()->with('success', $reg);
         // return redirect()->route('invoice.print', $reg);
