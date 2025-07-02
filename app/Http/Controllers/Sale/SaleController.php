@@ -52,6 +52,7 @@ class SaleController extends Controller
     }
 
     public function downloadPdf($reg) {
+        $user = Auth::guard('admin')->user();
         $invoice = Cart::where('reg', $reg)->with('food')->get();
         $grandTotal = Order::where('reg', $reg)->first();
         $cart = Cart::where('reg', $reg)->with('food')->first();
@@ -59,7 +60,7 @@ class SaleController extends Controller
         if($invoice->isEmpty()) {
             return redirect()->back()->with('warning', 'This item is not available right now.');
         }
-        return view('dashboard.print.invoice.payment_order', compact('invoice','cart','grandTotal'));
+        return view('dashboard.print.invoice.payment_order', compact('invoice','user','cart','grandTotal'));
         // $pdf = Pdf::loadView('dashboard.print.invoice.payment_order', compact('invoice','grandTotal','cart'));
         // return $pdf->download('Invoice-'.time().'-'.$cart->reg.'.pdf');
     }

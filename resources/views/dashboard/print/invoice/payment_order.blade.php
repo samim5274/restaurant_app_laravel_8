@@ -25,7 +25,7 @@
         <div>
             <h2>Invoice # {{ $cart->reg }}</h2>
             <p><strong>Date:</strong> {{ $cart->date }}</p>
-            <p><strong>Customer:</strong> Shamim Hossain</p>
+            <p><strong>Billing Office:</strong> {{$user->name}}</p>
         </div>
         <div class="qrImg">
             {!! QrCode::size(60)->generate($cart->reg) !!}
