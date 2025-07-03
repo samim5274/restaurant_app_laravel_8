@@ -195,7 +195,7 @@
             var header = `
                 <h1 style="text-align:center;">Restaurant Management System</h1>
                 <p style="text-align:center;">House # 02, Road # 11, Sector # 6, Uttara, Dhaka-1230</p>
-                <h3 style="text-align:center;">Stock Report</h3>
+                <h3 style="text-align:center;">Day and Item wise Stock Report</h3>
                 <hr>
             `;
 
