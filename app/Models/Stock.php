@@ -18,4 +18,9 @@ class Stock extends Model
         'remark',
         'status',
     ];
+
+    public function food()
+    {
+        return $this->belongsTo(Food::class, 'foodId', 'id');
+    }
 }

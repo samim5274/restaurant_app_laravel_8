@@ -109,7 +109,7 @@ class SaleController extends Controller
         $today = Carbon::now()->toDateString();
         $order = Order::whereBetween('date', [$sevenDaysAgo, $today])->with('table')->get();
         // return view('dashboard.print.report_print', compact('order'));
-        $pdf = Pdf::loadView('dashboard.print.report_print', compact('order'));
+        $pdf = Pdf::loadView('dashboard.print.report.report_print', compact('order'));
         return $pdf->download('RPT-'.time().'-'.$sevenDaysAgo.'-to-'.$today.'.pdf');
     }
 

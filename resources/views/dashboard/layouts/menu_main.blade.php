@@ -78,7 +78,7 @@
         <ul class="nav flex-column sub-menu">
           <li class="nav-item"> <a class="nav-link {{ request()->is('table') ? 'active' : '' }}" href="{{url('/table')}}">Table</a></li>
           <li class="nav-item"> <a class="nav-link {{ request()->is('food') ? 'active' : '' }}" href="{{url('/food')}}">Food</a></li>
-          <li class="nav-item"> <a class="nav-link" href="{{url('/stock-in')}}">Stock in Food</a></li>
+          <li class="nav-item"> <a class="nav-link {{ request()->is('stock-in') ? 'active' : '' }}" href="{{url('/stock-in')}}">Stock in Food</a></li>
         </ul>
       </div>
     </li>
@@ -93,6 +93,9 @@
           <li class="nav-item"> <a class="nav-link" href="{{url('/total-sale')}}"> Total Sale </a></li>
           <li class="nav-item"> <a class="nav-link" href="{{url('/day-wise-report')}}"> Day wise Reports </a></li>
           <li class="nav-item"> <a class="nav-link" href="{{url('/report-due-list')}}"> Due List </a></li>
+          <li class="nav-item"> <a class="nav-link" href="{{url('/stock-report')}}"> Total Stock Report </a></li>
+          <li class="nav-item"> <a class="nav-link" href="{{url('/item-wise-report-view')}}"> Item Wise Report </a></li>
+          <li class="nav-item"> <a class="nav-link" href="{{url('/item-&-day-wise-report-view')}}"> Item & Day Wise Report </a></li>
         </ul>
       </div>
     </li>

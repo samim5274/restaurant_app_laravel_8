@@ -63,6 +63,13 @@ Route::group(['middleware' => ['admin']], function () {
         Route::get('/edit/add/item/cart/{id}/{reg}', [OrderController::class, 'addEditCartItem'])->name('add.edit.cart.item.order');
         Route::post('/order/modify/{reg}', [OrderController::class, 'orderModify']);
         Route::post('/confirm-order', [OrderController::class, 'confirmOrder']);
+        Route::get('/stock-report', [KitchenController::class, 'ItemStockReport'])->name('stock.report.view');
+        Route::get('/search-stock-way-wise', [KitchenController::class, 'dayWiseStockSearch']);
+        Route::get('/download-all-stock', [KitchenController::class, 'downloadAllStock']);
+        Route::get('/item-wise-report-view', [KitchenController::class, 'itemReportView'])->name('item.wise.report-veiw');
+        Route::get('/food-stock-show-report/{id}', [KitchenController::class, 'foodStock'])->name('food.stock.show');
+        Route::get('/item-&-day-wise-report-view', [KitchenController::class, 'itemDayView'])->name('item.day.view');
+        Route::get('/day-wise-stock-report-search', [KitchenController::class, 'itemDaySearch']);
     });
     Route::get('/order-list', [OrderController::class, 'orderList'])->name('order.list.view');
     Route::get('/live-search-order', [OrderController::class, 'liveSearchOrder']);

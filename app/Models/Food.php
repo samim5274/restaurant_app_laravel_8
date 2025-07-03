@@ -24,4 +24,9 @@ class Food extends Model
     {
         return $this->hasMany(Food::class, 'foodId', 'id');
     }
+
+    public function stock()
+    {
+        return $this->hasMany(Stock::class, 'foodId', 'id');
+    }
 }
