@@ -14,6 +14,8 @@ use App\Models\Order;
 use App\Models\Cart;
 use App\Models\Stock;
 use Auth;
+use App\Notifications\OrderStatusUpdated;
+use App\Models\Admin;
 
 class KitchenController extends Controller
 {
@@ -40,6 +42,13 @@ class KitchenController extends Controller
         $order->kitchen = $request->input('cbxStatus');
         // dd($order);
         $order->save();
+        
+        $admins = Admin::whereIn('role', ['1', '2', '3', '4'])->get();
+
+        foreach($admins as $admin) {
+            $admin->notify(new OrderStatusUpdated($order));
+        }
+
         return redirect()->back()->with('success','Your order status updated successfully.');
     }
 

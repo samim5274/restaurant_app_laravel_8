@@ -39,6 +39,21 @@
 
             @include('dashboard.message.message')
 
+            @php
+                $notifications = optional(auth()->user())->unreadNotifications;
+            @endphp
+
+            @if($notifications && $notifications->count())
+                <ul>
+                    @foreach($notifications as $notification)
+                        <li>{{ $notification->data['message'] ?? 'Notification' }}</li>
+                    @endforeach
+                </ul>
+            @endif
+
+
+
+
             <div class="content-wrapper">
 
                 <div class="page-header">
