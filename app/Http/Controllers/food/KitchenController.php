@@ -109,6 +109,7 @@ class KitchenController extends Controller
         if ($request->has('download')) {
             $stock = Stock::with('food')->whereBetween('date', [$sDate, $eDate])->get();
             $pdf = Pdf::loadView('dashboard.print.report.stock', compact('stock'));
+            $pdf->setOptions(['chroot' => base_path()]);
             return $pdf->download('Stock RPT-'.time().'.pdf');
         }
         $stock = Stock::whereBetween('date', [$sDate, $eDate])->get();
@@ -163,8 +164,11 @@ class KitchenController extends Controller
 
         if ($request->has('download')) {
             $stock =Stock::with('food')->whereBetween('date', [$sDate, $eDate])->where('foodId', $foodid)->get();
+            if($stock->isEmpty()) {
+                return redirect()->back()->with('warning','Your selected product can not sale today. Thank you!');
+            }
             $totalIn = Stock::with('food')->whereBetween('date', [$sDate, $eDate])->where('foodId', $foodid)->sum('stockIn');
-            $totalOut = Stock::with('food')->whereBetween('date', [$sDate, $eDate])->where('foodId', $foodid)->sum('stockOut');
+            $totalOut = Stock::with('food')->whereBetween('date', [$sDate, $eDate])->where('foodId', $foodid)->sum('stockOut');            
             $netStock = $totalIn - $totalOut;
             $pdf = Pdf::loadView('dashboard.print.report.stockItem', compact('stock','totalIn','totalOut','netStock'));
             return $pdf->download('Stock RPT-'.$stock[0]->food->name.'-'.time().'.pdf');

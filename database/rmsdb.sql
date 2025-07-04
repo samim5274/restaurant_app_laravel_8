@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Jul 03, 2025 at 12:01 PM
+-- Generation Time: Jul 04, 2025 at 10:35 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -47,9 +47,9 @@ CREATE TABLE `admins` (
 --
 
 INSERT INTO `admins` (`id`, `name`, `email`, `password`, `photo`, `phone`, `address`, `dob`, `role`, `status`, `created_at`, `updated_at`) VALUES
-(1, 'SAMIM-HosseN', 'samim@gmail.com', '$2y$10$O8FZik3Vwpe3oVRilHDnR.WOvK95szGWDHvDDb4PBstu.mneG93qq', 'user-1751270041.jpg', '1762164746', 'Dhaka', '2001-12-31', 1, 1, NULL, '2025-06-30 03:39:49'),
+(1, 'SAMIM-HosseN', 'cse.shamim.cub@gmail.com', '$2y$10$O8FZik3Vwpe3oVRilHDnR.WOvK95szGWDHvDDb4PBstu.mneG93qq', 'user-1751270041.jpg', '1762164746', 'Dhaka', '2001-12-31', 1, 1, NULL, '2025-06-30 03:39:49'),
 (2, 'Asif Hossain', 'asif@gmail.com', '$2y$10$O8FZik3Vwpe3oVRilHDnR.WOvK95szGWDHvDDb4PBstu.mneG93qq', 'user-1751274806.jpg', '1234567895', 'Dhaka', '2025-05-29', 3, 1, '2025-06-29 07:16:49', '2025-06-30 06:01:51'),
-(3, 'Akbor Ali', 'akbor@gmail.com', '$2y$10$O8FZik3Vwpe3oVRilHDnR.WOvK95szGWDHvDDb4PBstu.mneG93qq', 'user-1751452614.jpg', '1234567895', 'Dhaka', '2025-06-02', 2, 1, '2025-06-29 07:18:06', '2025-07-02 06:54:14'),
+(3, 'Akbor Ali', 'valobashi.tumake9999@gmail.com', '$2y$10$O8FZik3Vwpe3oVRilHDnR.WOvK95szGWDHvDDb4PBstu.mneG93qq', 'user-1751452614.jpg', '1234567895', 'Dhaka', '2025-06-02', 2, 1, '2025-06-29 07:18:06', '2025-07-02 06:54:14'),
 (4, 'Riyad', 'riad@gmail.com', '$2y$10$abJpM1/4NlcL07/TpZVNEeVlTGFHkEll0o3O1Os1x1WoF7RXmiery', 'user-1751276499.jpg', '1234567895', 'Dhaka', '2001-12-12', 4, 1, '2025-06-30 03:38:16', '2025-07-02 06:54:15'),
 (5, 'Mokles', 'mokless@gmail.com', '$2y$10$abJpM1/4NlcL07/TpZVNEeVlTGFHkEll0o3O1Os1x1WoF7RXmiery', 'user-1751283854.jpg', '1234567895', 'Dhaka', '2000-12-12', 5, 0, '2025-06-30 05:41:27', '2025-06-30 06:01:53');
 
@@ -100,7 +100,11 @@ INSERT INTO `carts` (`id`, `reg`, `date`, `userId`, `foodId`, `quantity`, `price
 (293, 2025070315, '2025-07-03', 1, 9, 1, 180, '2025-07-03 03:08:01', '2025-07-03 03:08:01'),
 (294, 2025070316, '2025-07-03', 1, 12, 1, 320, '2025-07-03 03:08:06', '2025-07-03 03:08:06'),
 (295, 2025070316, '2025-07-03', 1, 11, 1, 230, '2025-07-03 03:08:07', '2025-07-03 03:08:07'),
-(296, 2025070317, '2025-07-03', 1, 13, 1, 180, '2025-07-03 03:08:12', '2025-07-03 03:08:12');
+(296, 2025070317, '2025-07-03', 1, 13, 1, 180, '2025-07-03 03:08:12', '2025-07-03 03:08:12'),
+(297, 2025070418, '2025-07-04', 1, 9, 1, 180, '2025-07-04 02:17:12', '2025-07-04 02:17:12'),
+(298, 2025070418, '2025-07-04', 1, 13, 1, 180, '2025-07-04 02:17:14', '2025-07-04 02:17:14'),
+(299, 2025070418, '2025-07-04', 1, 12, 1, 320, '2025-07-04 02:17:14', '2025-07-04 02:17:14'),
+(300, 2025070418, '2025-07-04', 1, 11, 1, 230, '2025-07-04 02:17:15', '2025-07-04 02:17:15');
 
 -- --------------------------------------------------------
 
@@ -203,10 +207,10 @@ INSERT INTO `food` (`id`, `name`, `price`, `category`, `stock`, `status`, `image
 (6, 'Butter Chicken', 450, 'main', 15, 1, 'food-1751370833.jpg', 'Chicken, butter, tomato, cream, spices.', 'Tender chicken cooked in a creamy tomato-based sauce.', '2025-06-13 17:30:24', '2025-07-03 02:59:55'),
 (7, 'Paneer Tikka Masala', 850, 'main', 15, 1, 'food-1749879095.jpg', 'Paneer, yogurt, tomato puree, onion, masala.', 'Grilled paneer cubes in a spicy tikka masala sauce.', '2025-06-13 17:31:35', '2025-07-03 02:59:51'),
 (8, 'Grilled Salmon', 450, 'main', 15, 1, 'food-1749879251.jpg', 'Salmon, garlic, lemon, herbs, olive oil.', 'Fresh salmon grilled with herbs and lemon.', '2025-06-13 17:34:11', '2025-07-03 02:59:51'),
-(9, 'Chicken Wings', 180, 'starter', 18, 1, 'food-1749880468.jpg', 'Chicken wings, flour, chili powder, garlic, butter, vinegar.', 'Spicy and crispy deep-fried chicken wings served with hot sauce.', '2025-06-13 17:54:28', '2025-07-03 03:08:01'),
-(11, 'Vegetable Spring Rolls', 230, 'starter', 13, 1, 'food-1749885187.jpg', 'Carrot, cabbage, onion, noodles, flour wrap, soy sauce.', 'Crispy rolls stuffed with vegetables and noodles.', '2025-06-13 19:13:07', '2025-07-03 03:08:07'),
-(12, 'Nachos', 320, 'starter', 16, 1, 'food-1749896193.jpg', 'Corn tortilla chips, cheddar cheese, jalapeños, salsa, sour cream.', 'Crispy tortilla chips topped with melted cheese and toppings.', '2025-06-13 22:16:33', '2025-07-03 03:08:06'),
-(13, 'Garlic Bread', 180, 'starter', 13, 1, 'food-1749896253.jpg', 'Baguette, butter, garlic, parsley, olive oil.', 'Toasted bread topped with garlic butter and herbs.', '2025-06-13 22:17:33', '2025-07-03 03:08:12');
+(9, 'Chicken Wings', 180, 'starter', 17, 1, 'food-1749880468.jpg', 'Chicken wings, flour, chili powder, garlic, butter, vinegar.', 'Spicy and crispy deep-fried chicken wings served with hot sauce.', '2025-06-13 17:54:28', '2025-07-04 02:17:12'),
+(11, 'Vegetable Spring Rolls', 230, 'starter', 12, 1, 'food-1749885187.jpg', 'Carrot, cabbage, onion, noodles, flour wrap, soy sauce.', 'Crispy rolls stuffed with vegetables and noodles.', '2025-06-13 19:13:07', '2025-07-04 02:17:15'),
+(12, 'Nachos', 320, 'starter', 15, 1, 'food-1749896193.jpg', 'Corn tortilla chips, cheddar cheese, jalapeños, salsa, sour cream.', 'Crispy tortilla chips topped with melted cheese and toppings.', '2025-06-13 22:16:33', '2025-07-04 02:17:14'),
+(13, 'Garlic Bread', 180, 'starter', 12, 1, 'food-1749896253.jpg', 'Baguette, butter, garlic, parsley, olive oil.', 'Toasted bread topped with garlic butter and herbs.', '2025-06-13 22:17:33', '2025-07-04 02:17:14');
 
 -- --------------------------------------------------------
 
@@ -237,7 +241,65 @@ INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
 (48, '2025_06_28_064147_create_categories_table', 2),
 (53, '2025_06_28_065714_create_subcategories_table', 3),
 (54, '2025_06_28_070038_create_expenses_table', 3),
-(57, '2025_07_01_045539_create_stocks_table', 4);
+(57, '2025_07_01_045539_create_stocks_table', 4),
+(58, '2025_07_03_100223_create_notifications_table', 5);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `notifications`
+--
+
+CREATE TABLE `notifications` (
+  `id` char(36) NOT NULL,
+  `type` varchar(255) NOT NULL,
+  `notifiable_type` varchar(255) NOT NULL,
+  `notifiable_id` bigint(20) UNSIGNED NOT NULL,
+  `data` text NOT NULL,
+  `read_at` timestamp NULL DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `notifications`
+--
+
+INSERT INTO `notifications` (`id`, `type`, `notifiable_type`, `notifiable_id`, `data`, `read_at`, `created_at`, `updated_at`) VALUES
+('06119a70-9a26-496c-851a-45e0c39cd6c6', 'App\\Notifications\\OrderStatusUpdated', 'App\\Models\\Admin', 3, '{\"reg\":2025070316,\"status\":\"2\",\"order_id\":100,\"message\":\"Order status has been updated.\"}', NULL, '2025-07-03 04:41:34', '2025-07-03 04:41:34'),
+('1a72e6ce-3c1b-4131-89b7-184865619c8e', 'App\\Notifications\\OrderStatusUpdated', 'App\\Models\\Admin', 1, '{\"reg\":2025070316,\"status\":\"3\",\"order_id\":100,\"message\":\"Order status has been updated.\"}', NULL, '2025-07-03 04:35:30', '2025-07-03 04:35:30'),
+('27f7ff12-8e8a-42b6-b6b7-261058fa9b9b', 'App\\Notifications\\OrderStatusUpdated', 'App\\Models\\Admin', 1, '{\"reg\":2025070317,\"status\":\"3\",\"order_id\":101,\"message\":\"Order status has been updated.\"}', NULL, '2025-07-03 04:13:26', '2025-07-03 04:13:26'),
+('2c62d27b-ea4a-486c-81fd-7f6afe3cdaea', 'App\\Notifications\\OrderStatusUpdated', 'App\\Models\\Admin', 1, '{\"reg\":2025070316,\"status\":\"4\",\"order_id\":100,\"message\":\"Order status has been updated.\"}', NULL, '2025-07-03 04:45:22', '2025-07-03 04:45:22'),
+('3144fa2e-8ad3-495f-bd07-6bd26434ead0', 'App\\Notifications\\OrderStatusUpdated', 'App\\Models\\Admin', 1, '{\"reg\":2025070316,\"status\":\"3\",\"order_id\":100,\"message\":\"Order status has been updated.\"}', NULL, '2025-07-03 04:39:52', '2025-07-03 04:39:52'),
+('36dcb802-e76c-4969-8c60-90cb1df54869', 'App\\Notifications\\OrderStatusUpdated', 'App\\Models\\Admin', 1, '{\"reg\":2025070317,\"status\":\"4\",\"order_id\":101,\"message\":\"Order status has been updated.\"}', NULL, '2025-07-03 04:14:05', '2025-07-03 04:14:05'),
+('42fd24b3-f29d-4f1a-a20a-e5cc26730f25', 'App\\Notifications\\OrderStatusUpdated', 'App\\Models\\Admin', 3, '{\"reg\":2025070316,\"status\":\"2\",\"order_id\":100,\"message\":\"Order status has been updated.\"}', NULL, '2025-07-03 04:14:53', '2025-07-03 04:14:53'),
+('53ebbf22-f9ad-4e49-9816-63185d25962c', 'App\\Notifications\\OrderStatusUpdated', 'App\\Models\\Admin', 3, '{\"reg\":2025070317,\"status\":\"4\",\"order_id\":101,\"message\":\"Order status has been updated.\"}', NULL, '2025-07-03 04:46:01', '2025-07-03 04:46:01'),
+('55b6bd8c-62c3-4599-803e-cd3ee41632fe', 'App\\Notifications\\OrderStatusUpdated', 'App\\Models\\Admin', 4, '{\"reg\":2025070418,\"status\":\"4\",\"order_id\":102,\"message\":\"Order status has been updated.\"}', NULL, '2025-07-04 02:18:06', '2025-07-04 02:18:06'),
+('644eef28-7852-4d52-9121-1560c64f2137', 'App\\Notifications\\OrderStatusUpdated', 'App\\Models\\Admin', 3, '{\"reg\":2025070316,\"status\":\"3\",\"order_id\":100,\"message\":\"Order status has been updated.\"}', NULL, '2025-07-03 04:35:33', '2025-07-03 04:35:33'),
+('65db3b9a-d34d-4323-b2d7-9a08c3ce6101', 'App\\Notifications\\OrderStatusUpdated', 'App\\Models\\Admin', 1, '{\"reg\":2025070317,\"status\":\"4\",\"order_id\":101,\"message\":\"Order status has been updated.\"}', NULL, '2025-07-03 04:45:57', '2025-07-03 04:45:57'),
+('6b5d145f-d525-4dcc-8eef-b9290c9dc6da', 'App\\Notifications\\OrderStatusUpdated', 'App\\Models\\Admin', 3, '{\"reg\":2025070317,\"status\":\"3\",\"order_id\":101,\"message\":\"Order status has been updated.\"}', NULL, '2025-07-03 04:13:30', '2025-07-03 04:13:30'),
+('70f1c11f-11e7-4f4b-ab49-5210ea4054f0', 'App\\Notifications\\OrderStatusUpdated', 'App\\Models\\Admin', 2, '{\"reg\":2025070418,\"status\":\"4\",\"order_id\":102,\"message\":\"Order status has been updated.\"}', NULL, '2025-07-04 02:17:59', '2025-07-04 02:17:59'),
+('7c5f4d7c-acc9-4e5a-ada8-dfafa03f6ccc', 'App\\Notifications\\OrderStatusUpdated', 'App\\Models\\Admin', 1, '{\"reg\":2025070317,\"status\":\"2\",\"order_id\":101,\"message\":\"Order status has been updated.\"}', NULL, '2025-07-03 04:02:58', '2025-07-03 04:02:58'),
+('813d8d40-1ecc-4550-899b-9ccdea0eb13a', 'App\\Notifications\\OrderStatusUpdated', 'App\\Models\\Admin', 1, '{\"reg\":2025070316,\"status\":\"2\",\"order_id\":100,\"message\":\"Order status has been updated.\"}', NULL, '2025-07-03 04:41:30', '2025-07-03 04:41:30'),
+('820aa79c-22e8-4421-9061-69a0f238646a', 'App\\Notifications\\OrderStatusUpdated', 'App\\Models\\Admin', 3, '{\"reg\":2025070316,\"status\":\"4\",\"order_id\":100,\"message\":\"Order status has been updated.\"}', NULL, '2025-07-03 04:45:26', '2025-07-03 04:45:26'),
+('8d9bdcae-5bd6-477f-befb-18c128694340', 'App\\Notifications\\OrderStatusUpdated', 'App\\Models\\Admin', 1, '{\"reg\":2025070316,\"status\":\"2\",\"order_id\":100,\"message\":\"Order status has been updated.\"}', NULL, '2025-07-03 04:19:03', '2025-07-03 04:19:03'),
+('9bb7f7ce-748c-42ac-a914-5c39b70e77e1', 'App\\Notifications\\OrderStatusUpdated', 'App\\Models\\Admin', 1, '{\"reg\":2025070316,\"status\":\"2\",\"order_id\":100,\"message\":\"Order status has been updated.\"}', NULL, '2025-07-03 04:14:50', '2025-07-03 04:14:50'),
+('a3535644-6e90-410b-8595-f6a7f5e01d57', 'App\\Notifications\\OrderStatusUpdated', 'App\\Models\\Admin', 3, '{\"reg\":2025070316,\"status\":\"4\",\"order_id\":100,\"message\":\"Order status has been updated.\"}', NULL, '2025-07-03 04:20:35', '2025-07-03 04:20:35'),
+('a69f9816-5d29-4695-b11f-77507793f286', 'App\\Notifications\\OrderStatusUpdated', 'App\\Models\\Admin', 1, '{\"reg\":2025070418,\"status\":\"4\",\"order_id\":102,\"message\":\"Order status has been updated.\"}', NULL, '2025-07-04 02:17:56', '2025-07-04 02:17:56'),
+('b39085fe-12e7-48a5-8076-fa4fa07dfafd', 'App\\Notifications\\OrderStatusUpdated', 'App\\Models\\Admin', 3, '{\"reg\":2025070316,\"status\":\"2\",\"order_id\":100,\"message\":\"Order status has been updated.\"}', NULL, '2025-07-03 04:32:34', '2025-07-03 04:32:34'),
+('b45cde3b-3cc3-4a4d-91c3-c26d14960c4e', 'App\\Notifications\\OrderStatusUpdated', 'App\\Models\\Admin', 3, '{\"reg\":2025070317,\"status\":\"2\",\"order_id\":101,\"message\":\"Order status has been updated.\"}', NULL, '2025-07-03 04:03:01', '2025-07-03 04:03:01'),
+('b57e508d-c70a-4e43-b80a-58091edd0bdf', 'App\\Notifications\\OrderStatusUpdated', 'App\\Models\\Admin', 3, '{\"reg\":2025070316,\"status\":\"2\",\"order_id\":100,\"message\":\"Order status has been updated.\"}', NULL, '2025-07-03 04:36:18', '2025-07-03 04:36:18'),
+('b640723f-9aeb-4fd6-a90c-f1fc6e6d1067', 'App\\Notifications\\OrderStatusUpdated', 'App\\Models\\Admin', 3, '{\"reg\":2025070316,\"status\":\"2\",\"order_id\":100,\"message\":\"Order status has been updated.\"}', NULL, '2025-07-03 04:19:07', '2025-07-03 04:19:07'),
+('b796328a-f8d9-4d1c-b101-6d4ef4f7c5f8', 'App\\Notifications\\OrderStatusUpdated', 'App\\Models\\Admin', 1, '{\"reg\":2025070316,\"status\":\"2\",\"order_id\":100,\"message\":\"Order status has been updated.\"}', NULL, '2025-07-03 04:36:15', '2025-07-03 04:36:15'),
+('bc1440ec-3459-46a5-b147-8bd708d58efb', 'App\\Notifications\\OrderStatusUpdated', 'App\\Models\\Admin', 3, '{\"reg\":2025070317,\"status\":\"4\",\"order_id\":101,\"message\":\"Order status has been updated.\"}', NULL, '2025-07-03 04:14:08', '2025-07-03 04:14:08'),
+('bc1fecdc-a8a4-41ec-8414-7b58bf4004c9', 'App\\Notifications\\OrderStatusUpdated', 'App\\Models\\Admin', 1, '{\"reg\":2025070316,\"status\":\"3\",\"order_id\":100,\"message\":\"Order status has been updated.\"}', NULL, '2025-07-03 04:37:11', '2025-07-03 04:37:11'),
+('c9be6e3f-f394-4836-965d-0f0020768aa2', 'App\\Notifications\\OrderStatusUpdated', 'App\\Models\\Admin', 3, '{\"reg\":2025070316,\"status\":\"3\",\"order_id\":100,\"message\":\"Order status has been updated.\"}', NULL, '2025-07-03 04:37:14', '2025-07-03 04:37:14'),
+('cbd15afa-1b88-4fdc-98bb-62158e7aa334', 'App\\Notifications\\OrderStatusUpdated', 'App\\Models\\Admin', 1, '{\"reg\":2025070316,\"status\":\"4\",\"order_id\":100,\"message\":\"Order status has been updated.\"}', NULL, '2025-07-03 04:18:15', '2025-07-03 04:18:15'),
+('cff48426-5ee5-4689-aeb6-501a5d0b5626', 'App\\Notifications\\OrderStatusUpdated', 'App\\Models\\Admin', 1, '{\"reg\":2025070316,\"status\":\"4\",\"order_id\":100,\"message\":\"Order status has been updated.\"}', NULL, '2025-07-03 04:20:31', '2025-07-03 04:20:31'),
+('d49fec4b-753d-4559-83f3-b43cf4edaae4', 'App\\Notifications\\OrderStatusUpdated', 'App\\Models\\Admin', 3, '{\"reg\":2025070418,\"status\":\"4\",\"order_id\":102,\"message\":\"Order status has been updated.\"}', NULL, '2025-07-04 02:18:03', '2025-07-04 02:18:03'),
+('e297e2b9-e7bd-4f5f-8d8f-d2c166259e4d', 'App\\Notifications\\OrderStatusUpdated', 'App\\Models\\Admin', 1, '{\"reg\":2025070316,\"status\":\"2\",\"order_id\":100,\"message\":\"Order status has been updated.\"}', NULL, '2025-07-03 04:32:30', '2025-07-03 04:32:30'),
+('f9b60c5d-4659-4e38-878b-2e4ca9d23581', 'App\\Notifications\\OrderStatusUpdated', 'App\\Models\\Admin', 3, '{\"reg\":2025070316,\"status\":\"4\",\"order_id\":100,\"message\":\"Order status has been updated.\"}', NULL, '2025-07-03 04:18:18', '2025-07-03 04:18:18'),
+('fc4ebf84-741c-4248-bdbb-1de6426bd7a9', 'App\\Notifications\\OrderStatusUpdated', 'App\\Models\\Admin', 3, '{\"reg\":2025070316,\"status\":\"3\",\"order_id\":100,\"message\":\"Order status has been updated.\"}', NULL, '2025-07-03 04:39:56', '2025-07-03 04:39:56');
 
 -- --------------------------------------------------------
 
@@ -270,9 +332,10 @@ INSERT INTO `orders` (`id`, `date`, `reg`, `tableId`, `total`, `discount`, `paya
 (96, '2025-07-03', 2025070312, 11, 6480, 80, 6400, 6400, 0, 4, 2, '2025-07-03 01:07:26', '2025-07-03 01:08:08'),
 (97, '2025-07-03', 2025070313, 9, 2480, 0, 2480, 2480, 0, 4, 2, '2025-07-03 02:59:58', '2025-07-03 03:21:56'),
 (98, '2025-07-03', 2025070314, 8, 730, 0, 730, 730, 0, 4, 2, '2025-07-03 03:04:31', '2025-07-03 03:21:53'),
-(99, '2025-07-03', 2025070315, 4, 180, NULL, NULL, NULL, NULL, 4, 1, '2025-07-03 03:08:04', '2025-07-03 03:21:49'),
-(100, '2025-07-03', 2025070316, 9, 550, 0, 550, 200, 350, 4, 3, '2025-07-03 03:08:10', '2025-07-03 03:57:35'),
-(101, '2025-07-03', 2025070317, 10, 180, 0, 180, 180, 0, 3, 2, '2025-07-03 03:08:15', '2025-07-03 03:59:31');
+(99, '2025-07-03', 2025070315, 4, 180, 0, 180, 180, 0, 4, 2, '2025-07-03 03:08:04', '2025-07-03 05:00:56'),
+(100, '2025-07-03', 2025070316, 9, 550, 0, 550, 550, 0, 4, 2, '2025-07-03 03:08:10', '2025-07-03 05:00:44'),
+(101, '2025-07-03', 2025070317, 10, 180, 0, 180, 180, 0, 4, 2, '2025-07-03 03:08:15', '2025-07-03 04:14:01'),
+(102, '2025-07-04', 2025070418, 10, 910, 0, 910, 910, 0, 4, 2, '2025-07-04 02:17:19', '2025-07-04 02:17:53');
 
 -- --------------------------------------------------------
 
@@ -359,7 +422,11 @@ INSERT INTO `stocks` (`id`, `reg`, `date`, `foodId`, `stockIn`, `stockOut`, `rem
 (184, 2025070315, '2025-07-03', 9, 0, 1, NULL, 1, '2025-07-03 03:08:01', '2025-07-03 03:08:01'),
 (185, 2025070316, '2025-07-03', 12, 0, 1, NULL, 1, '2025-07-03 03:08:06', '2025-07-03 03:08:06'),
 (186, 2025070316, '2025-07-03', 11, 0, 1, NULL, 1, '2025-07-03 03:08:07', '2025-07-03 03:08:07'),
-(187, 2025070317, '2025-07-03', 13, 0, 1, NULL, 1, '2025-07-03 03:08:12', '2025-07-03 03:08:12');
+(187, 2025070317, '2025-07-03', 13, 0, 1, NULL, 1, '2025-07-03 03:08:12', '2025-07-03 03:08:12'),
+(188, 2025070418, '2025-07-04', 9, 0, 1, NULL, 1, '2025-07-04 02:17:12', '2025-07-04 02:17:12'),
+(189, 2025070418, '2025-07-04', 13, 0, 1, NULL, 1, '2025-07-04 02:17:14', '2025-07-04 02:17:14'),
+(190, 2025070418, '2025-07-04', 12, 0, 1, NULL, 1, '2025-07-04 02:17:14', '2025-07-04 02:17:14'),
+(191, 2025070418, '2025-07-04', 11, 0, 1, NULL, 1, '2025-07-04 02:17:15', '2025-07-04 02:17:15');
 
 -- --------------------------------------------------------
 
@@ -456,12 +523,12 @@ CREATE TABLE `tables` (
 INSERT INTO `tables` (`id`, `tName`, `status`, `remark`, `created_at`, `updated_at`) VALUES
 (1, 'N3C', 1, 'N/A', '2025-06-12 21:05:52', '2025-06-29 02:40:21'),
 (3, 'N3B', 1, 'N/A', '2025-06-12 21:06:18', '2025-07-02 01:44:29'),
-(4, 'N3A', 3, 'N/A', '2025-06-12 21:06:31', '2025-07-03 03:08:04'),
+(4, 'N3A', 1, 'N/A', '2025-06-12 21:06:31', '2025-07-03 05:00:56'),
 (5, 'N3D', 3, 'N/A', '2025-06-12 21:12:37', '2025-07-02 23:07:44'),
 (7, 'S2A', 3, 'N/A', '2025-06-12 21:30:13', '2025-07-02 04:25:54'),
 (8, 'S2B', 1, 'N/A', '2025-06-12 21:30:23', '2025-07-03 03:07:39'),
 (9, 'S2C', 1, 'N/A', '2025-06-12 21:30:32', '2025-07-03 03:21:21'),
-(10, 'S2D', 1, 'N/A', '2025-06-12 21:45:09', '2025-07-03 03:15:19'),
+(10, 'S2D', 1, 'N/A', '2025-06-12 21:45:09', '2025-07-04 02:17:25'),
 (11, 'N2A', 1, 'N/A', '2025-06-13 21:32:15', '2025-07-03 01:07:38'),
 (12, 'N2B', 1, 'N/A', '2025-06-13 21:32:22', '2025-06-22 17:48:53'),
 (13, 'N2C', 1, 'N/A', '2025-06-13 21:32:29', '2025-06-26 02:37:36'),
@@ -540,6 +607,13 @@ ALTER TABLE `migrations`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `notifications`
+--
+ALTER TABLE `notifications`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `notifications_notifiable_type_notifiable_id_index` (`notifiable_type`,`notifiable_id`);
+
+--
 -- Indexes for table `orders`
 --
 ALTER TABLE `orders`
@@ -601,7 +675,7 @@ ALTER TABLE `admins`
 -- AUTO_INCREMENT for table `carts`
 --
 ALTER TABLE `carts`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=297;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=301;
 
 --
 -- AUTO_INCREMENT for table `categories`
@@ -631,13 +705,13 @@ ALTER TABLE `food`
 -- AUTO_INCREMENT for table `migrations`
 --
 ALTER TABLE `migrations`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=58;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=59;
 
 --
 -- AUTO_INCREMENT for table `orders`
 --
 ALTER TABLE `orders`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=102;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=103;
 
 --
 -- AUTO_INCREMENT for table `personal_access_tokens`
@@ -649,7 +723,7 @@ ALTER TABLE `personal_access_tokens`
 -- AUTO_INCREMENT for table `stocks`
 --
 ALTER TABLE `stocks`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=188;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=192;
 
 --
 -- AUTO_INCREMENT for table `subcategories`
