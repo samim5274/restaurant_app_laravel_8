@@ -19,7 +19,7 @@ class Account
     {
         $userRole = Auth::guard('admin')->user()->role;
 
-        $restrictedRoles = [3, 4, 5];
+        $restrictedRoles = [3, 4, 5, 0];
 
         if (in_array($userRole, $restrictedRoles)) {
             return redirect()->back()->with('error', 'You do not have permission access this page. Thank you!');

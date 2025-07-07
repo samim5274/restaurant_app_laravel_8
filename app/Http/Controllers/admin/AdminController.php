@@ -51,18 +51,15 @@ class AdminController extends Controller
         $address = $request->input('txtAddress','');
         $role = $request->input('cbxRole','');
 
-        if (empty($username) || empty($email) || empty($dob) || empty($pass) || empty($phone) || empty($address) || empty($role)) {
+        if (empty($username) || empty($email) || empty($pass)) {
             return redirect()->back()->with('error', 'All fields are required.');
         }
 
         $user = new Admin();
         $user->name = $username;
         $user->email = $email;
-        $user->dob = $dob;
         $user->password = Hash::make($pass); 
-        $user->phone = $phone;
-        $user->address = $address;
-        $user->role = $role;
+        $user->role = 0;
         $user->status = 0;
         $user->save();
         return redirect()->back()->with('success', 'New user created successfully.');

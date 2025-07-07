@@ -19,7 +19,7 @@ class Kitchen
     {
         $userRole = Auth::guard('admin')->user()->role;
 
-        $restrictedRoles = [3, 5];
+        $restrictedRoles = [3, 5, 0];
 
         if (in_array($userRole, $restrictedRoles)) {
             return redirect()->back()->with('error', 'You do not have permission to update kitchen status. Thank you!');
