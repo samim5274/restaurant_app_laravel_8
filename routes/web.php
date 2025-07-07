@@ -29,10 +29,20 @@ Route::get('/clear-all', function () {
 
 Auth::routes();
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
-Route::get('/login', [AdminController::class, 'loginView']);
+Route::get('/login', [AdminController::class, 'loginView'])->name('admin.login.view');
 Route::post('/user-login', [AdminController::class, 'login']);
 Route::get('/create-user-view', [AdminController::class, 'userCreateView'])->name('user.create.view');
 Route::post('/new-user', [AdminController::class, 'createUser']);
+
+Route::get('/login/facebook', [AdminController::class, 'facebookRegister']);
+Route::get('/login/facebook/callBack', [AdminController::class, 'loginWithFacebook']);
+
+Route::get('/login/google', [AdminController::class, 'googleRegister']);
+Route::get('/login/google/callBack', [AdminController::class, 'loginWithgoogle']);
+
+Route::get('/login/github', [AdminController::class, 'githubRegister']);
+Route::get('/login/github/callBack', [AdminController::class, 'loginWithGithub']);
+
 Route::group(['middleware' => ['admin']], function () {
     // ================================================ Admin Controller route // ================================================
     Route::get('/employee-details', [AdminController::class, 'employeeView'])->name('employee.details.view');

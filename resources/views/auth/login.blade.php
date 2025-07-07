@@ -20,6 +20,37 @@
       <link rel="stylesheet" href="/dash/assets/css/style.css">
       <!-- End layout styles -->
       <link rel="shortcut icon" href="/dash/assets/images/favicon.png" />
+      <style>
+        .btn-social {
+          padding: 0.75rem;
+          font-weight: 500;
+          border-radius: 0.5rem;
+          border: 1px solid transparent;
+          transition: all 0.2s ease-in-out;
+          box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+        }
+
+        .google-btn {
+          background-color: #fff;
+          color: #db4437;
+          border-color: #db4437;
+        }
+
+        .facebook-btn {
+          background-color: #3b5998;
+          color: #fff;
+        }
+
+        .github-btn {
+          background-color: #24292e;
+          color: #fff;
+        }
+
+        .btn-social:hover {
+          opacity: 0.9;
+          transform: scale(1.02);
+        }
+      </style>
   </head>
 <body>
 
@@ -57,10 +88,23 @@
                     </div>
                     <a href="#" class="auth-link text-black">Forgot password?</a>
                   </div>
-                  <!-- <div class="mb-2">
-                    <button type="button" class="btn btn-block btn-facebook auth-form-btn">
-                      <i class="mdi mdi-facebook mr-2"></i>Connect using facebook </button>
-                  </div> -->
+                  <div class="row g-3 mb-4">
+                    <div class="col-md-4">
+                      <a href="{{url('/login/google')}}"><button type="button" class="btn btn-social w-100 d-flex align-items-center justify-content-center google-btn">
+                        <i class="mdi mdi-google me-2 fs-5"></i> Google
+                      </button></a>
+                    </div>
+                    <div class="col-md-4">
+                      <a href="{{url('/login/facebook')}}"><button type="button" class="btn btn-social w-100 d-flex align-items-center justify-content-center facebook-btn">
+                        <i class="mdi mdi-facebook me-2 fs-5"></i> Facebook
+                      </button></a>
+                    </div>
+                    <div class="col-md-4">
+                      <a href="{{url('/login/github')}}"><button type="button" class="btn btn-social w-100 d-flex align-items-center justify-content-center github-btn">
+                        <i class="mdi mdi-github me-2 fs-5"></i> GitHub
+                      </button></a>
+                    </div>
+                  </div>
                   <div class="text-center mt-4 font-weight-light"> Don't have an account? <a href="{{url('/create-user-view')}}" class="text-primary">Create new account</a>
                   </div>
                 </form>
@@ -68,9 +112,7 @@
             </div>
           </div>
         </div>
-        <!-- content-wrapper ends -->
       </div>
-      <!-- page-body-wrapper ends -->
     </div>
 
 

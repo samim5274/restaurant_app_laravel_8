@@ -4,6 +4,7 @@ namespace App\Http\Controllers\admin;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Laravel\Socialite\Facades\Socialite;
 
 use Auth;
 use Illuminate\Support\Facades\Hash;
@@ -204,5 +205,146 @@ class AdminController extends Controller
         }
 
         
+    }
+
+    public function facebookRegister() {
+        return Socialite::driver('facebook')->redirect();
+    }
+
+    public function loginWithFacebook() {
+        
+        $facebookUser = Socialite::driver('facebook')->stateless()->user();
+
+        $findUser = Admin::where('facebook_id', $facebookUser->id)->first();
+
+        if($findUser) {
+            if ($findUser->status == 1) {
+                Auth::guard('admin')->login($findUser);
+                return redirect()->route('dashboard.view');
+            } else {
+                return redirect()->route('admin.login.view')->with('error', 'Your account is inactive. Contact admin.');
+            }
+        } else {
+            $userByEmail = Admin::where('email', $facebookUser->email)->first();
+            
+            if ($userByEmail) {
+                $userByEmail->facebook_id = $facebookUser->id;
+                $userByEmail->update();
+
+                if ($userByEmail->status == 1) {
+                    Auth::guard('admin')->login($userByEmail);
+                    return redirect()->route('dashboard.view');
+                } else {
+                    return redirect()->route('admin.login.view')->with('error', 'Your account is inactive. Contact admin.');
+                }
+            } else {
+                $newUser = new Admin();
+                $newUser->name = $facebookUser->name ?? 'NoName';
+                $newUser->email = $facebookUser->email ?? 'noemail_' . uniqid() . '@facebook.com';
+                $newUser->facebook_id = $facebookUser->id;
+                $newUser->password = bcrypt('123456789'); 
+                $newUser->status = 1;
+                $newUser->address = 'Not provided';
+                $newUser->role = 0;
+                $newUser->save();
+
+                Auth::guard('admin')->login($newUser);
+                return redirect()->route('dashboard.view');
+            }                
+        }
+    }
+
+    public function googleRegister() {
+        return Socialite::driver('google')->redirect();
+    }
+
+    public function loginWithgoogle() {
+        
+        $googleUser = Socialite::driver('google')->stateless()->user();
+
+        $findUser = Admin::where('google_id', $googleUser->id)->first();
+
+        if($findUser) {
+            if ($findUser->status == 1) {
+                Auth::guard('admin')->login($findUser);
+                return redirect()->route('dashboard.view');
+            } else {
+                return redirect()->route('admin.login.view')->with('error', 'Your account is inactive. Contact admin.');
+            }
+        } else {
+            $userByEmail = Admin::where('email', $googleUser->email)->first();
+            
+            if ($userByEmail) {
+                $userByEmail->google_id = $googleUser->id;
+                $userByEmail->update();
+
+                if ($userByEmail->status == 1) {
+                    Auth::guard('admin')->login($userByEmail);
+                    return redirect()->route('dashboard.view');
+                } else {
+                    return redirect()->route('admin.login.view')->with('error', 'Your account is inactive. Contact admin.');
+                }
+            } else {
+                $newUser = new Admin();
+                $newUser->name = $googleUser->name;
+                $newUser->email = $googleUser->email;
+                $newUser->google_id = $googleUser->id;
+                $newUser->password = bcrypt('123456789'); 
+                $newUser->status = 1;
+                $newUser->address = 'Not provide';
+                $newUser->role = 0;
+                $newUser->save();
+
+                Auth::guard('admin')->login($newUser);
+                return redirect()->route('dashboard.view');
+            }                
+        }
+    }
+
+    public function githubRegister() {
+        return Socialite::driver('github')->redirect();
+    }
+
+    public function loginWithGithub() {
+        
+        $githubUser = Socialite::driver('github')->stateless()->user();
+
+        $findUser = Admin::where('github_id', $githubUser->id)->first();
+
+        if($findUser) {
+            if ($findUser->status == 1) {
+                Auth::guard('admin')->login($findUser);
+                return redirect()->route('dashboard.view');
+            } else {
+                return redirect()->route('admin.login.view')->with('error', 'Your account is inactive. Contact admin.');
+            }
+        } else {
+            $userByEmail = Admin::where('email', $githubUser->email)->first();
+            
+            if ($userByEmail) {
+                $userByEmail->github_id = $githubUser->id;
+                $userByEmail->update();
+
+                if ($userByEmail->status == 1) {
+                    Auth::guard('admin')->login($userByEmail);
+                    return redirect()->route('dashboard.view');
+                } else {
+                    return redirect()->route('admin.login.view')->with('error', 'Your account is inactive. Contact admin.');
+                }
+            } else {
+                $newUser = new Admin();
+                $newUser->name = $githubUser->name;
+                $newUser->email = $githubUser->email;
+                $newUser->github_id = $githubUser->id;
+                $newUser->password = bcrypt('123456789'); 
+                $newUser->status = 1;
+                $newUser->address = 'Not provide';
+                $newUser->role = 0;
+                $newUser->save();
+
+                Auth::guard('admin')->login($newUser);
+                return redirect()->route('dashboard.view');
+            }                
+        }
     }
 }
