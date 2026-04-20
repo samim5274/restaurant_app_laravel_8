@@ -58,9 +58,10 @@ class AdminController extends Controller
         $user = new Admin();
         $user->name = $username;
         $user->email = $email;
-        $user->password = Hash::make($pass); 
+        $user->password = Hash::make($pass);
         $user->role = 0;
         $user->status = 0;
+        $user->address = "N/A";
         $user->save();
         return redirect()->back()->with('success', 'New user created successfully.');
     }
@@ -134,7 +135,7 @@ class AdminController extends Controller
         $request->validate([
             'photo' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
         ]);
-        
+
         $user = Admin::where('id', $id)->first();
 
         $user->name = $request->input('name');
@@ -142,10 +143,10 @@ class AdminController extends Controller
         $user->phone = $request->input('phone');
         $user->dob = $request->input('dob');
         $password = Hash::make($request->input('password'));
-        
+
         if (!Hash::check($request->input('password'), $user->password)) {
             return redirect()->back()->with('error', 'Password not match. Please try again.');
-        } 
+        }
 
 
         if ($request->file('photo')) {
@@ -182,7 +183,7 @@ class AdminController extends Controller
     }
 
     public function changePass(Request $request, $id) {
-        
+
         $oldPass = $request->input('current_password','');
         $newPass = $request->input('new_password','');
         $reTypePass = $request->input('confirm_password','');
@@ -201,7 +202,7 @@ class AdminController extends Controller
             return redirect()->back()->with('warning', 'Password not match successfully.');
         }
 
-        
+
     }
 
     public function facebookRegister() {
@@ -209,7 +210,7 @@ class AdminController extends Controller
     }
 
     public function loginWithFacebook() {
-        
+
         $facebookUser = Socialite::driver('facebook')->stateless()->user();
 
         $findUser = Admin::where('facebook_id', $facebookUser->id)->first();
@@ -223,7 +224,7 @@ class AdminController extends Controller
             }
         } else {
             $userByEmail = Admin::where('email', $facebookUser->email)->first();
-            
+
             if ($userByEmail) {
                 $userByEmail->facebook_id = $facebookUser->id;
                 $userByEmail->update();
@@ -239,7 +240,7 @@ class AdminController extends Controller
                 $newUser->name = $facebookUser->name ?? 'NoName';
                 $newUser->email = $facebookUser->email ?? 'noemail_' . uniqid() . '@facebook.com';
                 $newUser->facebook_id = $facebookUser->id;
-                $newUser->password = bcrypt('123456789'); 
+                $newUser->password = bcrypt('123456789');
                 $newUser->status = 1;
                 $newUser->address = 'Not provided';
                 $newUser->role = 0;
@@ -247,7 +248,7 @@ class AdminController extends Controller
 
                 Auth::guard('admin')->login($newUser);
                 return redirect()->route('dashboard.view');
-            }                
+            }
         }
     }
 
@@ -256,7 +257,7 @@ class AdminController extends Controller
     }
 
     public function loginWithgoogle() {
-        
+
         $googleUser = Socialite::driver('google')->stateless()->user();
 
         $findUser = Admin::where('google_id', $googleUser->id)->first();
@@ -270,7 +271,7 @@ class AdminController extends Controller
             }
         } else {
             $userByEmail = Admin::where('email', $googleUser->email)->first();
-            
+
             if ($userByEmail) {
                 $userByEmail->google_id = $googleUser->id;
                 $userByEmail->update();
@@ -286,7 +287,7 @@ class AdminController extends Controller
                 $newUser->name = $googleUser->name;
                 $newUser->email = $googleUser->email;
                 $newUser->google_id = $googleUser->id;
-                $newUser->password = bcrypt('123456789'); 
+                $newUser->password = bcrypt('123456789');
                 $newUser->status = 1;
                 $newUser->address = 'Not provide';
                 $newUser->role = 0;
@@ -294,7 +295,7 @@ class AdminController extends Controller
 
                 Auth::guard('admin')->login($newUser);
                 return redirect()->route('dashboard.view');
-            }                
+            }
         }
     }
 
@@ -303,7 +304,7 @@ class AdminController extends Controller
     }
 
     public function loginWithGithub() {
-        
+
         $githubUser = Socialite::driver('github')->stateless()->user();
 
         $findUser = Admin::where('github_id', $githubUser->id)->first();
@@ -317,7 +318,7 @@ class AdminController extends Controller
             }
         } else {
             $userByEmail = Admin::where('email', $githubUser->email)->first();
-            
+
             if ($userByEmail) {
                 $userByEmail->github_id = $githubUser->id;
                 $userByEmail->update();
@@ -333,7 +334,7 @@ class AdminController extends Controller
                 $newUser->name = $githubUser->name;
                 $newUser->email = $githubUser->email;
                 $newUser->github_id = $githubUser->id;
-                $newUser->password = bcrypt('123456789'); 
+                $newUser->password = bcrypt('123456789');
                 $newUser->status = 1;
                 $newUser->address = 'Not provide';
                 $newUser->role = 0;
@@ -341,7 +342,7 @@ class AdminController extends Controller
 
                 Auth::guard('admin')->login($newUser);
                 return redirect()->route('dashboard.view');
-            }                
+            }
         }
     }
 }
