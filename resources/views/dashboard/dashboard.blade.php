@@ -4,23 +4,23 @@
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <title>Restaurant Manager</title>
+    <title>Restaurant - Mercuviax</title>
     <!-- plugins:css -->
     <link rel="stylesheet" href="/dash/assets/vendors/mdi/css/materialdesignicons.min.css">
     <link rel="stylesheet" href="/dash/assets/vendors/flag-icon-css/css/flag-icon.min.css">
     <link rel="stylesheet" href="/dash/assets/vendors/css/vendor.bundle.base.css">
-    <!-- endinject -->
+
     <!-- Plugin css for this page -->
     <link rel="stylesheet" href="/dash/assets/vendors/font-awesome/css/font-awesome.min.css" />
     <link rel="stylesheet" href="/dash/assets/vendors/bootstrap-datepicker/bootstrap-datepicker.min.css">
     <!-- End plugin css for this page -->
     <!-- inject:css -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
-    <!-- endinject -->
+
     <!-- Layout styles -->
     <link rel="stylesheet" href="/dash/assets/css/style.css">
     <!-- End layout styles -->
-    <link rel="shortcut icon" href="/dash/assets/images/favicon.png" />
+    <link rel="shortcut icon" href="/dash/assets/images/logo.ico" />
   </head>
   <body>
 
@@ -55,7 +55,7 @@
       <!-- page-body-wrapper ends -->
 
 
-      
+
     </div>
     <!-- container-scroller -->
 

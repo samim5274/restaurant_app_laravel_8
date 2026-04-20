@@ -27,7 +27,7 @@
 
     <!-- partial -->
     <div class="container-fluid page-body-wrapper">
-        
+
         @include('dashboard.layouts.menu_main')
 
         <div class="main-panel">
@@ -47,37 +47,66 @@
                     </nav>
                 </div>
                 <div class="row">
-                    
+
                     <div class="col-lg-12 grid-margin stretch-card">
                         <div class="card mt-2">
-                            <div class="card-body"> 
+                            <div class="card-body">
                                 <h4 class="card-title mb-0">Search Food</h4>
                                 <div class="py-2">
                                     <form action="/add-to-cart-2" method="GET">
                                         <input type="search" name="search" id="search" class="form-control" placeholder="Search by food name or category or food ID">
                                     </form>
                                 </div>
-                            </div> 
+                            </div>
                         </div>
                     </div>
-                           
+
                     @if($food)
                     @foreach($food as $val)
                     <div class="col-xl-3 col-lg-4 col-md-6 col-sm-12 mb-4 allData">
-                        <div class="card h-100 shadow-sm">
-                            <a href="{{url('/specific-food-view/'.$val->id)}}"><img src="{{ asset('img/food/' . $val->image) }}" class="card-img-top" alt="image not found"></a>
-                            <div class="card-body d-flex flex-column">
-                                <h4 class="card-title"><a href="{{url('/specific-food-view/'.$val->id)}}">{{strlen($val->name) > 22 ? substr($val->name, 0, 22).'...' : $val->name}} - ৳{{ $val->price }}/-</a></h4>
-                                <!-- <span>Category: {{$val->category }}</span> -->
-                                <p>Ingredients: {{ strlen($val->ingredients) > 40 ? substr($val->ingredients, 0, 40) . '...' : $val->ingredients }}</p>
-                                <a href="{{ url('/add-to-cart/'.$val->id) }}" class="mt-auto btn btn-outline-success w-100">
-                                    <i class="mdi mdi-cart-plus fa-lg" aria-hidden="true" style="font-size: 1rem;"></i>
-                                    <span style="font-size: 1rem;" class="mb-0">Add Cart</span>
+                        <div class="card h-100 border-0 shadow-sm rounded-lg overflow-hidden">
+
+                            <div class="position-relative">
+                                <a href="{{url('/specific-food-view/'.$val->id)}}">
+                                    <img src="{{ asset('img/food/' . $val->image) }}" class="card-img-top" alt="food image" style="height: 180px; object-fit: cover;">
                                 </a>
-                                <a href="{{ url('/add-to-cart-ajax/'.$val->id) }}" class="mt-auto btn btn-outline-warning w-100 addCartBtn" data-url="{{ url('add-to-cart-ajax/'.$val->id)}}">
-                                    <i class="mdi mdi-cart-plus fa-lg" aria-hidden="true" style="font-size: 1rem;"></i>
-                                    <span style="font-size: 1rem;" class="mb-0">Ajax</span>
-                                </a>
+                                <span class="badge badge-primary position-absolute m-3" style="top: 0; right: 0; padding: 8px 12px; font-size: 0.9rem; border-radius: 50px;">
+                                    ৳{{ $val->price }}
+                                </span>
+                            </div>
+
+                            <div class="card-body d-flex flex-column p-3">
+                                <h5 class="card-title mb-2">
+                                    <a href="{{url('/specific-food-view/'.$val->id)}}" class="text-dark font-weight-bold text-decoration-none">
+                                        {{ Str::limit($val->name, 22) }}
+                                    </a>
+                                </h5>
+
+                                <p class="text-muted small mb-3">
+                                    <i class="mdi mdi-silverware-variant"></i>
+                                    {{ Str::limit($val->ingredients, 40) }}
+                                </p>
+
+                                <div class="mt-auto d-flex">
+                                    <button class="btn btn-success btn-sm flex-grow-1 mr-2 addCartBtn"
+                                            data-url="{{ url('add-to-cart-ajax/'.$val->id)}}"
+                                            style="border-radius: 8px; font-weight: 600;">
+                                        <i class="mdi mdi-cart-plus"></i> Add Cart
+                                    </button>
+
+                                    <a href="{{url('/specific-food-view/'.$val->id)}}" class="btn btn-outline-secondary btn-sm" style="border-radius: 8px;">
+                                        <i class="mdi mdi-eye"></i>
+                                    </a>
+
+                                    <!-- <a href="{{ url('/add-to-cart/'.$val->id) }}" class="mt-auto btn btn-outline-success w-100">
+                                        <i class="mdi mdi-cart-plus fa-lg" aria-hidden="true" style="font-size: 1rem;"></i>
+                                        <span style="font-size: 1rem;" class="mb-0">Add Cart</span>
+                                    </a>
+                                    <a href="{{ url('/add-to-cart-ajax/'.$val->id) }}" class="mt-auto btn btn-outline-warning w-100 addCartBtn" data-url="{{ url('add-to-cart-ajax/'.$val->id)}}">
+                                        <i class="mdi mdi-cart-plus fa-lg" aria-hidden="true" style="font-size: 1rem;"></i>
+                                        <span style="font-size: 1rem;" class="mb-0">Ajax</span>
+                                    </a> -->
+                                </div>
 
                             </div>
                         </div>
@@ -112,11 +141,11 @@
     <script src="/dash/assets/js/dashboard.js"></script>
     <!-- End custom js for this page -->
     <script src="/dash/assets/js/food.js"></script>
-    
+
     <script type="text/javascript">
         //https://www.youtube.com/watch?v=BL0v0pduwPo live search
         $('#search').on('keyup', function() {
-            $value = $(this).val(); 
+            $value = $(this).val();
             if($value) {
                 $('.allData').hide();
                 $('.searchData').show();
@@ -140,7 +169,7 @@
         });
 
         $(document).on('click', '.addCartBtn', function(e) {
-            e.preventDefault(); 
+            e.preventDefault();
 
             let url = $(this).data('url');
 
@@ -150,7 +179,7 @@
                 success: function(response) {
                     console.log(response);
                     if (response.status === 'success') {
-                        console.log('Success: ' + response.message); 
+                        console.log('Success: ' + response.message);
                     } else if (response.status === 'error') {
                         alert('Error: ' + response.message);
                     }

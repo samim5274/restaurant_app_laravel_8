@@ -10,7 +10,7 @@
     <link rel="stylesheet" href="/dash/assets/vendors/mdi/css/materialdesignicons.min.css">
     <link rel="stylesheet" href="/dash/assets/vendors/flag-icon-css/css/flag-icon.min.css">
     <link rel="stylesheet" href="/dash/assets/vendors/css/vendor.bundle.base.css">
-    <!-- endinject -->
+
     <!-- Plugin css for this page -->
     <link rel="stylesheet" href="/dash/assets/vendors/font-awesome/css/font-awesome.min.css" />
     <link rel="stylesheet" href="/dash/assets/vendors/bootstrap-datepicker/bootstrap-datepicker.min.css">
@@ -29,7 +29,7 @@
 
     <!-- partial -->
     <div class="container-fluid page-body-wrapper">
-        
+
         @include('dashboard.layouts.menu_main')
 
         <div class="main-panel">
@@ -48,7 +48,7 @@
                     </nav>
                 </div>
 
-    
+
     <div class="row">
         <div class="col-lg-8 col-md-6">
             <div class="row g-3">
@@ -70,7 +70,7 @@
                             <div class="d-flex align-items-center justify-content-between mb-3">
                                 <div class="text-muted">Quantity:</div>
                                 <div class="input-group input-group-sm" style="width: 120px;">
-                                    <button type="button" 
+                                    <button type="button"
                                         class="btn btn-outline-secondary btn-minus"
                                         data-id="{{ $val->id }}"
                                         style="padding: 0 6px; font-size: 14px; height: 28px;">−</button>
@@ -84,7 +84,7 @@
                                         data-id="{{ $val->id }}"
                                         style="width: 36px; height: 28px; font-size: 13px; padding: 0;">
 
-                                    <button type="button" 
+                                    <button type="button"
                                             class="btn btn-outline-secondary btn-plus"
                                             data-id="{{ $val->id }}"
                                             style="padding: 0 6px; font-size: 14px; height: 28px;">+</button>
@@ -151,9 +151,9 @@
                                 <h5 class="card-title m-0">$<span id="cart-total">{{$order->payable}}</span>/-</h5>
                             </div>
                         </div>
-                    </form> 
+                    </form>
                 </div>
-            </div>        
+            </div>
         </div>
     </div>
 
@@ -172,7 +172,7 @@
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <!-- plugins:js -->
     <script src="/dash/assets/vendors/js/vendor.bundle.base.js"></script>
-    <!-- endinject -->
+
     <!-- Plugin js for this page -->
     <script src="/dash/assets/vendors/chart.js/Chart.min.js"></script>
     <script src="/dash/assets/vendors/jquery-circle-progress/js/circle-progress.min.js"></script>
@@ -181,10 +181,10 @@
     <script src="/dash/assets/js/off-canvas.js"></script>
     <script src="/dash/assets/js/hoverable-collapse.js"></script>
     <script src="/dash/assets/js/misc.js"></script>
-    <!-- endinject -->
+
     <!-- Custom js for this page -->
     <script src="/dash/assets/js/dashboard.js"></script>
-   
+
 
 
 </body>

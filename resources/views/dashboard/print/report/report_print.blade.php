@@ -76,6 +76,6 @@
         </tbody>
     </table>
 
-    <p class="footer-note"><strong>Note:</strong> This software is developed by <strong>BGMIT</strong>, created by <strong>SAMIM HOSSEIN</strong>. Call: +8801 62420 9291. Thank You!</p>
+    <p class="footer-note"><strong>Note:</strong> This software is developed by <strong>Mercuviax</strong>, created by <strong>SAMIM HOSSEIN</strong>. Call: +8801533021557. Thank You!</p>
 </body>
 </html>

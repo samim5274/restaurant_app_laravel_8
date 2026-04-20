@@ -71,14 +71,14 @@
             </tr>
         </tbody>
     </table>
-    <p class="small"><strong>Note:</strong> This Software develop by <strong>BGMIT</strong> created by <strong>SAMIM-HosseN</strong>. Call: +8801 62420 9291. Thank You!</p>
+    <p class="small"><strong>Note:</strong> This Software develop by <strong>Mercuviax</strong> created by <strong>SAMIM-HosseN</strong>. Call: +8801 533021557. Thank You!</p>
 
 
     <script>
         window.onload = function() {
             setTimeout(() => {
                 window.print();
-            }, 300); 
+            }, 300);
         };
     </script>
 </body>

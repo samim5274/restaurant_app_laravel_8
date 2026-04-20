@@ -55,6 +55,6 @@
             </tr>
         </tbody>
     </table>
-    <p class="small"><strong>Note:</strong> This Software develop by <strong>BGMIT</strong> created by <strong>SAMIM-HosseN</strong>. Call: +8801 62420 9291. Thank You!</p>
+    <p class="small"><strong>Note:</strong> This Software develop by <strong>Mercuviax</strong> created by <strong>SAMIM-HosseN</strong>. Call: +8801533021557. Thank You!</p>
 </body>
 </html>
