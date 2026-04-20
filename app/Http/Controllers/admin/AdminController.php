@@ -6,7 +6,9 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Laravel\Socialite\Facades\Socialite;
 
-use Auth;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Validation\ValidationException;
+
 use Illuminate\Support\Facades\Hash;
 use App\Models\Admin;
 use Session;
@@ -18,21 +20,31 @@ class AdminController extends Controller
         return view('auth.login');
     }
 
-    public function login(Request $request) {
-
-        $request->validate([
-            'txtEmail' => 'required|email',
-            'txtPassword' => 'required',
+    public function login(Request $request)
+    {
+        $credentials = $request->validate([
+            'txtEmail' => ['required', 'email', 'exists:admins,email'],
+            'txtPassword' => ['required', 'string'],
+        ], [
+            'txtEmail.exists' => 'No record found'
         ]);
 
+        $remember = $request->boolean('remember');
 
-        if (Auth::guard('admin')->attempt(['email'=>$request->txtEmail,'password'=>$request->txtPassword, 'status' => 1])) {
-            $userId = Auth::guard('admin')->id();
-            $username = Auth::guard('admin')->user()->name;
-            return redirect()->route('dashboard.view');
-        } else {
-            return redirect()->back()->with('error', 'Invalid email or password. Please try again!');
+        if (Auth::guard('admin')->attempt([
+            'email' => $credentials['txtEmail'],
+            'password' => $credentials['txtPassword'],
+        ], $remember)) {
+
+            $request->session()->regenerate();
+
+            return redirect()->intended(route('dashboard.view'))
+                ->with('success', 'Welcome, ' . Auth::guard('admin')->user()->name . '!');
         }
+
+        throw ValidationException::withMessages([
+            'txtEmail' => ['Login fail'],
+        ]);
     }
 
     public function userCreateView() {
