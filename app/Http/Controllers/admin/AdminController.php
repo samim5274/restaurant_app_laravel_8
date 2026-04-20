@@ -61,7 +61,7 @@ class AdminController extends Controller
         $user->password = Hash::make($pass);
         $user->role = 0;
         $user->status = 0;
-        $user->address = "N/A";
+        $user->address = $address ?? "N/A";
         $user->save();
         return redirect()->back()->with('success', 'New user created successfully.');
     }
